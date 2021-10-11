@@ -7,10 +7,12 @@ import { ElementType } from 'react';
 declare const Widget: ElementType;
 
 export function addUserMessage(text: string): void;
-export function addUserMessage(text: string, id: string): void;
+export function addUserMessage(text: string, id: string, date?: Date): void;
+export function addUserMessage(text: string, id: string, date: Date): void;
 
 export function addResponseMessage(text: string): void;
 export function addResponseMessage(text: string, id: string): void;
+export function addResponseMessage(text: string, id: string, date: Date): void;
 
 export function addLinkSnippet(link: { link: string, title: string, target?: string }): void;
 export function addLinkSnippet(link: { link: string, title: string, target?: string }, id: string): void;
