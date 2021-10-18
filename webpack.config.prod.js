@@ -2,9 +2,11 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: './index.js',
@@ -12,8 +14,7 @@ module.exports = {
     path: path.join(__dirname, '/lib'),
     filename: 'index.js',
     library: 'react-chat-widget',
-    libraryTarget: 'umd',
-    clean: true
+    libraryTarget: 'umd'
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
@@ -45,36 +46,41 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              postcssOptions: {
-                plugins: ['postcss-preset-env']
-              }
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-flexbugs-fixes'), // eslint-disable-line
+                autoprefixer({
+                  browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie <9'],
+                  flexbox: 'no-2009'
+                })
+              ]
             }
           },
           {
             loader: 'sass-loader',
             options: {
-              implementation: require('node-sass'),
-              sassOptions: {
-                includePaths: [path.resolve(__dirname, 'src/scss/')]
-              }
+              includePaths: [path.resolve(__dirname, 'src/scss/')]
             }
           }
         ]
       },
       {
         test: /\.(jpg|png|gif|svg)$/,
-        type: 'asset/inline'
+        use: {
+          loader: 'url-loader'
+        }
       }
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(['lib']),
     /**
      * Known issue for the CSS Extract Plugin in Ubuntu 16.04: You'll need to install
      * the following package: sudo apt-get install libpng16-dev
      */
     new MiniCssExtractPlugin({
       filename: 'styles.css',
-      chunkFilename: '[id].css'
+      chunkFileName: '[id].css'
     }),
   ],
   externals: {

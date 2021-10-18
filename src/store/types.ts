@@ -11,11 +11,11 @@ type BaseMessage = {
   props?: any;
 }
 
-export interface MessageTypes extends BaseMessage {
+export interface Message extends BaseMessage {
   text: string;
 };
 
-export type QuickButtonTypes = {
+export type QuickButton = {
   label: string;
   value: string | number;
   component: ElementType;
@@ -44,12 +44,12 @@ export interface BehaviorState {
 };
 
 export interface MessagesState {
-  messages: (MessageTypes | Link | CustomCompMessage)[];
+  messages: (Message | Link | CustomCompMessage)[];
   badgeCount: number;
 }
 
 export interface QuickButtonsState {
-  quickButtons: QuickButtonTypes[];
+  quickButtons: QuickButton[];
 }
 
 export interface ImageState {

@@ -3,12 +3,17 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: {
     main: path.resolve(__dirname, 'dev/main.tsx'),
     vendor: ['react', 'react-dom']
+  },
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
   },
   target: 'web',
   mode: 'development',
@@ -43,35 +48,41 @@ module.exports = {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
-          'style-loader',
+          {
+            loader: 'style-loader',
+            options: { hmr: true }
+          },
           'css-loader',
           {
             loader: 'postcss-loader',
             options: {
-              postcssOptions: {
-                plugins: ['postcss-preset-env']
-              }
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-flexbugs-fixes'), // eslint-disable-line
+                autoprefixer({
+                  browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie <9'],
+                  flexbox: 'no-2009'
+                })
+              ]
             }
           },
           {
             loader: 'sass-loader',
             options: {
-              implementation: require('node-sass'),
-              sassOptions: {
-                includePaths: [path.resolve(__dirname, 'src/scss/')]
-              }
+              includePaths: [path.resolve(__dirname,'src/scss')]
             }
           }
         ]
       },
       {
         test: /\.(jpg|png|gif|svg)$/,
-        type: 'asset/inline'
+        use: 'url-loader'
       }
     ]
   },
   devtool: 'inline-source-map',
   plugins: [
+    new CleanWebpackPlugin(['dist']),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: './dev/index.html'
