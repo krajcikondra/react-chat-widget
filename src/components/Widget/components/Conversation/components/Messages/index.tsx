@@ -11,12 +11,13 @@ import Loader from './components/Loader';
 import './styles.scss';
 
 type Props = {
+  chatId: string,
   showTimeStamp: boolean,
   profileAvatar?: string;
   profileClientAvatar?: string;
 }
 
-function Messages({ profileAvatar, profileClientAvatar, showTimeStamp }: Props) {
+function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId }: Props) {
   const dispatch = useDispatch();
   const { messages, typing, showChat, badgeCount } = useSelector((state: GlobalState) => ({
     messages: state.messages.messages,
@@ -31,8 +32,8 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp }: Props) 
     scrollToBottom(messageRef.current);
     if (showChat && badgeCount) dispatch(markAllMessagesRead());
     else dispatch(setBadgeCount(messages.filter((message) => message.unread).length));
-  }, [messages, badgeCount, showChat]);
-    
+  }, [messages, badgeCount, showChat, chatId]);
+
   const getComponentToRender = (message: Message | Link | CustomCompMessage) => {
     const ComponentToRender = message.component;
     if (message.type === 'component') {
@@ -50,17 +51,28 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp }: Props) 
   // }
 
   const isClient = (sender) => sender === MESSAGE_SENDER.CLIENT;
+  const getChatMessages = () => {
+    if (!messages) {
+      return [];
+    }
+
+    if (!chatId) {
+      return messages;
+    }
+
+    return messages.filter(ch => ch.chatId === chatId);
+  };
 
   return (
-    <div id="messages" className="rcw-messages-container" ref={messageRef}>
-      {messages?.map((message, index) =>
-        <div className={`rcw-message ${isClient(message.sender) ? 'rcw-message-client' : ''}`} 
+    <div id={"messages-" + chatId} className="rcw-messages-container" ref={messageRef}>
+      {getChatMessages().map((message, index) =>
+        <div className={`rcw-message ${isClient(message.sender) ? 'rcw-message-client' : ''}`}
           key={`${index}-${format(message.timestamp, 'hh:mm')}`}>
           {((profileAvatar && !isClient(message.sender)) || (profileClientAvatar && isClient(message.sender))) &&
-            message.showAvatar && 
-            <img 
-              src={isClient(message.sender) ? profileClientAvatar : profileAvatar} 
-              className={`rcw-avatar ${isClient(message.sender) ? 'rcw-avatar-client' : ''}`} 
+            message.showAvatar &&
+            <img
+              src={isClient(message.sender) ? profileClientAvatar : profileAvatar}
+              className={`rcw-avatar ${isClient(message.sender) ? 'rcw-avatar-client' : ''}`}
               alt="profile"
             />
           }

@@ -9,6 +9,7 @@ type BaseMessage = {
   unread: boolean;
   customId?: string;
   props?: any;
+  chatId?: string;
 }
 
 export interface Message extends BaseMessage {

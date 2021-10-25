@@ -74,12 +74,12 @@ function Widget({
   }
 
   const handleMessageSubmit = (userInput) => {
-    if (!userInput.trim()) {      
-      return;      
+    if (!userInput.trim()) {
+      return;
     }
 
     handleSubmit?.(userInput);
-    dispatch(addUserMessage(userInput));
+    dispatch(addUserMessage(userInput, undefined, undefined, chatId));
     handleNewUserMessage(userInput);
   }
 

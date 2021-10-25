@@ -17,6 +17,7 @@ interface ISenderRef {
 }
 
 type Props = {
+  chatId: string;
   title: string;
   subtitle: string;
   senderPlaceHolder: string;
@@ -55,13 +56,14 @@ function Conversation({
   sendButtonAlt,
   showTimeStamp,
   resizable,
-  emojis
+  emojis,
+  chatId,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
 
   useEffect(() => {
-    const containerDiv = document.getElementById('rcw-conversation-container');
+    const containerDiv = document.getElementById('rcw-conversation-container-' + chatId);
     setContainerDiv(containerDiv);
   }, []);
 
@@ -86,11 +88,11 @@ function Conversation({
     window.removeEventListener('mousemove', resize, false);
     window.removeEventListener('mouseup', stopResize, false);
   }
-  
+
   const [pickerOffset, setOffset] = useState(0)
   const senderRef = useRef<ISenderRef>(null!);
-  const [pickerStatus, setPicket] = useState(false) 
- 
+  const [pickerStatus, setPicket] = useState(false)
+
   const onSelectEmoji = (emoji) => {
     senderRef.current?.onSelectEmoji(emoji)
   }
@@ -105,7 +107,7 @@ function Conversation({
   }
 
   return (
-    <div id="rcw-conversation-container" onMouseDown={initResize} 
+    <div id={"rcw-conversation-container-" + chatId} onMouseDown={initResize}
       className={cn('rcw-conversation-container', className)} aria-live="polite">
       {resizable && <div className="rcw-conversation-resizer" />}
       <Header
@@ -116,12 +118,13 @@ function Conversation({
         titleAvatar={titleAvatar}
       />
       <Messages
+        chatId={chatId}
         profileAvatar={profileAvatar}
         profileClientAvatar={profileClientAvatar}
         showTimeStamp={showTimeStamp}
       />
       <QuickButtons onQuickButtonClicked={onQuickButtonClicked} />
-      {emojis && pickerStatus && (<Picker 
+      {emojis && pickerStatus && (<Picker
         style={{ position: 'absolute', bottom: pickerOffset, left: '0', width: '100%' }}
         onSelect={onSelectEmoji}
       />)}

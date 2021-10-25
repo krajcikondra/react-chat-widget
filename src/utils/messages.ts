@@ -13,6 +13,7 @@ export function createNewMessage(
   sender: string,
   id?: string,
   date?: Date,
+  chatId?: string,
 ): MessageI {
   return {
     type: MESSAGES_TYPES.TEXT,
@@ -22,7 +23,8 @@ export function createNewMessage(
     timestamp: date ? date : new Date(),
     showAvatar: true,
     customId: id,
-    unread: sender === MESSAGE_SENDER.RESPONSE
+    unread: sender === MESSAGE_SENDER.RESPONSE,
+    chatId,
   };
 }
 
@@ -37,7 +39,7 @@ export function createLinkSnippet(link: LinkParams, id?: string) : Link {
     timestamp: new Date(),
     showAvatar: true,
     customId: id,
-    unread: true
+    unread: true,
   };
 }
 
@@ -69,7 +71,7 @@ function sinEaseOut(timestamp: any, begining: any, change: any, duration: any) {
 }
 
 /**
- * 
+ *
  * @param {*} target scroll target
  * @param {*} scrollStart
  * @param {*} scroll scroll distance

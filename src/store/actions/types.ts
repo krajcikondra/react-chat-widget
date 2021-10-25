@@ -30,6 +30,7 @@ export interface AddUserMessage {
   type: typeof ADD_NEW_USER_MESSAGE;
   text: string;
   id?: string;
+  chatId?: string;
   date?: Date;
 }
 
@@ -37,6 +38,7 @@ export interface AddResponseMessage {
   type: typeof ADD_NEW_RESPONSE_MESSAGE;
   text: string;
   id?: string;
+  chatId?: string;
   date?: Date;
 }
 

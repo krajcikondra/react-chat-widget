@@ -80,13 +80,13 @@ function WidgetLayout({
 
   useEffect(() => {
     if(showChat) {
-      messageRef.current = document.getElementById('messages') as HTMLDivElement;
+      messageRef.current = document.getElementById('messages-' + chatId) as HTMLDivElement;
     }
     return () => {
       messageRef.current = null;
     }
   }, [showChat])
-  
+
   const eventHandle = evt => {
     if(evt.target && evt.target.className === 'rcw-message-img') {
       const { src, alt, naturalWidth, naturalHeight } = (evt.target as HTMLImageElement);
@@ -129,6 +129,7 @@ function WidgetLayout({
     >
       {showChat &&
         <Conversation
+          chatId={chatId}
           title={title}
           subtitle={subtitle}
           sendMessage={onSendMessage}
