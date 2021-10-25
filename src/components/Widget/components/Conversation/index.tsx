@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import { useRef, useState, useEffect } from 'react';
 import { Picker } from 'emoji-mart';
 import cn from 'classnames';
@@ -27,8 +27,8 @@ type Props = {
   className: string;
   sendMessage: AnyFunction;
   toggleChat: AnyFunction;
-  profileAvatar?: string;
-  profileClientAvatar?: string;
+  profileAvatar?: string|ReactElement;
+  profileClientAvatar?: string|ReactElement;
   titleAvatar?: string;
   onQuickButtonClicked?: AnyFunction;
   onTextInputChange?: (event: any) => void;

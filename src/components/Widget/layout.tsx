@@ -1,4 +1,4 @@
-import React,{ useEffect, useRef } from 'react';
+import React, {ReactElement, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 
@@ -20,8 +20,8 @@ type Props = {
   onToggleConversation: AnyFunction;
   senderPlaceHolder: string;
   onQuickButtonClicked: AnyFunction;
-  profileAvatar?: string;
-  profileClientAvatar?: string;
+  profileAvatar?: string|ReactElement;
+  profileClientAvatar?: string|ReactElement;
   showCloseButton: boolean;
   fullScreenMode: boolean;
   autofocus: boolean;
