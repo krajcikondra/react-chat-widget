@@ -76,16 +76,17 @@ function WidgetLayout({
     visible: state.preview.visible,
   }));
 
+  const isChatVisible: boolean = showChat.includes(chatId);
   const messageRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if(showChat) {
+    if(isChatVisible) {
       messageRef.current = document.getElementById('messages-' + chatId) as HTMLDivElement;
     }
     return () => {
       messageRef.current = null;
     }
-  }, [showChat])
+  }, [isChatVisible])
 
   const eventHandle = evt => {
     if(evt.target && evt.target.className === 'rcw-message-img') {
@@ -105,29 +106,31 @@ function WidgetLayout({
    */
   useEffect(() => {
     const target = messageRef?.current;
-    if(imagePreview && showChat) {
+    if(imagePreview && isChatVisible) {
       target?.addEventListener('click', eventHandle, false);
     }
 
     return () => {
       target?.removeEventListener('click', eventHandle);
     }
-  }, [imagePreview, showChat]);
+  }, [imagePreview, isChatVisible]);
 
   useEffect(() => {
     document.body.setAttribute('style', `overflow: ${visible || fullScreenMode ? 'hidden' : 'auto'}`)
   }, [fullScreenMode, visible])
+
+  const openChatPos = isChatVisible ? showChat.indexOf(chatId) : undefined;
 
   return (
     <div
       className={cn('rcw-widget-container', {
         'rcw-full-screen': fullScreenMode,
         'rcw-previewer': imagePreview,
-        'rcw-close-widget-container ': !showChat
+        'rcw-close-widget-container ': !isChatVisible
         })
       }
     >
-      {showChat &&
+      {isChatVisible &&
         <Conversation
           chatId={chatId}
           title={title}
@@ -141,7 +144,7 @@ function WidgetLayout({
           disabledInput={dissableInput}
           autofocus={autofocus}
           titleAvatar={titleAvatar}
-          className={showChat ? 'active' : 'hidden'}
+          className={isChatVisible ? `active open-chat-${openChatPos}` : 'hidden'}
           onQuickButtonClicked={onQuickButtonClicked}
           onTextInputChange={onTextInputChange}
           sendButtonAlt={sendButtonAlt}

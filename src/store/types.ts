@@ -39,7 +39,7 @@ export interface CustomCompMessage extends BaseMessage {
 }
 
 export interface BehaviorState {
-  showChat: boolean;
+  showChat: string[];
   disabledInput: boolean;
   messageLoader: boolean;
 };

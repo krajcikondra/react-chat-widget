@@ -24,8 +24,8 @@ export function renderCustomComponent(component: ElementType, props: any, showAv
   store.dispatch(actions.renderCustomComponent(component, props, showAvatar, id));
 }
 
-export function toggleWidget() {
-  store.dispatch(actions.toggleChat());
+export function toggleWidget(chatId?: string) {
+  store.dispatch(actions.toggleChat(chatId));
 }
 
 export function toggleInputDisabled() {
@@ -36,8 +36,8 @@ export function dropMessages() {
   store.dispatch(actions.dropMessages());
 }
 
-export function isWidgetOpened(): boolean {
-  return store.getState().behavior.showChat;
+export function isWidgetOpened(chatId?: string): boolean {
+  return store.getState().behavior.showChat.includes(chatId ?? 'default');
 }
 
 export function setQuickButtons(buttons: Array<{ label: string, value: string | number }>) {

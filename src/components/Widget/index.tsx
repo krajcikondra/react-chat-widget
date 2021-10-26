@@ -69,8 +69,8 @@ function Widget({
   const dispatch = useDispatch();
 
   const toggleConversation = () => {
-    dispatch(toggleChat());
-    handleToggle ? handleToggle(isWidgetOpened()) : null;
+    dispatch(toggleChat(chatId));
+    handleToggle ? handleToggle(isWidgetOpened(chatId)) : null;
   }
 
   const handleMessageSubmit = (userInput) => {

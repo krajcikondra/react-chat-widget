@@ -24,10 +24,10 @@ export function renderCustomComponent(component: ElementType, props: any, showAv
 export function renderCustomComponent(component: ElementType, props: any, showAvatar: boolean, id: string): void;
 
 export function toggleMsgLoader(): void;
-export function toggleWidget(): void;
+export function toggleWidget(chatId?: string): void;
 export function toggleInputDisabled(): void;
 export function dropMessages(): void;
-export function isWidgetOpened(): boolean;
+export function isWidgetOpened(chatId?: string): boolean;
 export function setQuickButtons(buttons: Array<{ label: string, value: string | number }>): void;
 
 export function deleteMessages(count: number): void;

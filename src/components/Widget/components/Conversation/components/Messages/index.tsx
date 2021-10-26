@@ -35,13 +35,15 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId }:
     showChat: state.behavior.showChat
   }));
 
+  const isChatVisible: boolean = showChat.includes(chatId);
+
   const messageRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     // @ts-ignore
     scrollToBottom(messageRef.current);
-    if (showChat && badgeCount) dispatch(markAllMessagesRead());
+    if (isChatVisible && badgeCount) dispatch(markAllMessagesRead());
     else dispatch(setBadgeCount(messages.filter((message) => message.unread).length));
-  }, [messages, badgeCount, showChat, chatId]);
+  }, [messages, badgeCount, isChatVisible, chatId]);
 
   const getComponentToRender = (message: Message | Link | CustomCompMessage) => {
     const ComponentToRender = message.component;

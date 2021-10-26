@@ -9,13 +9,25 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  showChat: false,
+  showChat: [],
   disabledInput: false,
   messageLoader: false
 };
 
 const behaviorReducer = {
-  [TOGGLE_CHAT]: (state: BehaviorState) => ({ ...state, showChat: !state.showChat}),
+  [TOGGLE_CHAT]: (state: BehaviorState, {chatId}) => {
+    const chId = chatId ?? 'default';
+    if (state.showChat.includes(chId)) {
+      state.showChat = state.showChat.filter(name => name !== chId);
+    } else {
+      state.showChat.push(chId);
+    }
+
+    return {
+      ...state,
+      showChat: [...state.showChat],
+    };
+  },
 
   [TOGGLE_INPUT_DISABLED]: (state: BehaviorState) => ({ ...state, disabledInput: !state.disabledInput }),
 

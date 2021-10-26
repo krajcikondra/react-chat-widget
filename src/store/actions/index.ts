@@ -3,9 +3,10 @@ import { ElementType } from 'react';
 import * as actionsTypes from './types';
 import { LinkParams, ImageState } from '../types';
 
-export function toggleChat(): actionsTypes.ToggleChat {
+export function toggleChat(chatId?: string): actionsTypes.ToggleChat {
   return {
-    type: actionsTypes.TOGGLE_CHAT
+    type: actionsTypes.TOGGLE_CHAT,
+    chatId,
   };
 }
 

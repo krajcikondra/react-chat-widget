@@ -260,7 +260,8 @@ As of v3.0, messages now have an optional ID that can be added on creation.If yo
 You can also control certain actions of the widget:
 
 - **toggleWidget**
-  - params: No params expected
+  - params:
+    - chatId: chatId for toggle (optional)
   - This method is to toggle the widget at will without the need to trigger the click event on the launcher
 
 - **toggleInputDisabled**

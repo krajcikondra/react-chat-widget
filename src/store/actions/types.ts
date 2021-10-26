@@ -20,6 +20,7 @@ export const CLOSE_FULLSCREEN_PREVIEW = 'FULLSCREEN/CLOSE_PREVIEW';
 
 export interface ToggleChat {
   type: typeof TOGGLE_CHAT;
+  chatId?: string;
 }
 
 export interface ToggleInputDisabled {
