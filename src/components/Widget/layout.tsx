@@ -13,7 +13,7 @@ import FullScreenPreview from './components/FullScreenPreview';
 import './style.scss';
 
 type Props = {
-  title: string;
+  title: string|ReactElement;
   titleAvatar?: string;
   subtitle: string;
   onSendMessage: AnyFunction;

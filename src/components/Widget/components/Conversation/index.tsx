@@ -18,7 +18,7 @@ interface ISenderRef {
 
 type Props = {
   chatId: string;
-  title: string;
+  title: string|ReactElement;
   subtitle: string;
   senderPlaceHolder: string;
   showCloseButton: boolean;
