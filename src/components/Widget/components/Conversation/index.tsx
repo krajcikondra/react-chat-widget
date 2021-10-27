@@ -11,6 +11,7 @@ import QuickButtons from './components/QuickButtons';
 import { AnyFunction } from '../../../../utils/types';
 
 import './style.scss';
+import {isWidgetOpened, toggleWidget} from "../../../../../index";
 
 interface ISenderRef {
   onSelectEmoji: (event: any) => void;
@@ -106,10 +107,17 @@ function Conversation({
     if(pickerStatus) setPicket(false)
   }
 
+  const escapePressed = () => {
+    if (isWidgetOpened(chatId)) {
+      toggleWidget(chatId);
+    }
+  };
+
   return (
     <div id={"rcw-conversation-container-" + chatId} onMouseDown={initResize}
       className={cn('rcw-conversation-container', className)} aria-live="polite">
-      {resizable && <div className="rcw-conversation-resizer" />}
+      {resizable && <div className="rcw-conversation-resizer"
+      />}
       <Header
         title={title}
         subtitle={subtitle}
@@ -138,6 +146,7 @@ function Conversation({
         buttonAlt={sendButtonAlt}
         onPressEmoji={togglePicker}
         onChangeSize={setOffset}
+        onEscapePressed={escapePressed}
       />
     </div>
   );

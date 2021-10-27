@@ -20,9 +20,10 @@ type Props = {
   onPressEmoji: () => void;
   onChangeSize: (event: any) => void;
   onTextInputChange?: (event: any) => void;
+  onEscapePressed?: () => void;
 }
 
-function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize }: Props, ref) {
+function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onEscapePressed }: Props, ref) {
   const showChat = useSelector((state: GlobalState) => state.behavior.showChat);
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
@@ -106,7 +107,12 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
 
   const handlerOnKeyDown= (event) => {
     const el = inputRef.current;
-    
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      onEscapePressed?.();
+    }
+
     if( event.key === 'Backspace' && el){
       const caretPosition = getCaretIndex(inputRef.current);
       const character = el.innerHTML.charAt(caretPosition - 1);
@@ -137,7 +143,7 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
           spellCheck
           className="rcw-input"
           role="textbox"
-          contentEditable={!disabledInput} 
+          contentEditable={!disabledInput}
           ref={inputRef}
           placeholder={placeholder}
           onInput={handlerOnChange}
@@ -145,7 +151,7 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
           onKeyUp={handlerOnKeyUp}
           onKeyDown={handlerOnKeyDown}
         />
-        
+
       </div>
       <button type="submit" className="rcw-send" onClick={handlerSendMessage}>
         <img src={send} className="rcw-send-icon" alt={buttonAlt} />
