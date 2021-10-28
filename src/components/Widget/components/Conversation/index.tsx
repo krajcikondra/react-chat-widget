@@ -17,6 +17,8 @@ interface ISenderRef {
   onSelectEmoji: (event: any) => void;
 }
 
+export type EmojiSet = 'apple' | 'google' | 'twitter' | 'facebook';
+
 type Props = {
   chatId: string;
   title: string|ReactElement;
@@ -37,6 +39,7 @@ type Props = {
   showTimeStamp: boolean;
   resizable?: boolean;
   emojis?: boolean;
+  emojiSet?: EmojiSet;
 };
 
 function Conversation({
@@ -59,6 +62,7 @@ function Conversation({
   resizable,
   emojis,
   chatId,
+  emojiSet,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -135,6 +139,7 @@ function Conversation({
       {emojis && pickerStatus && (<Picker
         style={{ position: 'absolute', bottom: pickerOffset, left: '0', width: '100%' }}
         onSelect={onSelectEmoji}
+        set={emojiSet ?? undefined}
       />)}
       <Sender
         ref={senderRef}
