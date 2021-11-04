@@ -20,7 +20,7 @@ type Props = {
   autofocus?: boolean;
   profileAvatar?: string;
   profileClientAvatar?: string;
-  launcher?: AnyFunction;
+  launcher?: AnyFunction|null;
   handleTextInputChange?: (event: any) => void;
   chatId?: string;
   handleToggle?: AnyFunction;

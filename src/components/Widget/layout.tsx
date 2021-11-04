@@ -25,7 +25,7 @@ type Props = {
   showCloseButton: boolean;
   fullScreenMode: boolean;
   autofocus: boolean;
-  customLauncher?: AnyFunction;
+  customLauncher?: AnyFunction|null;
   onTextInputChange?: (event: any) => void;
   chatId: string;
   launcherOpenLabel: string;
@@ -123,6 +123,21 @@ function WidgetLayout({
 
   const openChatPos = isChatVisible ? showChat.indexOf(chatId) : undefined;
 
+  const renderLauncher = () => {
+    return (customLauncher ?
+      customLauncher(onToggleConversation) :
+      !fullScreenMode &&
+      <Launcher
+          toggle={onToggleConversation}
+          chatId={chatId}
+          openLabel={launcherOpenLabel}
+          closeLabel={launcherCloseLabel}
+          closeImg={launcherCloseImg}
+          openImg={launcherOpenImg}
+          showBadge={showBadge}
+      />)
+  };
+
   return (
     <div
       className={cn('rcw-widget-container', {
@@ -156,19 +171,7 @@ function WidgetLayout({
           emojiSet={emojiSet}
         />
       }
-      {customLauncher ?
-        customLauncher(onToggleConversation) :
-        !fullScreenMode &&
-        <Launcher
-          toggle={onToggleConversation}
-          chatId={chatId}
-          openLabel={launcherOpenLabel}
-          closeLabel={launcherCloseLabel}
-          closeImg={launcherCloseImg}
-          openImg={launcherOpenImg}
-          showBadge={showBadge}
-        />
-      }
+      {customLauncher !== null && renderLauncher()}
       {
         imagePreview && <FullScreenPreview fullScreenMode={fullScreenMode} zoomStep={zoomStep} />
       }

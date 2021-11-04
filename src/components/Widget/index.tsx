@@ -18,7 +18,7 @@ type Props = {
   showCloseButton: boolean;
   fullScreenMode: boolean;
   autofocus: boolean;
-  customLauncher?: AnyFunction;
+  customLauncher?: AnyFunction|null;
   handleNewUserMessage: AnyFunction;
   handleQuickButtonClicked?: AnyFunction;
   handleTextInputChange?: (event: any) => void;
