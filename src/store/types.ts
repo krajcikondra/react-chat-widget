@@ -42,6 +42,7 @@ export interface BehaviorState {
   showChat: string[];
   disabledInput: boolean;
   messageLoader: boolean;
+  maxOpenChats?: number;
 };
 
 export interface MessagesState {

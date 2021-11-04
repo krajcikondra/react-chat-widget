@@ -4,6 +4,7 @@ import { LinkParams, FullscreenPreviewState } from '../types';
 
 export const TOGGLE_CHAT = 'BEHAVIOR/TOGGLE_CHAT';
 export const TOGGLE_INPUT_DISABLED = 'BEHAVIOR/TOGGLE_INPUT_DISABLED';
+export const SET_MAX_OPEN_CHATS = 'BEHAVIOR/SET_MAX_OPEN_CHATS';
 export const TOGGLE_MESSAGE_LOADER = 'BEHAVIOR/TOGGLE_MSG_LOADER';
 export const SET_BADGE_COUNT = 'BEHAVIOR/SET_BADGE_COUNT';
 export const ADD_NEW_USER_MESSAGE = 'MESSAGES/ADD_NEW_USER_MESSAGE';
@@ -25,6 +26,11 @@ export interface ToggleChat {
 
 export interface ToggleInputDisabled {
   type: typeof TOGGLE_INPUT_DISABLED;
+}
+
+export interface SetMaxOpenChats {
+  type: typeof SET_MAX_OPEN_CHATS;
+  maxOpenedChats?: number;
 }
 
 export interface AddUserMessage {
@@ -90,7 +96,7 @@ export interface MarkAllMessagesRead {
   type: typeof MARK_ALL_READ;
 }
 
-export type BehaviorActions = ToggleChat | ToggleInputDisabled | ToggleMsgLoader;
+export type BehaviorActions = ToggleChat | ToggleInputDisabled | ToggleMsgLoader | SetMaxOpenChats;
 
 export type MessagesActions = AddUserMessage | AddResponseMessage | AddLinkSnippet | RenderCustomComponent
                               | DropMessages | HideAvatar | DeleteMessages | MarkAllMessagesRead | SetBadgeCount;

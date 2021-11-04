@@ -182,6 +182,8 @@ export default App;
 |**showTimeStamp**|boolean|NO|true|Show time stamp on messages|
 |**chatId**|string|NO|'rcw-chat-container'|Chat container id for a11y|
 |**handleToggle**|(...args: any[]) => any|NO|'rcw-chat-container'|Function to handle when the widget is toggled, will receive the toggle status|
+|**setMaxOpenWidgets**|number|NO|undefined|Set limit of open chats on page
+|**maxOpenWidgets**|number|NO|undefined|Set limit of open chats on page
 |**launcherOpenLabel**|string|NO|'Open chat'|Alt value for the laucher when closed|
 |**launcherCloseLabel**|string|NO|'Close chat'|Alt value for the laucher when open|
 |**launcherOpenImg**|string|NO|''|local or remote image url, if not provided it will show default image|

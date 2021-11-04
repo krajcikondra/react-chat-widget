@@ -1,8 +1,8 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 
 import { toggleChat, addUserMessage } from '../../store/actions';
-import { isWidgetOpened } from '../../store/dispatcher';
+import {isWidgetOpened, setMaxOpenWidgets} from '../../store/dispatcher';
 import { AnyFunction } from '../../utils/types';
 
 import WidgetLayout from './layout';
@@ -37,6 +37,7 @@ type Props = {
   resizable?: boolean;
   emojis?: boolean;
   emojiSet?: EmojiSet;
+  maxOpenWidgets?: number;
 }
 
 function Widget({
@@ -68,8 +69,13 @@ function Widget({
   resizable,
   emojis,
   emojiSet,
+  maxOpenWidgets,
 }: Props) {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setMaxOpenWidgets(maxOpenWidgets)
+  }, [maxOpenWidgets]);
 
   const toggleConversation = () => {
     dispatch(toggleChat(chatId));

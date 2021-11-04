@@ -10,6 +10,13 @@ export function toggleChat(chatId?: string): actionsTypes.ToggleChat {
   };
 }
 
+export function setMaxOpenChats(maxOpenedChats?: number): actionsTypes.SetMaxOpenChats {
+  return {
+    type: actionsTypes.SET_MAX_OPEN_CHATS,
+    maxOpenedChats,
+  };
+}
+
 export function toggleInputDisabled(): actionsTypes.ToggleInputDisabled {
   return {
     type: actionsTypes.TOGGLE_INPUT_DISABLED

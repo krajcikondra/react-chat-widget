@@ -37,6 +37,7 @@ type Props = {
   handleSubmit?: AnyFunction;
   showBadge?: boolean;
   resizable?: boolean;
+  maxOpenWidgets?: number;
 } & typeof defaultProps;
 
 function ConnectedWidget({
@@ -68,6 +69,7 @@ function ConnectedWidget({
   resizable,
   emojis,
   emojiSet,
+  maxOpenWidgets,
 }: Props) {
   return (
     <Provider store={store}>
@@ -100,6 +102,7 @@ function ConnectedWidget({
         resizable={resizable}
         emojis={emojis}
         emojiSet={emojiSet}
+        maxOpenWidgets={maxOpenWidgets}
       />
     </Provider>
   );

@@ -28,6 +28,10 @@ export function toggleWidget(chatId?: string) {
   store.dispatch(actions.toggleChat(chatId));
 }
 
+export function setMaxOpenWidgets(maxOpenedChats?: number) {
+  store.dispatch(actions.setMaxOpenChats(maxOpenedChats));
+}
+
 export function toggleInputDisabled() {
   store.dispatch(actions.toggleInputDisabled());
 }

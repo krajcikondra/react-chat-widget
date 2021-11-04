@@ -23,6 +23,8 @@ export function renderCustomComponent(component: ElementType, props: any): void;
 export function renderCustomComponent(component: ElementType, props: any, showAvatar: boolean): void;
 export function renderCustomComponent(component: ElementType, props: any, showAvatar: boolean, id: string): void;
 
+export function setMaxOpenWidgets(maxOpenWidgets?: number): void;
+
 export function toggleMsgLoader(): void;
 export function toggleWidget(chatId?: string): void;
 export function toggleInputDisabled(): void;
