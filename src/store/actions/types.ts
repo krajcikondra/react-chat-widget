@@ -69,6 +69,7 @@ export interface RenderCustomComponent {
 
 export interface DropMessages {
   type: typeof DROP_MESSAGES;
+  chatId?: string;
 }
 
 export interface HideAvatar {

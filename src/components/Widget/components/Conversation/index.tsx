@@ -40,6 +40,7 @@ type Props = {
   resizable?: boolean;
   emojis?: boolean;
   emojiSet?: EmojiSet;
+  onScrollTop(): void;
 };
 
 function Conversation({
@@ -63,6 +64,7 @@ function Conversation({
   emojis,
   chatId,
   emojiSet,
+  onScrollTop,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -134,6 +136,7 @@ function Conversation({
         profileAvatar={profileAvatar}
         profileClientAvatar={profileClientAvatar}
         showTimeStamp={showTimeStamp}
+        onScrollTop={onScrollTop}
       />
       <QuickButtons onQuickButtonClicked={onQuickButtonClicked} />
       {emojis && pickerStatus && (<Picker

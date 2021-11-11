@@ -72,9 +72,10 @@ export function renderCustomComponent(
   };
 }
 
-export function dropMessages(): actionsTypes.DropMessages {
+export function dropMessages(chatId?: string): actionsTypes.DropMessages {
   return {
-    type: actionsTypes.DROP_MESSAGES
+    type: actionsTypes.DROP_MESSAGES,
+    chatId,
   };
 }
 

@@ -36,8 +36,8 @@ export function toggleInputDisabled() {
   store.dispatch(actions.toggleInputDisabled());
 }
 
-export function dropMessages() {
-  store.dispatch(actions.dropMessages());
+export function dropMessages(chatId?: string) {
+  store.dispatch(actions.dropMessages(chatId));
 }
 
 export function isWidgetOpened(chatId?: string): boolean {

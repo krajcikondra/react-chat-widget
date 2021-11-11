@@ -11,6 +11,7 @@ import {EmojiSet} from "./components/Widget/components/Conversation";
 type Props = {
   handleNewUserMessage: AnyFunction;
   handleQuickButtonClicked?: AnyFunction;
+  handleScrollTop?(): void;
   title?: string;
   titleAvatar?: string;
   subtitle?: string;
@@ -70,6 +71,7 @@ function ConnectedWidget({
   emojis,
   emojiSet,
   maxOpenWidgets,
+  handleScrollTop,
 }: Props) {
   return (
     <Provider store={store}>
@@ -103,6 +105,7 @@ function ConnectedWidget({
         emojis={emojis}
         emojiSet={emojiSet}
         maxOpenWidgets={maxOpenWidgets}
+        handleScrollTop={handleScrollTop}
       />
     </Provider>
   );

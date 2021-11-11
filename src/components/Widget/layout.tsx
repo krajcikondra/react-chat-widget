@@ -40,6 +40,7 @@ type Props = {
   resizable?: boolean;
   emojis?: boolean;
   emojiSet?: EmojiSet;
+  onScrollTop(): void;
 }
 
 function WidgetLayout({
@@ -70,6 +71,7 @@ function WidgetLayout({
   resizable,
   emojis,
   emojiSet,
+  onScrollTop,
 }: Props) {
   const dispatch = useDispatch();
   const { dissableInput, showChat, visible } = useSelector((state: GlobalState) => ({
@@ -169,6 +171,7 @@ function WidgetLayout({
           resizable={resizable}
           emojis={emojis}
           emojiSet={emojiSet}
+          onScrollTop={onScrollTop}
         />
       }
       {customLauncher !== null && renderLauncher()}

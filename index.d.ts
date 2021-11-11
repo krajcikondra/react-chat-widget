@@ -28,7 +28,7 @@ export function setMaxOpenWidgets(maxOpenWidgets?: number): void;
 export function toggleMsgLoader(): void;
 export function toggleWidget(chatId?: string): void;
 export function toggleInputDisabled(): void;
-export function dropMessages(): void;
+export function dropMessages(chatId?: string): void;
 export function isWidgetOpened(chatId?: string): boolean;
 export function setQuickButtons(buttons: Array<{ label: string, value: string | number }>): void;
 

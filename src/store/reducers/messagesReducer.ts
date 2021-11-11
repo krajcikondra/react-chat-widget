@@ -34,7 +34,9 @@ const messagesReducer = {
   [ADD_COMPONENT_MESSAGE]: (state: MessagesState, { component, props, showAvatar, id }) =>
     ({ ...state, messages: [...state.messages, createComponentMessage(component, props, showAvatar, id)] }),
 
-  [DROP_MESSAGES]: (state: MessagesState) => ({ ...state, messages: [] }),
+  [DROP_MESSAGES]: (state: MessagesState, { chatId }) => {
+    return { ...state, messages:  chatId === undefined ? [] : state.messages.filter(m => m.chatId !== chatId)};
+  },
 
   [HIDE_AVATAR]: (state: MessagesState, { index }) => state.messages[index].showAvatar = false,
 

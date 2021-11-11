@@ -179,6 +179,7 @@ export default App;
 |**autofocus**|boolean|NO|true|Autofocus or not the user input|
 |**launcher**|(handleToggle) => ElementType|NO|Custom Launcher component to use instead of the default|Use null for no launcher
 |**handleQuickButtonClicked**|(...args: any[]) => any|NO||Function to handle the user clicking a quick button, will receive the 'value' when clicked.|
+|**handleScrollTop**|() => void|NO|undefined|Function to handle the user scroll top of conversation. Can be used for load older messages|
 |**showTimeStamp**|boolean|NO|true|Show time stamp on messages|
 |**chatId**|string|NO|'rcw-chat-container'|Chat container id for a11y|
 |**handleToggle**|(...args: any[]) => any|NO|'rcw-chat-container'|Function to handle when the widget is toggled, will receive the toggle status|

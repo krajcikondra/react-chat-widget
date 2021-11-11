@@ -38,6 +38,7 @@ type Props = {
   emojis?: boolean;
   emojiSet?: EmojiSet;
   maxOpenWidgets?: number;
+  handleScrollTop?(): void;
 }
 
 function Widget({
@@ -70,6 +71,7 @@ function Widget({
   emojis,
   emojiSet,
   maxOpenWidgets,
+  handleScrollTop,
 }: Props) {
   const dispatch = useDispatch();
 
@@ -96,6 +98,10 @@ function Widget({
     event.preventDefault();
     handleQuickButtonClicked?.(value)
   }
+
+  const onScrollTop = () => {
+    handleScrollTop?.();
+  };
 
   return (
     <WidgetLayout
@@ -126,6 +132,7 @@ function Widget({
       resizable={resizable}
       emojis={emojis}
       emojiSet={emojiSet}
+      onScrollTop={onScrollTop}
     />
   );
 }
