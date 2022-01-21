@@ -77,7 +77,7 @@ import { Widget } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
 
 function App() {
-  const handleNewUserMessage = (newMessage) => {
+  const handleNewUserMessage = (newMessage, msgHash) => {
     console.log(`New message incoming! ${newMessage}`);
     // Now send the message throught the backend API
   };
@@ -107,7 +107,7 @@ function App() {
     addResponseMessage('Welcome to this awesome chat!');
   }, []);
 
-  const handleNewUserMessage = (newMessage) => {
+  const handleNewUserMessage = (newMessage, msgHash) => {
     console.log(`New message incoming! ${newMessage}`);
     // Now send the message throught the backend API
     addResponseMessage(response);
@@ -230,6 +230,7 @@ As of v3.0, messages now have an optional ID that can be added on creation.If yo
     - text: string (supports markdown)
     - id: string (optional)
     - date: Date (optional)
+    - options: MessageOptions (optional)
   - This method will add a new message written as a user. Keep in mind it will not trigger the prop handleNewUserMessage()
 
 - **addLinkSnippet**
@@ -255,8 +256,22 @@ As of v3.0, messages now have an optional ID that can be added on creation.If yo
 - **setQuickButtons**
   - params:
     - buttons: An array of objects with the keys `label` and `value`
+ 
+- **markAsDelivered**
+  - id: string (messageId)
+  - newId: string (new message id instead temporary hash) - optional
+- 
+- **markAsRead**
+  - id: string (messageId)
 
 **Markdown is supported for both the responses and user messages.**
+
+### Types
+
+- **MessageOptions**
+  - delivered: boolean|undefined
+  - read: boolean|undefined
+
 
 #### Widget behavior
 
@@ -281,6 +296,8 @@ You can also control certain actions of the widget:
   - Delete messages that either have an id you previously set with the `addResponseMessage` or delete based on position or both of them. For example `deleteMessages(2, 'myId')` will delete the message that has the id `myId` and the previous message.
 
 - **markAllAsRead**
+  - params:
+    - chatId: chatId (optional)
   - Marks all response messages as read. The user messages doesn't have the read/unread property.
 
 - **setBadgeCount**

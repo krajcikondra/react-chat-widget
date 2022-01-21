@@ -7,6 +7,7 @@ type BaseMessage = {
   showAvatar: boolean;
   timestamp: Date;
   unread: boolean;
+  delivered: boolean;
   customId?: string;
   props?: any;
   chatId?: string;

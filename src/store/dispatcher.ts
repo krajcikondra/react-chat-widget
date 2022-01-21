@@ -3,9 +3,10 @@ import { ElementType } from 'react';
 import store from '.';
 import * as actions from './actions';
 import { LinkParams, ImageState } from './types';
+import {MessageOptions} from "./actions/types";
 
-export function addUserMessage(text: string, id?: string, date?: Date, chatId?: string) {
-  store.dispatch(actions.addUserMessage(text, id, date, chatId));
+export function addUserMessage(text: string, id?: string, date?: Date, chatId?: string, options?: MessageOptions) {
+  store.dispatch(actions.addUserMessage(text, id, date, chatId, options));
 }
 
 export function addResponseMessage(text: string, id?: string, date?: Date, chatId?: string) {
@@ -52,8 +53,16 @@ export function deleteMessages(count: number, id?: string) {
   store.dispatch(actions.deleteMessages(count, id));
 }
 
-export function markAllAsRead() {
-  store.dispatch(actions.markAllMessagesRead());
+export function markAllAsRead(chatId?: string) {
+  store.dispatch(actions.markAllMessagesRead(chatId));
+}
+
+export function markAsRead(id: string) {
+  store.dispatch(actions.markAsRead(id));
+}
+
+export function markAsDelivered(id: string, newId?: string) {
+  store.dispatch(actions.markAsDelivered(id, newId));
 }
 
 export function setBadgeCount(count: number) {

@@ -15,9 +15,16 @@ export const DROP_MESSAGES = 'MESSAGES/DROP_MESSAGES';
 export const HIDE_AVATAR = 'MESSAGES/HIDE_AVATAR';
 export const DELETE_MESSAGES = 'MESSAGES/DELETE_MESSAGES';
 export const MARK_ALL_READ = 'MESSAGES/MARK_ALL_READ';
+export const MARK_DELIVERED = 'MESSAGES/MARK_DELIVERED';
+export const MARK_READ = 'MESSAGES/MARK_READ';
 export const SET_QUICK_BUTTONS = 'SET_QUICK_BUTTONS';
 export const OPEN_FULLSCREEN_PREVIEW = 'FULLSCREEN/OPEN_PREVIEW';
 export const CLOSE_FULLSCREEN_PREVIEW = 'FULLSCREEN/CLOSE_PREVIEW';
+
+export interface MessageOptions {
+  read?: boolean,
+  delivered?: boolean,
+}
 
 export interface ToggleChat {
   type: typeof TOGGLE_CHAT;
@@ -39,6 +46,7 @@ export interface AddUserMessage {
   id?: string;
   chatId?: string;
   date?: Date;
+  options?: MessageOptions,
 }
 
 export interface AddResponseMessage {
@@ -95,12 +103,25 @@ export interface SetBadgeCount {
 
 export interface MarkAllMessagesRead {
   type: typeof MARK_ALL_READ;
+  chatId?: string;
+}
+
+export interface MarkDelivered {
+  type: typeof MARK_DELIVERED;
+  id: string;
+  newId?: string;
+}
+
+export interface MarkRead {
+  type: typeof MARK_READ;
+  id: string;
 }
 
 export type BehaviorActions = ToggleChat | ToggleInputDisabled | ToggleMsgLoader | SetMaxOpenChats;
 
 export type MessagesActions = AddUserMessage | AddResponseMessage | AddLinkSnippet | RenderCustomComponent
-                              | DropMessages | HideAvatar | DeleteMessages | MarkAllMessagesRead | SetBadgeCount;
+                              | DropMessages | HideAvatar | DeleteMessages | MarkAllMessagesRead | SetBadgeCount
+                              | MarkDelivered | MarkRead;
 
 export type QuickButtonsActions = SetQuickButtons;
 

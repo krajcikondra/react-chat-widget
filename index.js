@@ -15,6 +15,8 @@ import {
   deleteMessages,
   markAllAsRead,
   setBadgeCount,
+  markAsRead,
+  markAsDelivered
 } from './src/store/dispatcher';
 
 export {
@@ -31,5 +33,7 @@ export {
   setQuickButtons,
   deleteMessages,
   markAllAsRead,
-  setBadgeCount
+  setBadgeCount,
+  markAsRead,
+  markAsDelivered
 };

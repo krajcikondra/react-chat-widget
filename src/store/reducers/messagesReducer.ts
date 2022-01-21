@@ -13,7 +13,9 @@ import {
   HIDE_AVATAR,
   DELETE_MESSAGES,
   MARK_ALL_READ,
-  SET_BADGE_COUNT
+  MARK_READ,
+  MARK_DELIVERED,
+  SET_BADGE_COUNT,
 } from '../actions/types';
 
 const initialState = {
@@ -22,11 +24,24 @@ const initialState = {
 };
 
 const messagesReducer = {
-  [ADD_NEW_USER_MESSAGE]: (state: MessagesState, { text, showClientAvatar, id, date, chatId }) =>
-    ({ ...state, messages: [...state.messages, createNewMessage(text, MESSAGE_SENDER.CLIENT, id, date, chatId)]}),
+  [ADD_NEW_USER_MESSAGE]: (state: MessagesState, { text, showClientAvatar, id, date, chatId, options }) =>
+    ({ ...state, messages: [...state.messages, createNewMessage(
+        text,
+        MESSAGE_SENDER.CLIENT,
+        id,
+        date,
+        chatId,
+        options,
+      )]}),
 
   [ADD_NEW_RESPONSE_MESSAGE]: (state: MessagesState, { text, id, date, chatId }) =>
-    ({ ...state, messages: [...state.messages, createNewMessage(text, MESSAGE_SENDER.RESPONSE, id, date, chatId)], badgeCount: state.badgeCount + 1 }),
+    ({ ...state, messages: [...state.messages, createNewMessage(
+        text,
+        MESSAGE_SENDER.RESPONSE,
+        id,
+        date,
+        chatId,
+      )], badgeCount: state.badgeCount + 1 }),
 
   [ADD_NEW_LINK_SNIPPET]: (state: MessagesState, { link, id }) =>
     ({ ...state, messages: [...state.messages, createLinkSnippet(link, id)] }),
@@ -53,8 +68,39 @@ const messagesReducer = {
 
   [SET_BADGE_COUNT]: (state: MessagesState, { count }) => ({ ...state, badgeCount: count }),
 
-  [MARK_ALL_READ]: (state: MessagesState) =>
-    ({ ...state, messages: state.messages.map(message => ({ ...message, unread: false })), badgeCount: 0 })
+  [MARK_ALL_READ]: (state: MessagesState, { chatId }) => {
+    if (chatId) {
+      return {
+        ...state,
+        messages: state
+            .messages
+            .map(message => message.chatId === chatId ? ({ ...message, unread: false }) : message), badgeCount: 0
+      };
+    }
+
+    return { ...state, messages: state.messages.map(message => ({ ...message, unread: false })), badgeCount: 0 };
+  },
+
+  [MARK_READ]: (state: MessagesState, { id }) => {
+    const message = state.messages.find(m => m.customId === id);
+    if (message) {
+      message.unread = false;
+    }
+    return { ...state, messages: [...state.messages] };
+  },
+
+  [MARK_DELIVERED]: (state: MessagesState, { id, newId }) => {
+    const message = state.messages.find(m => m.customId === id);
+    if (message) {
+      message.delivered = true;
+      if (newId) {
+        message.customId = newId;
+      }
+    }
+    return { ...state, messages: [...state.messages] };
+  },
+
+
 }
 
 export default (state = initialState, action: MessagesActions) => createReducer(messagesReducer, state, action);

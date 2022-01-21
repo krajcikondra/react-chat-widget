@@ -52,7 +52,7 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
   useEffect(() => {
     // @ts-ignore
     if (lastMessageCount !== messages.length) {
-      if (oldestMessage !== null && !compareMessage(oldestMessage, messages[0])) {
+      if (oldestMessage !== null && (!messages[0] || !compareMessage(oldestMessage, messages[0]))) {
         if (messageRef && messageRef.current) {
           messageRef.current.scrollTo(0, messageRef.current.scrollHeight - lastChatHeight);
         }
@@ -62,8 +62,8 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
     }
 
 
-    if (isChatVisible && badgeCount) dispatch(markAllMessagesRead());
-    else dispatch(setBadgeCount(messages.filter((message) => message.unread).length));
+    // if (isChatVisible && badgeCount) dispatch(markAllMessagesRead());
+    // else dispatch(setBadgeCount(messages.filter((message) => message.unread).length));
 
     if (messages.length > 0) {
       setOldestMessage(messages[0] as any);

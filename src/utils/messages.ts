@@ -7,6 +7,7 @@ import Snippet from '../components/Widget/components/Conversation/components/Mes
 import QuickButton from '../components/Widget/components/Conversation/components/QuickButtons/components/QuickButton';
 
 import { MESSAGES_TYPES, MESSAGE_SENDER, MESSAGE_BOX_SCROLL_DURATION } from '../constants';
+import {MessageOptions} from "../store/actions/types";
 
 export function createNewMessage(
   text: string,
@@ -14,7 +15,13 @@ export function createNewMessage(
   id?: string,
   date?: Date,
   chatId?: string,
+  options?: MessageOptions,
 ): MessageI {
+
+
+  const read = options?.read === undefined ? sender === MESSAGE_SENDER.RESPONSE : options.read
+  const delivered = options?.delivered === undefined ? sender === MESSAGE_SENDER.RESPONSE : options.delivered
+
   return {
     type: MESSAGES_TYPES.TEXT,
     component: Message,
@@ -23,8 +30,9 @@ export function createNewMessage(
     timestamp: date ? date : new Date(),
     showAvatar: true,
     customId: id,
-    unread: sender === MESSAGE_SENDER.RESPONSE,
+    unread: !read,
     chatId,
+    delivered,
   };
 }
 
@@ -40,6 +48,7 @@ export function createLinkSnippet(link: LinkParams, id?: string) : Link {
     showAvatar: true,
     customId: id,
     unread: true,
+    delivered: false,
   };
 }
 
@@ -52,7 +61,8 @@ export function createComponentMessage(component: ElementType, props: any, showA
     timestamp: new Date(),
     showAvatar,
     customId: id,
-    unread: true
+    unread: true,
+    delivered: false,
   };
 }
 

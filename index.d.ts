@@ -3,6 +3,7 @@
 // Definitions by: Martín Callegari <https://github.com/mcallegari10>
 
 import { ElementType } from 'react';
+import {MessageOptions} from "./src/store/actions/types";
 
 declare const Widget: ElementType;
 
@@ -10,6 +11,7 @@ export function addUserMessage(text: string): void;
 export function addUserMessage(text: string, id: string): void;
 export function addUserMessage(text: string, id: string, date: Date): void;
 export function addUserMessage(text: string, id: string, date: Date, chatId: string): void;
+export function addUserMessage(text: string, id: string, date: Date, chatId: string, options: MessageOptions): void;
 
 export function addResponseMessage(text: string): void;
 export function addResponseMessage(text: string, id: string): void;
@@ -37,6 +39,9 @@ export function deleteMessages(count: number, id: string): void;
 export function deleteMessages(count: number, id: string, chatId: string): void;
 
 export function markAllAsRead(): void;
+export function markAllAsRead(chatId: string): void;
+export function markAsRead(id: string): void;
+export function markAsDelivered(id: string, newId?: string): void;
 export function setBadgeCount(count: number): void;
 
 export as namespace ReactChatWidget;

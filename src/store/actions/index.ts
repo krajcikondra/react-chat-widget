@@ -2,6 +2,7 @@ import { ElementType } from 'react';
 
 import * as actionsTypes from './types';
 import { LinkParams, ImageState } from '../types';
+import {MessageOptions} from "./types";
 
 export function toggleChat(chatId?: string): actionsTypes.ToggleChat {
   return {
@@ -23,17 +24,29 @@ export function toggleInputDisabled(): actionsTypes.ToggleInputDisabled {
   };
 }
 
-export function addUserMessage(text: string, id?: string, date?: Date, chatId?: string): actionsTypes.AddUserMessage {
+export function addUserMessage(
+    text: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+    options?: MessageOptions
+): actionsTypes.AddUserMessage {
   return {
     type: actionsTypes.ADD_NEW_USER_MESSAGE,
     text,
     id,
     date,
     chatId,
+    options,
   };
 }
 
-export function addResponseMessage(text: string, id?: string, date?: Date, chatId?: string): actionsTypes.AddResponseMessage {
+export function addResponseMessage(
+    text: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+): actionsTypes.AddResponseMessage {
   return {
     type: actionsTypes.ADD_NEW_RESPONSE_MESSAGE,
     text,
@@ -108,9 +121,25 @@ export function setBadgeCount(count: number): actionsTypes.SetBadgeCount {
   }
 }
 
-export function markAllMessagesRead(): actionsTypes.MarkAllMessagesRead {
+export function markAllMessagesRead(chatId?: string): actionsTypes.MarkAllMessagesRead {
   return {
-    type: actionsTypes.MARK_ALL_READ
+    type: actionsTypes.MARK_ALL_READ,
+    chatId,
+  }
+}
+
+export function markAsRead(id: string): actionsTypes.MarkRead {
+  return {
+    type: actionsTypes.MARK_READ,
+    id,
+  }
+}
+
+export function markAsDelivered(id: string, newId?: string): actionsTypes.MarkDelivered {
+  return {
+    type: actionsTypes.MARK_DELIVERED,
+    id,
+    newId,
   }
 }
 

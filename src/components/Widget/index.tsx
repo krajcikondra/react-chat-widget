@@ -7,6 +7,7 @@ import { AnyFunction } from '../../utils/types';
 
 import WidgetLayout from './layout';
 import {EmojiSet} from "./components/Conversation";
+import {md5} from "../../utils/hash-generator";
 
 type Props = {
   title: string | ReactElement;
@@ -90,8 +91,9 @@ function Widget({
     }
 
     handleSubmit?.(userInput);
-    dispatch(addUserMessage(userInput, undefined, undefined, chatId));
-    handleNewUserMessage(userInput);
+    const msgHash = md5(userInput + (new Date()).getTime());
+    dispatch(addUserMessage(userInput, msgHash, undefined, chatId));
+    handleNewUserMessage(userInput, msgHash);
   }
 
   const onQuickButtonClicked = (event, value) => {
