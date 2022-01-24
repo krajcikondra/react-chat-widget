@@ -19,7 +19,7 @@ export function createNewMessage(
 ): MessageI {
 
 
-  const read = options?.read === undefined ? sender === MESSAGE_SENDER.RESPONSE : options.read
+  const read = options?.read === undefined ? false : options.read
   const delivered = options?.delivered === undefined ? sender === MESSAGE_SENDER.RESPONSE : options.delivered
 
   return {

@@ -46,6 +46,7 @@ export function addResponseMessage(
     id?: string,
     date?: Date,
     chatId?: string,
+    options?: MessageOptions
 ): actionsTypes.AddResponseMessage {
   return {
     type: actionsTypes.ADD_NEW_RESPONSE_MESSAGE,
@@ -53,6 +54,7 @@ export function addResponseMessage(
     id,
     date,
     chatId,
+    options,
   };
 }
 

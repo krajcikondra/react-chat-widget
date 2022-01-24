@@ -34,13 +34,14 @@ const messagesReducer = {
         options,
       )]}),
 
-  [ADD_NEW_RESPONSE_MESSAGE]: (state: MessagesState, { text, id, date, chatId }) =>
+  [ADD_NEW_RESPONSE_MESSAGE]: (state: MessagesState, { text, id, date, chatId, options }) =>
     ({ ...state, messages: [...state.messages, createNewMessage(
         text,
         MESSAGE_SENDER.RESPONSE,
         id,
         date,
         chatId,
+        options,
       )], badgeCount: state.badgeCount + 1 }),
 
   [ADD_NEW_LINK_SNIPPET]: (state: MessagesState, { link, id }) =>

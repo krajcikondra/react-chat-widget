@@ -60,6 +60,7 @@ export interface AddResponseMessage {
   id?: string;
   chatId?: string;
   date?: Date;
+  options?: MessageOptions,
 }
 
 export interface ToggleMsgLoader {

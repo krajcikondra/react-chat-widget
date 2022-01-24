@@ -4,13 +4,14 @@ import store from '.';
 import * as actions from './actions';
 import {LinkParams, ImageState, Message} from './types';
 import {MessageOptions} from "./actions/types";
+import {MESSAGE_SENDER} from "../constants";
 
 export function addUserMessage(text: string, id?: string, date?: Date, chatId?: string, options?: MessageOptions) {
   store.dispatch(actions.addUserMessage(text, id, date, chatId, options));
 }
 
-export function addResponseMessage(text: string, id?: string, date?: Date, chatId?: string) {
-  store.dispatch(actions.addResponseMessage(text, id, date, chatId));
+export function addResponseMessage(text: string, id?: string, date?: Date, chatId?: string, options?: MessageOptions) {
+  store.dispatch(actions.addResponseMessage(text, id, date, chatId, options));
 }
 
 export function addLinkSnippet(link: LinkParams, id?: string) {
@@ -46,7 +47,8 @@ export function isWidgetOpened(chatId?: string): boolean {
 }
 
 export function getLastResponseMessage(chatId?: string): null|Message {
-  let messages = store.getState().messages.messages;
+  const isClient = (m) => m.sender === MESSAGE_SENDER.CLIENT;
+  let messages = store.getState().messages.messages.filter(m => !isClient(m));
 
   if (chatId !== undefined) {
     messages = messages.filter(m => m.chatId === chatId);

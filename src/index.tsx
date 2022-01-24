@@ -12,6 +12,7 @@ type Props = {
   handleNewUserMessage: AnyFunction;
   handleQuickButtonClicked?: AnyFunction;
   handleScrollTop?(): void;
+  handleOnFocus?(chatId?: string): void;
   title?: string;
   titleAvatar?: string;
   subtitle?: string;
@@ -72,6 +73,7 @@ function ConnectedWidget({
   emojiSet,
   maxOpenWidgets,
   handleScrollTop,
+  handleOnFocus,
 }: Props) {
   return (
     <Provider store={store}>
@@ -106,6 +108,7 @@ function ConnectedWidget({
         emojiSet={emojiSet}
         maxOpenWidgets={maxOpenWidgets}
         handleScrollTop={handleScrollTop}
+        onFocus={handleOnFocus}
       />
     </Provider>
   );

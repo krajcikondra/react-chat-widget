@@ -40,6 +40,7 @@ type Props = {
   emojiSet?: EmojiSet;
   maxOpenWidgets?: number;
   handleScrollTop?(): void;
+  onFocus?(chatId?: string): void;
 }
 
 function Widget({
@@ -73,6 +74,7 @@ function Widget({
   emojiSet,
   maxOpenWidgets,
   handleScrollTop,
+  onFocus,
 }: Props) {
   const dispatch = useDispatch();
 
@@ -135,6 +137,7 @@ function Widget({
       emojis={emojis}
       emojiSet={emojiSet}
       onScrollTop={onScrollTop}
+      onFocus={onFocus}
     />
   );
 }

@@ -21,9 +21,10 @@ type Props = {
   onChangeSize: (event: any) => void;
   onTextInputChange?: (event: any) => void;
   onEscapePressed?: () => void;
+  onFocus?: () => void;
 }
 
-function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onEscapePressed }: Props, ref) {
+function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onEscapePressed, onFocus }: Props, ref) {
   const showChat = useSelector((state: GlobalState) => state.behavior.showChat);
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
@@ -150,6 +151,7 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
           onKeyPress={handlerOnKeyPress}
           onKeyUp={handlerOnKeyUp}
           onKeyDown={handlerOnKeyDown}
+          onClick={onFocus}
         />
 
       </div>

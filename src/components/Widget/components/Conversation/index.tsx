@@ -41,6 +41,7 @@ type Props = {
   emojis?: boolean;
   emojiSet?: EmojiSet;
   onScrollTop(): void;
+  onFocus?(chatId?: string): void;
 };
 
 function Conversation({
@@ -65,6 +66,7 @@ function Conversation({
   chatId,
   emojiSet,
   onScrollTop,
+  onFocus,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -119,6 +121,10 @@ function Conversation({
     }
   };
 
+  const handlerOnFocus = () => {
+    onFocus?.(chatId);
+  };
+
   return (
     <div id={"rcw-conversation-container-" + chatId} onMouseDown={initResize}
       className={cn('rcw-conversation-container', className)} aria-live="polite">
@@ -155,6 +161,7 @@ function Conversation({
         onPressEmoji={togglePicker}
         onChangeSize={setOffset}
         onEscapePressed={escapePressed}
+        onFocus={handlerOnFocus}
       />
     </div>
   );
