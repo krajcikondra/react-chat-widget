@@ -304,6 +304,10 @@ You can also control certain actions of the widget:
   - params:
     - count: number
   - As of v3.0, the `badge` prop is being changed to be managed from within the Widget. This method is manually set the badge number.
+- 
+- **getLastResponseMessage**
+  - params:
+    - chatId: string (optional)
 
 #### Widget components
 

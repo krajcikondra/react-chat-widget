@@ -16,7 +16,8 @@ import {
   markAllAsRead,
   setBadgeCount,
   markAsRead,
-  markAsDelivered
+  markAsDelivered,
+  getLastResponseMessage
 } from './src/store/dispatcher';
 
 export {
@@ -35,5 +36,6 @@ export {
   markAllAsRead,
   setBadgeCount,
   markAsRead,
-  markAsDelivered
+  markAsDelivered,
+  getLastResponseMessage
 };

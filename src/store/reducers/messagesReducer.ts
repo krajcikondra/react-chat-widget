@@ -85,6 +85,12 @@ const messagesReducer = {
     const message = state.messages.find(m => m.customId === id);
     if (message) {
       message.unread = false;
+      const pos = state.messages.indexOf(message);
+
+      // mark older messages as read
+      state.messages.slice(0, pos).forEach(m => {
+        m.unread = false;
+      });
     }
     return { ...state, messages: [...state.messages] };
   },

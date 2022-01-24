@@ -2,7 +2,7 @@ import { ElementType } from 'react';
 
 import store from '.';
 import * as actions from './actions';
-import { LinkParams, ImageState } from './types';
+import {LinkParams, ImageState, Message} from './types';
 import {MessageOptions} from "./actions/types";
 
 export function addUserMessage(text: string, id?: string, date?: Date, chatId?: string, options?: MessageOptions) {
@@ -43,6 +43,20 @@ export function dropMessages(chatId?: string) {
 
 export function isWidgetOpened(chatId?: string): boolean {
   return store.getState().behavior.showChat.includes(chatId ?? 'default');
+}
+
+export function getLastResponseMessage(chatId?: string): null|Message {
+  let messages = store.getState().messages.messages;
+
+  if (chatId !== undefined) {
+    messages = messages.filter(m => m.chatId === chatId);
+  }
+
+  if (messages.length === 0) {
+    return null;
+  }
+
+  return messages[messages.length - 1];
 }
 
 export function setQuickButtons(buttons: Array<{ label: string, value: string | number }>) {
