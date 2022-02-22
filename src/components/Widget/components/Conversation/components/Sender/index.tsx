@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 import cn from 'classnames';
 
 import { GlobalState } from 'src/store/types';
-
-import { getCaretIndex, isFirefox, updateCaret, insertNodeAtCaret, getSelection } from '../../../../../../utils/contentEditable'
+import {emojiBackwardConvert, emojiConvert} from "../../../../../../utils/emoji";
+import {getCaretIndex, isFirefox, updateCaret, insertNodeAtCaret, getSelection} from '../../../../../../utils/contentEditable'
+import {Emoji, EmojiSet} from "../../index";
 const send = require('../../../../../../../assets/send_button.svg') as string;
 const emoji = require('../../../../../../../assets/icon-smiley.svg') as string;
 const brRegex = /<br>/g;
@@ -15,8 +16,9 @@ type Props = {
   placeholder: string;
   disabledInput: boolean;
   autofocus: boolean;
-  sendMessage: (event: any) => void;
+  sendMessage: (msg: string) => void;
   buttonAlt: string;
+  set?: EmojiSet;
   onPressEmoji: () => void;
   onChangeSize: (event: any) => void;
   onTextInputChange?: (event: any) => void;
@@ -24,7 +26,7 @@ type Props = {
   onFocus?: () => void;
 }
 
-function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onEscapePressed, onFocus }: Props, ref) {
+function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onEscapePressed, onFocus, set }: Props, ref) {
   const showChat = useSelector((state: GlobalState) => state.behavior.showChat);
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
@@ -48,22 +50,38 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
   const handlerSendMessage = () => {
     const el = inputRef.current;
     if(el.innerHTML) {
-      sendMessage(el.innerText);
+      sendMessage(emojiBackwardConvert(el.innerHTML));
       el.innerHTML = ''
     }
   }
 
-  const handlerOnSelectEmoji = (emoji) => {
+  const getInputText = (): string => {
     const el = inputRef.current;
-    const { start, end } = getSelection(el)
+    return el.innerHTML;
+  };
+
+  const setInputText = (text: string): void => {
+    const el = inputRef.current;
+    el.innerHTML = emojiConvert(text, set);
+  }
+
+  const handlerOnSelectEmoji = (emoji: Emoji) => {
+    const el = inputRef.current;
+    const index = getCaretIndex(el);
+
     if(el.innerHTML) {
-      const firstPart = el.innerHTML.substring(0, start);
-      const secondPart = el.innerHTML.substring(end);
-      el.innerHTML = (`${firstPart}${emoji.native}${secondPart}`)
+      const firstPart = el.innerHTML.substring(0, index);
+      const secondPart = el.innerHTML.substring(index);
+
+      const originLength = getInputText().length;
+      const convertedEmoji = emoji.colons;
+      setInputText(firstPart + convertedEmoji + secondPart);
+      const emojiLen = getInputText().length - originLength;
+      updateCaret(el, index, emojiLen);
     } else {
-      el.innerHTML = emoji.native
+      setInputText(emoji.colons);
+      updateCaret(el, 1, 0);
     }
-    updateCaret(el, start, emoji.native.length)
   }
 
   const handlerOnKeyPress = (event) => {
@@ -72,15 +90,13 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
     if(event.charCode == 13 && !event.shiftKey) {
       event.preventDefault()
       handlerSendMessage();
-    }
-    if(event.charCode === 13 && event.shiftKey) {
+    } else if(event.charCode === 13 && event.shiftKey) {
       event.preventDefault()
       insertNodeAtCaret(el);
       setEnter(true)
     }
   }
 
-  // TODO use a context for checkSize and toggle picker
   const checkSize = () => {
     const senderEl = refContainer.current
     if(senderEl && height !== senderEl.clientHeight) {
@@ -88,6 +104,21 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
       setHeight(clientHeight)
       onChangeSize(clientHeight ? clientHeight -1 : 0)
     }
+  }
+
+  const isHTML = (str: string): boolean => {
+    var a = document.createElement('div');
+    a.innerHTML = str;
+
+    for (var c = a.childNodes, i = c.length; i--; ) {
+      if (c[i].nodeType == 1) return true;
+    }
+
+    return false;
+  }
+
+  const isHtmlSpan = (str: string): boolean => {
+    return str.substring(0, 5) === '<span' && isHTML(str);
   }
 
   const handlerOnKeyUp = (event) => {
@@ -117,7 +148,12 @@ function Sender({ sendMessage, placeholder, disabledInput, autofocus, onTextInpu
     if( event.key === 'Backspace' && el){
       const caretPosition = getCaretIndex(inputRef.current);
       const character = el.innerHTML.charAt(caretPosition - 1);
-      if(character === "\n") {
+      if (isHtmlSpan(el.innerHTML.substring(caretPosition - 1))) {
+        event.preventDefault();
+        event.stopPropagation();
+        el.innerHTML = el.innerHTML.substring(0, caretPosition - 2);
+        updateCaret(el, caretPosition, 1);
+      } else if(character === "\n") {
         event.preventDefault();
         event.stopPropagation();
         el.innerHTML = (el.innerHTML.substring(0, caretPosition - 1) + el.innerHTML.substring(caretPosition))

@@ -18,6 +18,16 @@ interface ISenderRef {
 }
 
 export type EmojiSet = 'apple' | 'google' | 'twitter' | 'facebook';
+export type Emoji = {
+  colons: string,
+  emoticons: any[],
+  id: string,
+  name: string,
+  native: string,
+  short_names: string[],
+  skin: any|null,
+  unified: string,
+};
 
 type Props = {
   chatId: string;
@@ -102,8 +112,8 @@ function Conversation({
   const senderRef = useRef<ISenderRef>(null!);
   const [pickerStatus, setPicket] = useState(false)
 
-  const onSelectEmoji = (emoji) => {
-    senderRef.current?.onSelectEmoji(emoji)
+  const onSelectEmoji = (emoji: Emoji) => {
+    senderRef.current?.onSelectEmoji(emoji);
   }
 
   const togglePicker = () => {
@@ -123,6 +133,7 @@ function Conversation({
 
   const handlerOnFocus = () => {
     onFocus?.(chatId);
+    setPicket(false);
   };
 
   return (
@@ -143,6 +154,7 @@ function Conversation({
         profileClientAvatar={profileClientAvatar}
         showTimeStamp={showTimeStamp}
         onScrollTop={onScrollTop}
+        set={emojiSet ?? undefined}
       />
       <QuickButtons onQuickButtonClicked={onQuickButtonClicked} />
       {emojis && pickerStatus && (<Picker
@@ -162,6 +174,7 @@ function Conversation({
         onChangeSize={setOffset}
         onEscapePressed={escapePressed}
         onFocus={handlerOnFocus}
+        set={emojiSet ?? undefined}
       />
     </div>
   );

@@ -20,12 +20,14 @@ import Loader from './components/Loader';
 import './styles.scss';
 import {Simulate} from "react-dom/test-utils";
 import load = Simulate.load;
+import {EmojiSet} from "../../index";
 
 type Props = {
   chatId: string,
   showTimeStamp: boolean,
   profileAvatar?: string|ReactElement;
   profileClientAvatar?: string|ReactElement;
+  set?: EmojiSet;
   onScrollTop(): void;
 }
 
@@ -33,7 +35,7 @@ const compareMessage = (msg, secondMsg): boolean => {
   return msg.text === secondMsg.text && msg.sender === secondMsg.sender && msg.type === secondMsg.type;
 };
 
-function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, onScrollTop }: Props) {
+function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, onScrollTop, set }: Props) {
   const dispatch = useDispatch();
   const { messages, typing, showChat, badgeCount } = useSelector((state: GlobalState) => ({
     messages: state.messages.messages,
@@ -79,9 +81,9 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
   const getComponentToRender = (message: Message | Link | CustomCompMessage) => {
     const ComponentToRender = message.component;
     if (message.type === 'component') {
-      return <ComponentToRender {...message.props} />;
+      return <ComponentToRender {...message.props} set={set} />;
     }
-    return <ComponentToRender message={message} showTimeStamp={showTimeStamp} />;
+    return <ComponentToRender message={message} showTimeStamp={showTimeStamp} set={set} />;
   };
 
   // TODO: Fix this function or change to move the avatar to last message from response

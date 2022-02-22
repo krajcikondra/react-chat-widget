@@ -8,6 +8,7 @@ import { AnyFunction } from '../../utils/types';
 import WidgetLayout from './layout';
 import {EmojiSet} from "./components/Conversation";
 import {md5} from "../../utils/hash-generator";
+import {emojiBackwardConvert} from "../../utils/emoji";
 
 type Props = {
   title: string | ReactElement;
@@ -94,8 +95,9 @@ function Widget({
 
     handleSubmit?.(userInput);
     const msgHash = md5(userInput + (new Date()).getTime());
-    dispatch(addUserMessage(userInput, msgHash, undefined, chatId));
-    handleNewUserMessage(userInput, msgHash);
+    const userMessage = emojiBackwardConvert(userInput);
+    dispatch(addUserMessage(userMessage, msgHash, undefined, chatId));
+    handleNewUserMessage(userMessage, msgHash);
   }
 
   const onQuickButtonClicked = (event, value) => {
