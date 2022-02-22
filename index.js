@@ -19,6 +19,7 @@ import {
   markAsDelivered,
   getLastResponseMessage
 } from './src/store/dispatcher';
+import { emojiBackwardConvert, emojiConvert } from './src/utils/emoji';
 
 export {
   ConnectedWidget as Widget,
@@ -37,5 +38,7 @@ export {
   setBadgeCount,
   markAsRead,
   markAsDelivered,
-  getLastResponseMessage
+  getLastResponseMessage,
+  emojiBackwardConvert,
+  emojiConvert
 };

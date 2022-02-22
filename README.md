@@ -308,6 +308,15 @@ You can also control certain actions of the widget:
 - **getLastResponseMessage**
   - params:
     - chatId: string (optional)
+ 
+- **emojiConvert**
+  - params:
+    - sanitizedHTML: string
+    - emojiSet: EmojiSet
+- 
+- **emojiBackwardConvert**
+  - params:
+    - text: string
 
 #### Widget components
 

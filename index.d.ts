@@ -5,6 +5,7 @@
 import { ElementType } from 'react';
 import {MessageOptions} from "./src/store/actions/types";
 import {Message} from "@types";
+import {EmojiSet} from "./src/components/Widget/components/Conversation";
 
 declare const Widget: ElementType;
 
@@ -46,6 +47,7 @@ export function markAsRead(id: string): void;
 export function markAsDelivered(id: string, newId?: string): void;
 export function setBadgeCount(count: number): void;
 
-export function getLastResponseMessage(chatId?: string): Message;
+export function emojiConvert(sanitizedHTML: string, emojiSet?: EmojiSet): string;
+export function emojiBackwardConvert(text: string): string;
 
 export as namespace ReactChatWidget;
