@@ -3,15 +3,29 @@ import { ElementType } from 'react';
 import store from '.';
 import * as actions from './actions';
 import {LinkParams, ImageState, Message} from './types';
-import {MessageOptions} from "./actions/types";
+import {MessageOptions, PostOptions} from "./actions/types";
 import {MESSAGE_SENDER} from "../constants";
 
-export function addUserMessage(text: string, id?: string, date?: Date, chatId?: string, options?: MessageOptions) {
-  store.dispatch(actions.addUserMessage(text, id, date, chatId, options));
+export function addUserMessage(
+    text: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+    options?: MessageOptions,
+    post?: PostOptions,
+) {
+  store.dispatch(actions.addUserMessage(text, id, date, chatId, options, post));
 }
 
-export function addResponseMessage(text: string, id?: string, date?: Date, chatId?: string, options?: MessageOptions) {
-  store.dispatch(actions.addResponseMessage(text, id, date, chatId, options));
+export function addResponseMessage(
+    text: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+    options?: MessageOptions,
+    post?: PostOptions,
+) {
+  store.dispatch(actions.addResponseMessage(text, id, date, chatId, options, post));
 }
 
 export function addLinkSnippet(link: LinkParams, id?: string) {

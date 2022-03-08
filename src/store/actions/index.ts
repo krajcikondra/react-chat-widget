@@ -2,7 +2,7 @@ import { ElementType } from 'react';
 
 import * as actionsTypes from './types';
 import { LinkParams, ImageState } from '../types';
-import {MessageOptions} from "./types";
+import {MessageOptions, PostOptions} from "./types";
 
 export function toggleChat(chatId?: string): actionsTypes.ToggleChat {
   return {
@@ -29,7 +29,8 @@ export function addUserMessage(
     id?: string,
     date?: Date,
     chatId?: string,
-    options?: MessageOptions
+    options?: MessageOptions,
+    post?: PostOptions,
 ): actionsTypes.AddUserMessage {
   return {
     type: actionsTypes.ADD_NEW_USER_MESSAGE,
@@ -38,6 +39,7 @@ export function addUserMessage(
     date,
     chatId,
     options,
+    post,
   };
 }
 
@@ -46,7 +48,8 @@ export function addResponseMessage(
     id?: string,
     date?: Date,
     chatId?: string,
-    options?: MessageOptions
+    options?: MessageOptions,
+    post?: PostOptions,
 ): actionsTypes.AddResponseMessage {
   return {
     type: actionsTypes.ADD_NEW_RESPONSE_MESSAGE,
@@ -55,6 +58,7 @@ export function addResponseMessage(
     date,
     chatId,
     options,
+    post,
   };
 }
 

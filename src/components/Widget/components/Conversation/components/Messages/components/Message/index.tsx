@@ -7,11 +7,12 @@ import markdownItClass from '@toycode/markdown-it-class';
 import markdownItLinkAttributes from 'markdown-it-link-attributes';
 
 import { Message } from 'src/store/types';
-
-import './styles.scss';
 import {MESSAGE_SENDER} from "../../../../../../../../constants";
 import {emojiConvert} from "../../../../../../../../utils/emoji";
 import {EmojiSet} from "../../../../index";
+import {PostOptions} from "../../../../../../../../store/actions/types";
+
+import './styles.scss';
 const checkIcon = require('../../../../../../../../../assets/check.svg') as string;
 const checkSuccessIcon = require('../../../../../../../../../assets/check-success.svg') as string;
 
@@ -21,6 +22,15 @@ type Props = {
   showTimeStamp: boolean;
   set?: EmojiSet;
 }
+
+const renderPost = (post: PostOptions): React.ReactNode => {
+  return (<div className="post-wrapper">
+    <a href={post.link} target="_blank">
+      {post.text && <span className="post-text">{post.text}</span>}
+      {post.imgLink && <img className="post-img" src={post.imgLink} alt="" />}
+    </a>
+  </div>)
+};
 
 function Message({ message, showTimeStamp, set }: Props) {
   let sanitizedHTML = markdownIt({ break: true })
@@ -36,7 +46,8 @@ function Message({ message, showTimeStamp, set }: Props) {
 
   return (
     <div className={`rcw-${message.sender}`}>
-      <div className="rcw-message-text" dangerouslySetInnerHTML={{ __html: emojiConvert(sanitizedHTML, set) }} />
+      {message.post && renderPost(message.post)}
+      {message.text && <div className="rcw-message-text" dangerouslySetInnerHTML={{ __html: emojiConvert(sanitizedHTML, set) }} />}
       {showTimeStamp && <span className="rcw-timestamp">{format(message.timestamp, 'hh:mm')}</span>}
         {isClient(message.sender) && <span style={{ textAlign: 'right' }}>
         {(message.delivered)

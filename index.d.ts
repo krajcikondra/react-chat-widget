@@ -3,7 +3,7 @@
 // Definitions by: Martín Callegari <https://github.com/mcallegari10>
 
 import { ElementType } from 'react';
-import {MessageOptions} from "./src/store/actions/types";
+import {MessageOptions, PostOptions} from "./src/store/actions/types";
 import {Message} from "@types";
 import {EmojiSet} from "./src/components/Widget/components/Conversation";
 
@@ -14,12 +14,14 @@ export function addUserMessage(text: string, id: string): void;
 export function addUserMessage(text: string, id: string, date: Date): void;
 export function addUserMessage(text: string, id: string, date: Date, chatId: string): void;
 export function addUserMessage(text: string, id: string, date: Date, chatId: string, options: MessageOptions): void;
+export function addUserMessage(text: string, id: string, date: Date, chatId: string, options: MessageOptions, post?: PostOptions): void;
 
 export function addResponseMessage(text: string): void;
 export function addResponseMessage(text: string, id: string): void;
 export function addResponseMessage(text: string, id: string, date: Date): void;
 export function addResponseMessage(text: string, id: string, date: Date, chatId: string): void;
 export function addResponseMessage(text: string, id: string, date: Date, chatId: string, options: MessageOptions): void;
+export function addResponseMessage(text: string, id: string, date: Date, chatId: string, options: MessageOptions, post?: PostOptions): void;
 
 export function addLinkSnippet(link: { link: string, title: string, target?: string }): void;
 export function addLinkSnippet(link: { link: string, title: string, target?: string }, id: string): void;

@@ -7,7 +7,7 @@ import Snippet from '../components/Widget/components/Conversation/components/Mes
 import QuickButton from '../components/Widget/components/Conversation/components/QuickButtons/components/QuickButton';
 
 import { MESSAGES_TYPES, MESSAGE_SENDER, MESSAGE_BOX_SCROLL_DURATION } from '../constants';
-import {MessageOptions} from "../store/actions/types";
+import {MessageOptions, PostOptions} from "../store/actions/types";
 
 export function createNewMessage(
   text: string,
@@ -16,6 +16,7 @@ export function createNewMessage(
   date?: Date,
   chatId?: string,
   options?: MessageOptions,
+  post?: PostOptions,
 ): MessageI {
 
 
@@ -33,6 +34,7 @@ export function createNewMessage(
     unread: !read,
     chatId,
     delivered,
+    post,
   };
 }
 

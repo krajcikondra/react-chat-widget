@@ -27,6 +27,12 @@ export interface MessageOptions {
   delivered?: boolean,
 }
 
+export interface PostOptions {
+  link: string,
+  text?: string,
+  imgLink?: string,
+}
+
 export interface ToggleChat {
   type: typeof TOGGLE_CHAT;
   chatId?: string;
@@ -48,6 +54,7 @@ export interface AddUserMessage {
   chatId?: string;
   date?: Date;
   options?: MessageOptions,
+  post?: PostOptions;
 }
 
 export interface GetLastResponseMessage {
@@ -61,6 +68,7 @@ export interface AddResponseMessage {
   chatId?: string;
   date?: Date;
   options?: MessageOptions,
+  post?: PostOptions;
 }
 
 export interface ToggleMsgLoader {

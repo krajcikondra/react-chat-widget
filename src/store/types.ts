@@ -1,4 +1,5 @@
 import { ElementType } from 'react';
+import {PostOptions} from "./actions/types";
 
 type BaseMessage = {
   type: string;
@@ -11,6 +12,7 @@ type BaseMessage = {
   customId?: string;
   props?: any;
   chatId?: string;
+  post?: PostOptions;
 }
 
 export interface Message extends BaseMessage {

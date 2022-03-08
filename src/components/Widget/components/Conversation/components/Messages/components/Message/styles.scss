@@ -70,3 +70,34 @@
 .rcw-message-delivered-icon {
   width: 13px;
 }
+
+.post-wrapper {
+  margin-bottom: 8px;
+}
+
+.post-img {
+  width: 90%;
+}
+
+.post-text {
+  background: #ededed;
+  padding: 5px;
+  border-radius: 7px;
+  font-size: 12px;
+  color: grey;
+}
+
+.rcw-client {
+  .rcw-message-text {
+    align-self: end;
+  }
+
+  .post-wrapper {
+    text-align: right;
+
+    .post-text {
+      background: $turqois-2;
+      text-align: right;
+    }
+  }
+}
