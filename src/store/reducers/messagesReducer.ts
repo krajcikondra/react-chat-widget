@@ -17,6 +17,7 @@ import {
   MARK_DELIVERED,
   SET_BADGE_COUNT,
 } from '../actions/types';
+import {pushMessage} from "./utils/messages";
 
 const initialState = {
   messages: [],
@@ -25,24 +26,23 @@ const initialState = {
 
 const messagesReducer = {
   [ADD_NEW_USER_MESSAGE]: (state: MessagesState, { text, showClientAvatar, id, date, chatId, options }) =>
-    ({ ...state, messages: [...state.messages, createNewMessage(
+    ({ ...state, messages: pushMessage(state.messages, createNewMessage(
         text,
         MESSAGE_SENDER.CLIENT,
         id,
         date,
         chatId,
         options,
-      )]}),
-
+      ))}),
   [ADD_NEW_RESPONSE_MESSAGE]: (state: MessagesState, { text, id, date, chatId, options }) =>
-    ({ ...state, messages: [...state.messages, createNewMessage(
+    ({ ...state, messages: pushMessage(state.messages, createNewMessage(
         text,
         MESSAGE_SENDER.RESPONSE,
         id,
         date,
         chatId,
         options,
-      )], badgeCount: state.badgeCount + 1 }),
+      )), badgeCount: state.badgeCount + 1 }),
 
   [ADD_NEW_LINK_SNIPPET]: (state: MessagesState, { link, id }) =>
     ({ ...state, messages: [...state.messages, createLinkSnippet(link, id)] }),

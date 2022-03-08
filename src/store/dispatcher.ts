@@ -58,7 +58,7 @@ export function getLastResponseMessage(chatId?: string): null|Message {
     return null;
   }
 
-  return messages[messages.length - 1];
+  return messages[0];
 }
 
 export function setQuickButtons(buttons: Array<{ label: string, value: string | number }>) {

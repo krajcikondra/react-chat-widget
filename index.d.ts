@@ -35,6 +35,7 @@ export function toggleWidget(chatId?: string): void;
 export function toggleInputDisabled(): void;
 export function dropMessages(chatId?: string): void;
 export function isWidgetOpened(chatId?: string): boolean;
+export function getLastResponseMessage(chatId?: string): null|Message;
 export function setQuickButtons(buttons: Array<{ label: string, value: string | number }>): void;
 
 export function deleteMessages(count: number): void;

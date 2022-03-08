@@ -225,7 +225,7 @@ As of v3.0, messages now have an optional ID that can be added on creation.If yo
     - date: Date (optional)
   - Method to add a new message written as a response to a user input.
 
-- **addUserMessage**
+- **messages**
   - params: 
     - text: string (supports markdown)
     - id: string (optional)
