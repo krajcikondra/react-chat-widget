@@ -21,7 +21,7 @@ import {
 } from './src/store/dispatcher';
 import { emojiBackwardConvert, emojiConvert } from './src/utils/emoji';
 import {PostOptions} from './src/store/types';
-
+import Sender from './src/components/Widget/components/Conversation/components/Sender';
 
 export {
   ConnectedWidget as Widget,
@@ -43,5 +43,6 @@ export {
   getLastResponseMessage,
   emojiBackwardConvert,
   emojiConvert,
-  PostOptions
+  PostOptions,
+  Sender
 };

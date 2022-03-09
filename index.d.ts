@@ -4,6 +4,7 @@
 
 import { ElementType } from 'react';
 import {MessageOptions, PostOptions} from "./src/store/actions/types";
+export {Sender} from "./src/components/Widget/components/Conversation/components/Sender";
 import {Message} from "@types";
 import {EmojiSet} from "./src/components/Widget/components/Conversation";
 

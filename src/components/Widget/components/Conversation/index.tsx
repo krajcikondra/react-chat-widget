@@ -12,6 +12,8 @@ import { AnyFunction } from '../../../../utils/types';
 
 import './style.scss';
 import {isWidgetOpened, toggleWidget} from "../../../../../index";
+import {useSelector} from "react-redux";
+import {GlobalState} from "@types";
 
 interface ISenderRef {
   onSelectEmoji: (event: any) => void;
@@ -109,6 +111,7 @@ function Conversation({
   }
 
   const [pickerOffset, setOffset] = useState(0)
+  const showChat = useSelector((state: GlobalState) => state.behavior.showChat);
   const senderRef = useRef<ISenderRef>(null!);
   const [pickerStatus, setPicket] = useState(false)
 
@@ -175,6 +178,7 @@ function Conversation({
         onEscapePressed={escapePressed}
         onFocus={handlerOnFocus}
         set={emojiSet ?? undefined}
+        showChat={showChat}
       />
     </div>
   );
