@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
-import { useSelector } from 'react-redux';
 import cn from 'classnames';
 
-import { GlobalState } from 'src/store/types';
 import {emojiBackwardConvert, emojiConvert} from "../../../../../../utils/emoji";
 import {getCaretIndex, isFirefox, updateCaret, insertNodeAtCaret, getSelection} from '../../../../../../utils/contentEditable'
 import {Emoji, EmojiSet} from "../../index";
@@ -41,6 +39,7 @@ function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, 
   useImperativeHandle(ref, () => {
     return {
       onSelectEmoji: handlerOnSelectEmoji,
+      setHtml: handlerSetHtml,
     };
   });
 
@@ -66,7 +65,7 @@ function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, 
     el.innerHTML = emojiConvert(text, set);
   }
 
-  const handlerOnSelectEmoji = (emoji: Emoji) => {
+  const handlerOnSelectEmoji = (emoji: Emoji): string => {
     const el = inputRef.current;
     const index = getCaretIndex(el);
 
@@ -83,6 +82,11 @@ function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, 
       setInputText(emoji.colons);
       updateCaret(el, 1, 0);
     }
+    return el.innerHTML;
+  }
+
+  const handlerSetHtml = (html: string): void => {
+    setInputText(html);
   }
 
   const handlerOnKeyPress = (event) => {
