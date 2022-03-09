@@ -20,6 +20,8 @@ import {
   getLastResponseMessage
 } from './src/store/dispatcher';
 import { emojiBackwardConvert, emojiConvert } from './src/utils/emoji';
+import {PostOptions} from './src/store/types';
+
 
 export {
   ConnectedWidget as Widget,
@@ -40,5 +42,6 @@ export {
   markAsDelivered,
   getLastResponseMessage,
   emojiBackwardConvert,
-  emojiConvert
+  emojiConvert,
+  PostOptions
 };

@@ -5,11 +5,12 @@ const emojiConvertor = new EmojiConvertor();
 
 export const emojiConvert = (sanitizedHTML: string, emojiSet?: EmojiSet): string => {
     const msgHtml = sanitizedHTML.replace(/\n$/,'');
-    emojiConvertor.img_sets.google.sheet = '/emoji-data/sheet_' + emojiSet + '_64.png';
+    const _emojiSet = emojiSet ?? 'google';
+    emojiConvertor.img_sets.google.sheet = '/emoji-data/sheet_' + _emojiSet + '_64.png';
     emojiConvertor.use_sheet = false;
 
     emojiConvertor.replace_mode = 'img';
-    emojiConvertor.img_set = emojiSet;
+    emojiConvertor.img_set = _emojiSet;
     emojiConvertor.include_title = true;
 
     const translated = emojiConvertor.replace_colons(convertOneColonEmoji(msgHtml));
