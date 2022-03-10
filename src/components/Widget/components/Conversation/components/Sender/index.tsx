@@ -12,6 +12,7 @@ import './style.scss';
 
 type Props = {
   placeholder: string;
+  className?: string;
   disabledInput: boolean;
   autofocus: boolean;
   sendMessage: (msg: string) => void;
@@ -26,7 +27,7 @@ type Props = {
   disableSendSubmit?: boolean;
 }
 
-function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onEscapePressed, onFocus, set, disableSendSubmit }: Props, ref) {
+function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onEscapePressed, onFocus, set, disableSendSubmit, className}: Props, ref) {
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
   const [enter, setEnter]= useState(false)
@@ -40,6 +41,7 @@ function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, 
     return {
       onSelectEmoji: handlerOnSelectEmoji,
       setHtml: handlerSetHtml,
+      getHtml: getInputText,
     };
   });
 
@@ -173,7 +175,7 @@ function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, 
   }
 
   return (
-    <div ref={refContainer} className="rcw-sender">
+    <div ref={refContainer} className={cn("rcw-sender", className)}>
       <button className='rcw-picker-btn' type="button" onClick={handlerPressEmoji}>
         <img src={emoji} className="rcw-picker-icon" alt="" />
       </button>
