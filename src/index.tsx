@@ -36,6 +36,7 @@ type Props = {
   zoomStep?: number;
   emojis?: boolean;
   emojiSet?: EmojiSet;
+  micAllowed?: boolean;
   handleSubmit?: AnyFunction;
   showBadge?: boolean;
   resizable?: boolean;
@@ -74,6 +75,7 @@ function ConnectedWidget({
   maxOpenWidgets,
   handleScrollTop,
   handleOnFocus,
+  micAllowed,
 }: Props) {
   return (
     <Provider store={store}>
@@ -109,6 +111,7 @@ function ConnectedWidget({
         maxOpenWidgets={maxOpenWidgets}
         handleScrollTop={handleScrollTop}
         onFocus={handleOnFocus}
+        micAllowed={micAllowed}
       />
     </Provider>
   );

@@ -5,10 +5,12 @@ import {emojiBackwardConvert, emojiConvert} from "../../../../../../utils/emoji"
 import {getCaretIndex, isFirefox, updateCaret, insertNodeAtCaret, getSelection} from '../../../../../../utils/contentEditable'
 import {Emoji, EmojiSet} from "../../index";
 const send = require('../../../../../../../assets/send_button.svg') as string;
+const mic = require('../../../../../../../assets/mic.png') as string;
 const emoji = require('../../../../../../../assets/icon-smiley.svg') as string;
 const brRegex = /<br>/g;
 
 import './style.scss';
+import {ReactAudioRecorder} from "../../../../../../audio-recorder/ReactAudioRecorder";
 
 type Props = {
   placeholder: string;
@@ -25,9 +27,10 @@ type Props = {
   onEscapePressed?: () => void;
   onFocus?: () => void;
   disableSendSubmit?: boolean;
+  micAllowed?: boolean;
 }
 
-function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onEscapePressed, onFocus, set, disableSendSubmit, className}: Props, ref) {
+function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onEscapePressed, onFocus, set, disableSendSubmit, className, micAllowed}: Props, ref) {
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
   const [enter, setEnter]= useState(false)
@@ -174,6 +177,8 @@ function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, 
     checkSize();
   }
 
+  const [isMicActive, setMicActive] = useState(false);
+
   return (
     <div ref={refContainer} className={cn("rcw-sender", className)}>
       <button className='rcw-picker-btn' type="button" onClick={handlerPressEmoji}>
@@ -183,21 +188,26 @@ function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, 
           'rcw-message-disable': disabledInput,
         })
       }>
-        <div
-          spellCheck
-          className="rcw-input"
-          role="textbox"
-          contentEditable={!disabledInput}
-          ref={inputRef}
-          placeholder={placeholder}
-          onInput={handlerOnChange}
-          onKeyPress={handlerOnKeyPress}
-          onKeyUp={handlerOnKeyUp}
-          onKeyDown={handlerOnKeyDown}
-          onClick={onFocus}
-        />
+        {isMicActive
+            ? <ReactAudioRecorder render={() => <div>tady bude recorder</div>} />
+            : <div
+                spellCheck
+                className="rcw-input"
+                role="textbox"
+                contentEditable={!disabledInput}
+                ref={inputRef}
+                placeholder={placeholder}
+                onInput={handlerOnChange}
+                onKeyPress={handlerOnKeyPress}
+                onKeyUp={handlerOnKeyUp}
+                onKeyDown={handlerOnKeyDown}
+                onClick={onFocus}
+            />}
 
       </div>
+      {micAllowed && <button className="rcw-mic" onClick={() => setMicActive(!isMicActive)}>
+        <img src={mic} alt="" className="rcw-mic-icon" />
+      </button>}
       {!disableSendSubmit && <button type="submit" className="rcw-send" onClick={handlerSendMessage}>
         <img src={send} className="rcw-send-icon" alt={buttonAlt} />
       </button>}

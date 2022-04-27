@@ -52,6 +52,7 @@ type Props = {
   resizable?: boolean;
   emojis?: boolean;
   emojiSet?: EmojiSet;
+  micAllowed?: boolean;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
 };
@@ -79,6 +80,7 @@ function Conversation({
   emojiSet,
   onScrollTop,
   onFocus,
+  micAllowed,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -179,6 +181,7 @@ function Conversation({
         onFocus={handlerOnFocus}
         set={emojiSet ?? undefined}
         showChat={showChat}
+        micAllowed={micAllowed}
       />
     </div>
   );

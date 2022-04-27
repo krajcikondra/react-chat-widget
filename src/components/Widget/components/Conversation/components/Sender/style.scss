@@ -50,7 +50,7 @@
 
   &[placeholder]:empty::before {
     content: attr(placeholder);
-    color: $grey-0; 
+    color: $grey-0;
   }
 }
 
@@ -60,6 +60,16 @@
   cursor: pointer;
 
   .rcw-send-icon {
+    height: 25px;
+  }
+}
+
+.rcw-mic, .rcw-picker-btn {
+  background: $grey-2;
+  border: 0;
+  cursor: pointer;
+
+  .rcw-mic-icon {
     height: 25px;
   }
 }

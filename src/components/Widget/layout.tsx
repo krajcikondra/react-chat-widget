@@ -40,6 +40,7 @@ type Props = {
   resizable?: boolean;
   emojis?: boolean;
   emojiSet?: EmojiSet;
+  micAllowed?: boolean;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
 }
@@ -74,6 +75,7 @@ function WidgetLayout({
   emojiSet,
   onScrollTop,
   onFocus,
+  micAllowed,
 }: Props) {
   const dispatch = useDispatch();
   const { dissableInput, showChat, visible } = useSelector((state: GlobalState) => ({
@@ -175,6 +177,7 @@ function WidgetLayout({
           emojiSet={emojiSet}
           onScrollTop={onScrollTop}
           onFocus={onFocus}
+          micAllowed={micAllowed}
         />
       }
       {customLauncher !== null && renderLauncher()}
