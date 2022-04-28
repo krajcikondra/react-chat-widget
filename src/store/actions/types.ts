@@ -64,7 +64,8 @@ export interface GetLastResponseMessage {
 
 export interface AddResponseMessage {
   type: typeof ADD_NEW_RESPONSE_MESSAGE;
-  text: string;
+  text?: string;
+  audioLink?: string;
   id?: string;
   chatId?: string;
   date?: Date;

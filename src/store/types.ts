@@ -16,7 +16,8 @@ type BaseMessage = {
 }
 
 export interface Message extends BaseMessage {
-  text: string;
+  text?: string;
+  audioLink?: string;
 };
 
 export type QuickButton = {

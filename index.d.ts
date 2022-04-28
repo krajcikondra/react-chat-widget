@@ -24,6 +24,9 @@ export function addResponseMessage(text: string, id: string, date: Date, chatId:
 export function addResponseMessage(text: string, id: string, date: Date, chatId: string, options: MessageOptions): void;
 export function addResponseMessage(text: string, id: string, date: Date, chatId: string, options: MessageOptions, post?: PostOptions): void;
 
+export function addUserAudioMessage(audioLink: string, id?: string, date?: Date, chatId: string, options?: MessageOptions): void;
+export function addResponseAudioMessage(audioLink: string, id?: string, date?: Date, chatId?: string, options?: MessageOptions): void;
+
 export function addLinkSnippet(link: { link: string, title: string, target?: string }): void;
 export function addLinkSnippet(link: { link: string, title: string, target?: string }, id: string): void;
 

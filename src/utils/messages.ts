@@ -17,6 +17,7 @@ export function createNewMessage(
   chatId?: string,
   options?: MessageOptions,
   post?: PostOptions,
+  audioLink?: string,
 ): MessageI {
 
 
@@ -35,6 +36,7 @@ export function createNewMessage(
     chatId,
     delivered,
     post,
+    audioLink,
   };
 }
 

@@ -17,6 +17,16 @@ export function addUserMessage(
   store.dispatch(actions.addUserMessage(text, id, date, chatId, options, post));
 }
 
+export function addUserAudioMessage(
+    audioLink: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+    options?: MessageOptions,
+) {
+  store.dispatch(actions.addUserAudioMessage(audioLink, id, date, chatId, options));
+}
+
 export function addResponseMessage(
     text: string,
     id?: string,
@@ -26,6 +36,16 @@ export function addResponseMessage(
     post?: PostOptions,
 ) {
   store.dispatch(actions.addResponseMessage(text, id, date, chatId, options, post));
+}
+
+export function addResponseAudioMessage(
+    audioLink: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+    options?: MessageOptions,
+) {
+  store.dispatch(actions.addResponseAudioMessage(audioLink, id, date, chatId, options));
 }
 
 export function addLinkSnippet(link: LinkParams, id?: string) {

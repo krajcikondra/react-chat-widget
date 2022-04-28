@@ -48,6 +48,7 @@ export function addUserAudioMessage(
     id?: string,
     date?: Date,
     chatId?: string,
+    options?: MessageOptions,
 ): actionsTypes.AddUserMessage {
   return {
     type: actionsTypes.ADD_NEW_USER_MESSAGE,
@@ -56,6 +57,7 @@ export function addUserAudioMessage(
     date,
     chatId,
     audioLink,
+    options,
   };
 }
 
@@ -75,6 +77,23 @@ export function addResponseMessage(
     chatId,
     options,
     post,
+  };
+}
+
+export function addResponseAudioMessage(
+    audioLink: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+    options?: MessageOptions,
+): actionsTypes.AddResponseMessage {
+  return {
+    type: actionsTypes.ADD_NEW_RESPONSE_MESSAGE,
+    audioLink,
+    id,
+    date,
+    chatId,
+    options,
   };
 }
 

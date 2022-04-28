@@ -47,7 +47,12 @@ function Message({ message, showTimeStamp, set }: Props) {
   return (
     <div className={`rcw-${message.sender}`}>
       {message.post && renderPost(message.post)}
+
       {message.text && <div className="rcw-message-text" dangerouslySetInnerHTML={{ __html: emojiConvert(sanitizedHTML, set) }} />}
+      {message.audioLink && <audio controls>
+        <source src={message.audioLink} type="audio/wav" />
+      </audio>}
+
       {showTimeStamp && <span className="rcw-timestamp">{format(message.timestamp, 'hh:mm')}</span>}
         {isClient(message.sender) && <span style={{ textAlign: 'right' }}>
         {(message.delivered)

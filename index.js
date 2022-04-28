@@ -3,7 +3,9 @@ import 'react/jsx-runtime';
 import ConnectedWidget from './src';
 import {
   addUserMessage,
+  addUserAudioMessage,
   addResponseMessage,
+  addResponseAudioMessage,
   addLinkSnippet,
   renderCustomComponent,
   toggleWidget,
@@ -26,7 +28,9 @@ import Sender from './src/components/Widget/components/Conversation/components/S
 export {
   ConnectedWidget as Widget,
   addUserMessage,
+  addUserAudioMessage,
   addResponseMessage,
+  addResponseAudioMessage,
   addLinkSnippet,
   renderCustomComponent,
   toggleWidget,
