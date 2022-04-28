@@ -43,6 +43,22 @@ export function addUserMessage(
   };
 }
 
+export function addUserAudioMessage(
+    audioLink: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+): actionsTypes.AddUserMessage {
+  return {
+    type: actionsTypes.ADD_NEW_USER_MESSAGE,
+    text: '',
+    id,
+    date,
+    chatId,
+    audioLink,
+  };
+}
+
 export function addResponseMessage(
     text: string,
     id?: string,

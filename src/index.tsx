@@ -10,6 +10,7 @@ import {EmojiSet} from "./components/Widget/components/Conversation";
 
 type Props = {
   handleNewUserMessage: AnyFunction;
+  handleNewUserAudio: AnyFunction;
   handleQuickButtonClicked?: AnyFunction;
   handleScrollTop?(): void;
   handleOnFocus?(chatId?: string): void;
@@ -55,6 +56,7 @@ function ConnectedWidget({
   profileClientAvatar,
   launcher,
   handleNewUserMessage,
+  handleNewUserAudio,
   handleQuickButtonClicked,
   handleTextInputChange,
   chatId,
@@ -84,6 +86,7 @@ function ConnectedWidget({
         titleAvatar={titleAvatar}
         subtitle={subtitle}
         handleNewUserMessage={handleNewUserMessage}
+        handleNewUserAudio={handleNewUserAudio}
         handleQuickButtonClicked={handleQuickButtonClicked}
         senderPlaceHolder={senderPlaceHolder}
         profileAvatar={profileAvatar}

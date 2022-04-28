@@ -1,0 +1,33 @@
+@import 'variables/colors';
+
+.rcw-mic-recording {
+  border-radius: 30px;
+  background: $turqois-1;
+  padding: 4px;
+  width: calc(100% - 75px);
+}
+
+.rcw-mic-recording-icon {
+  height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.rcw-mic-recording-icon-cancel {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.rcw-mic-recording-timer {
+  padding: 3px;
+  background: $white;
+  color: black;
+  border-radius: 100%;
+  font-size: 10px;
+  min-width: 17px;
+  height: 17px;
+}
+
+.rcw-mic-recording-wrapper {
+  display: contents;
+}

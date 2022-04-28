@@ -55,6 +55,7 @@ export interface AddUserMessage {
   date?: Date;
   options?: MessageOptions,
   post?: PostOptions;
+  audioLink?: string;
 }
 
 export interface GetLastResponseMessage {

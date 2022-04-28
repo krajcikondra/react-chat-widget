@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 
-import { toggleChat, addUserMessage } from '../../store/actions';
+import {toggleChat, addUserMessage, addUserAudioMessage} from '../../store/actions';
 import {isWidgetOpened, setMaxOpenWidgets} from '../../store/dispatcher';
 import { AnyFunction } from '../../utils/types';
 
@@ -9,6 +9,11 @@ import WidgetLayout from './layout';
 import {EmojiSet} from "./components/Conversation";
 import {md5} from "../../utils/hash-generator";
 import {emojiBackwardConvert} from "../../utils/emoji";
+
+type AudioResponseData = {
+  id?: number,
+  url: string,
+};
 
 type Props = {
   title: string | ReactElement;
@@ -22,6 +27,7 @@ type Props = {
   autofocus: boolean;
   customLauncher?: AnyFunction|null;
   handleNewUserMessage: AnyFunction;
+  handleNewUserAudio?: (audioData: AudioResponseData, msgHash: string) => void;
   handleQuickButtonClicked?: AnyFunction;
   handleTextInputChange?: (event: any) => void;
   chatId: string;
@@ -35,6 +41,7 @@ type Props = {
   imagePreview?: boolean;
   zoomStep?: number;
   handleSubmit?: AnyFunction;
+  handleSubmitAudio?: AnyFunction;
   showBadge?: boolean;
   resizable?: boolean;
   emojis?: boolean;
@@ -57,6 +64,7 @@ function Widget({
   autofocus,
   customLauncher,
   handleNewUserMessage,
+  handleNewUserAudio,
   handleQuickButtonClicked,
   handleTextInputChange,
   chatId,
@@ -70,6 +78,7 @@ function Widget({
   imagePreview,
   zoomStep,
   handleSubmit,
+  handleSubmitAudio,
   showBadge,
   resizable,
   emojis,
@@ -102,6 +111,19 @@ function Widget({
     handleNewUserMessage(userMessage, msgHash);
   }
 
+  const handleSendAudio = (response: string) => {
+    if (!response) {
+      return;
+    }
+
+    handleSubmitAudio?.(response);
+    const msgHash = md5(response + (new Date()).getTime());
+    const audioResponseData: AudioResponseData = JSON.parse(response) as AudioResponseData;
+
+    dispatch(addUserAudioMessage(audioResponseData.url, msgHash, undefined, chatId));
+    handleNewUserAudio?.(audioResponseData, msgHash);
+  }
+
   const onQuickButtonClicked = (event, value) => {
     event.preventDefault();
     handleQuickButtonClicked?.(value)
@@ -115,6 +137,7 @@ function Widget({
     <WidgetLayout
       onToggleConversation={toggleConversation}
       onSendMessage={handleMessageSubmit}
+      onSendAudio={handleSendAudio}
       onQuickButtonClicked={onQuickButtonClicked}
       title={title}
       titleAvatar={titleAvatar}

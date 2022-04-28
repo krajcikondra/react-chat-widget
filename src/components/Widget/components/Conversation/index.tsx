@@ -41,6 +41,7 @@ type Props = {
   autofocus: boolean;
   className: string;
   sendMessage: AnyFunction;
+  sendAudio?: AnyFunction;
   toggleChat: AnyFunction;
   profileAvatar?: string|ReactElement;
   profileClientAvatar?: string|ReactElement;
@@ -66,6 +67,7 @@ function Conversation({
   autofocus,
   className,
   sendMessage,
+  sendAudio,
   toggleChat,
   profileAvatar,
   profileClientAvatar,
@@ -170,6 +172,7 @@ function Conversation({
       <Sender
         ref={senderRef}
         sendMessage={handlerSendMsn}
+        sendAudio={sendAudio}
         placeholder={senderPlaceHolder}
         disabledInput={disabledInput}
         autofocus={autofocus}

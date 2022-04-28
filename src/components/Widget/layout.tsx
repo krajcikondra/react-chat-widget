@@ -17,6 +17,7 @@ type Props = {
   titleAvatar?: string;
   subtitle: string;
   onSendMessage: AnyFunction;
+  onSendAudio?: AnyFunction;
   onToggleConversation: AnyFunction;
   senderPlaceHolder: string;
   onQuickButtonClicked: AnyFunction;
@@ -50,6 +51,7 @@ function WidgetLayout({
   titleAvatar,
   subtitle,
   onSendMessage,
+  onSendAudio,
   onToggleConversation,
   senderPlaceHolder,
   onQuickButtonClicked,
@@ -159,6 +161,7 @@ function WidgetLayout({
           title={title}
           subtitle={subtitle}
           sendMessage={onSendMessage}
+          sendAudio={onSendAudio}
           senderPlaceHolder={senderPlaceHolder}
           profileAvatar={profileAvatar}
           profileClientAvatar={profileClientAvatar}

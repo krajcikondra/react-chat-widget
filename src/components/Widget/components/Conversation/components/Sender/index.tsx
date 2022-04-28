@@ -7,11 +7,10 @@ import {Emoji, EmojiSet} from "../../index";
 const send = require('../../../../../../../assets/send_button.svg') as string;
 const mic = require('../../../../../../../assets/mic.png') as string;
 const emoji = require('../../../../../../../assets/icon-smiley.svg') as string;
+import {IRecordingRef, Recording} from "../../../../../../audio-recorder/Recording";
 const brRegex = /<br>/g;
 
 import './style.scss';
-import {ReactAudioRecorder} from "../../../../../../audio-recorder/ReactAudioRecorder";
-import {Recording} from "../../../../../../audio-recorder/Recording";
 
 type Props = {
   placeholder: string;
@@ -19,6 +18,7 @@ type Props = {
   disabledInput: boolean;
   autofocus: boolean;
   sendMessage: (msg: string) => void;
+  sendAudio?: (response: string) => void;
   buttonAlt: string;
   set?: EmojiSet;
   showChat?: string[];
@@ -31,12 +31,32 @@ type Props = {
   micAllowed?: boolean;
 }
 
-function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, onTextInputChange, buttonAlt, onPressEmoji, onChangeSize, onEscapePressed, onFocus, set, disableSendSubmit, className, micAllowed}: Props, ref) {
+function Sender({
+  sendMessage,
+  showChat,
+  placeholder,
+  disabledInput,
+  autofocus,
+  onTextInputChange,
+  buttonAlt,
+  onPressEmoji,
+  onChangeSize,
+  onEscapePressed,
+  onFocus,
+  set,
+  disableSendSubmit,
+  className,
+  micAllowed,
+  sendAudio,
+}: Props, ref) {
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
+  const recordingRef = useRef<IRecordingRef>(null);
   const [enter, setEnter]= useState(false)
   const [firefox, setFirefox] = useState(false);
   const [height, setHeight] = useState(0)
+  const [isAudioUploading, setAudioUploading] = useState(false);
+
   // @ts-ignore
   useEffect(() => { if (showChat && autofocus) inputRef.current?.focus(); }, [showChat]);
   useEffect(() => { setFirefox(isFirefox())}, [])
@@ -54,6 +74,31 @@ function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, 
   }
 
   const handlerSendMessage = () => {
+    if (isMicActive) {
+      const audioBlob = recordingRef.current?.getAudioResult();
+      if (!audioBlob) {
+        return;
+      }
+
+    setAudioUploading(true);
+    fetch(`https://cocaino.test/api/file/upload-sound-blob`, {method:"POST", body: audioBlob})
+        .then(response => {
+          if (response.ok) return response;
+          else throw Error(`Server returned ${response.status}: ${response.statusText}`)
+        })
+        .then(async response => {
+          setAudioUploading(false);
+          const responseText = await response.text();
+          sendAudio?.(responseText);
+        })
+        .catch(err => {
+          setAudioUploading(false);
+          alert(err);
+        });
+
+      return;
+    }
+
     const el = inputRef.current;
     if(el.innerHTML) {
       sendMessage(emojiBackwardConvert(el.innerHTML));
@@ -182,34 +227,35 @@ function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, 
 
   return (
     <div ref={refContainer} className={cn("rcw-sender", className)}>
-      <button className='rcw-picker-btn' type="button" onClick={handlerPressEmoji}>
+      {!isMicActive && <button className='rcw-picker-btn' type="button" onClick={handlerPressEmoji}>
         <img src={emoji} className="rcw-picker-icon" alt="" />
-      </button>
-      <div className={cn('rcw-new-message', {
+      </button>}
+      {isMicActive ? <Recording
+          uploading={isAudioUploading}
+          ref={recordingRef}
+          onDoneRecord={() => setMicActive(false)}
+      /> : <div className={cn('rcw-new-message', {
           'rcw-message-disable': disabledInput,
         })
       }>
-        {isMicActive
-            ? <Recording />
-            : <div
-                spellCheck
-                className="rcw-input"
-                role="textbox"
-                contentEditable={!disabledInput}
-                ref={inputRef}
-                placeholder={placeholder}
-                onInput={handlerOnChange}
-                onKeyPress={handlerOnKeyPress}
-                onKeyUp={handlerOnKeyUp}
-                onKeyDown={handlerOnKeyDown}
-                onClick={onFocus}
-            />}
-
-      </div>
-      {micAllowed && <button className="rcw-mic" onClick={() => setMicActive(!isMicActive)}>
+        <div
+            spellCheck
+            className="rcw-input"
+            role="textbox"
+            contentEditable={!disabledInput}
+            ref={inputRef}
+            placeholder={placeholder}
+            onInput={handlerOnChange}
+            onKeyPress={handlerOnKeyPress}
+            onKeyUp={handlerOnKeyUp}
+            onKeyDown={handlerOnKeyDown}
+            onClick={onFocus}
+        />
+      </div>}
+      {(micAllowed && !isMicActive) && <button className="rcw-mic" onClick={() => setMicActive(!isMicActive)}>
         <img src={mic} alt="" className="rcw-mic-icon" />
       </button>}
-      {!disableSendSubmit && <button type="submit" className="rcw-send" onClick={handlerSendMessage}>
+      {!disableSendSubmit && <button type="submit" className="rcw-send" onClick={handlerSendMessage} disabled={isAudioUploading}>
         <img src={send} className="rcw-send-icon" alt={buttonAlt} />
       </button>}
     </div>

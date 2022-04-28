@@ -19,7 +19,7 @@ export const ReactAudioRecorder = ({
     pauseRecording: () => void
     resumeRecording: () => void
     status: RecordStatusType
-    audioResult: string
+    audioResult: Blob|null
     errorMessage: string
     timer: number
   }) => ReactElement

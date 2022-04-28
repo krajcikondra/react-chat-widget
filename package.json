@@ -24,6 +24,7 @@
     "date-fns": "^2.11.1",
     "emoji-js": "^3.6.0",
     "emoji-mart": "^3.0.1",
+    "get-user-media-promise": "^1.1.4",
     "i": "^0.3.7",
     "markdown-it": "^8.4.1",
     "markdown-it-link-attributes": "^2.1.0",

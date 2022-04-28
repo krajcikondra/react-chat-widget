@@ -1,37 +1,18 @@
 import { useState, useRef } from 'react'
 import { RECORD_STATUS } from './status'
 import useTimer from './useTimer'
+import getUserMedia from 'get-user-media-promise';
 
 export type RecordStatusType = RECORD_STATUS.RECORDING | RECORD_STATUS.PAUSED | RECORD_STATUS.IDLE;
 
 let mediaRecorder: MediaRecorder
 let localStream: MediaStream
 
-const getUserMedia = (
-    constraints: MediaStreamConstraints,
-): Promise<MediaStream> => new Promise((resolve, reject) => {
-  // eslint-disable-next-line no-multi-assign
-  // @ts-ignore
-  window.navigator.getUserMedia = window.navigator.getUserMedia = window.navigator.getUserMedia || window.navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
-
-  // @ts-ignore
-  window.navigator.getUserMedia(constraints, resolve, (err: Error) => {
-    if (constraints.video && constraints.audio) {
-      delete constraints.audio;
-      // @ts-ignore
-      window.navigator.getUserMedia(constraints, resolve, reject);
-    } else {
-      reject(err);
-    }
-  });
-});
-
-
 export const useAudioRecorder = () => {
   const dataArray = useRef<Array<Blob>>([])
 
   const [status, setStatus] = useState<RecordStatusType>(RECORD_STATUS.IDLE)
-  const [audioResult, setAudioResult] = useState<string>('')
+  const [audioResult, setAudioResult] = useState<Blob|null>(null)
   const [errorMessage, setErrorMessage] = useState<string>('')
 
   const {
@@ -103,7 +84,7 @@ export const useAudioRecorder = () => {
         handleResetTimer()
         let audioData = new Blob(dataArray.current, { type: 'audio/wav;' })
         dataArray.current = []
-        setAudioResult(window.URL.createObjectURL(audioData))
+        setAudioResult(audioData)
         setStatus(RECORD_STATUS.IDLE)
         localStream.getAudioTracks().forEach((track: MediaStreamTrack) => {
           track.stop()
