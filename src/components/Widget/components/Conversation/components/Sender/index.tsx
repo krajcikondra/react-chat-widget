@@ -11,6 +11,7 @@ const brRegex = /<br>/g;
 
 import './style.scss';
 import {ReactAudioRecorder} from "../../../../../../audio-recorder/ReactAudioRecorder";
+import {Recording} from "../../../../../../audio-recorder/Recording";
 
 type Props = {
   placeholder: string;
@@ -189,7 +190,7 @@ function Sender({ sendMessage, showChat, placeholder, disabledInput, autofocus, 
         })
       }>
         {isMicActive
-            ? <ReactAudioRecorder render={() => <div>tady bude recorder</div>} />
+            ? <Recording />
             : <div
                 spellCheck
                 className="rcw-input"

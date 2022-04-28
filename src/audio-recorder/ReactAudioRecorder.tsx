@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { useAudioRecorder } from './useAudioRecorder'
+import {RecordStatusType, useAudioRecorder} from './useAudioRecorder'
 
 export const ReactAudioRecorder = ({
   render
@@ -18,7 +18,7 @@ export const ReactAudioRecorder = ({
     stopRecording: () => void
     pauseRecording: () => void
     resumeRecording: () => void
-    status: string
+    status: RecordStatusType
     audioResult: string
     errorMessage: string
     timer: number
