@@ -1,7 +1,12 @@
-import { ReactElement } from 'react'
+import {forwardRef, ReactElement, useImperativeHandle} from 'react'
 import {RecordStatusType, useAudioRecorder} from './useAudioRecorder'
 
-export const ReactAudioRecorder = ({
+export interface IReactAudioRecorder {
+  stopRecording: () => Promise<Blob>;
+  getStatus: () => RecordStatusType;
+}
+
+const BaseReactAudioRecorder = ({
   render
 }: {
   render: ({
@@ -15,7 +20,7 @@ export const ReactAudioRecorder = ({
     timer
   }: {
     startRecording: () => void
-    stopRecording: () => void
+    stopRecording: () => Promise<Blob>
     pauseRecording: () => void
     resumeRecording: () => void
     status: RecordStatusType
@@ -23,7 +28,7 @@ export const ReactAudioRecorder = ({
     errorMessage: string
     timer: number
   }) => ReactElement
-}) => {
+}, ref) => {
   const {
     startRecording,
     stopRecording,
@@ -34,6 +39,13 @@ export const ReactAudioRecorder = ({
     errorMessage,
     timer
   } = useAudioRecorder()
+
+  useImperativeHandle(ref, () => {
+    return {
+      stopRecording,
+      getStatus: (): RecordStatusType => status,
+    };
+  });
 
   return render({
     startRecording,
@@ -46,3 +58,5 @@ export const ReactAudioRecorder = ({
     timer
   })
 }
+
+export const ReactAudioRecorder = forwardRef(BaseReactAudioRecorder);

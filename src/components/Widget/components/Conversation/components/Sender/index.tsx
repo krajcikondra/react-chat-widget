@@ -73,15 +73,8 @@ function Sender({
     onTextInputChange && onTextInputChange(event)
   }
 
-  const handlerSendMessage = () => {
-    if (isMicActive) {
-      const audioBlob = recordingRef.current?.getAudioResult();
-      if (!audioBlob) {
-        return;
-      }
-
-    setAudioUploading(true);
-    fetch(`https://cocaino.test/api/file/upload-sound-blob`, {method:"POST", body: audioBlob})
+  const upload = (audioBlob: Blob) => {
+    return fetch(`https://cocaino.test/api/file/upload-sound-blob`, {method:"POST", body: audioBlob})
         .then(response => {
           if (response.ok) return response;
           else throw Error(`Server returned ${response.status}: ${response.statusText}`)
@@ -95,12 +88,32 @@ function Sender({
           setAudioUploading(false);
           alert(err);
         });
+  }
 
+  const handlerSendMessage = () => {
+    if (isMicActive) {
+      if (recordingRef.current?.getStatus() === 'recording') {
+        recordingRef.current?.stopRecording().then(audioBlob => {
+          setAudioUploading(true);
+          upload(audioBlob).then(() => {
+            setMicActive(false);
+          });
+        });
+        return;
+      }
+
+      const audioBlob = recordingRef.current?.getAudioResult();
+      if (!audioBlob) {
+        return;
+      }
+
+      setAudioUploading(true);
+      upload(audioBlob);
       return;
     }
 
     const el = inputRef.current;
-    if(el.innerHTML) {
+    if (el.innerHTML) {
       sendMessage(emojiBackwardConvert(el.innerHTML));
       el.innerHTML = ''
     }

@@ -1,5 +1,5 @@
-import React, {forwardRef, useEffect, useImperativeHandle, useState} from 'react';
-import {ReactAudioRecorder} from "./ReactAudioRecorder";
+import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
+import {IReactAudioRecorder, ReactAudioRecorder} from "./ReactAudioRecorder";
 
 const danger = require('../../assets/danger.svg') as string;
 const play = require('../../assets/play.svg') as string;
@@ -7,6 +7,7 @@ const stopIcon = require('../../assets/stop.svg') as string;
 const pause = require('../../assets/pause.svg') as string;
 const times = require('../../assets/times.svg') as string;
 const loader = require('../../assets/loader.gif') as string;
+import {RecordStatusType} from "./useAudioRecorder";
 import './style.scss';
 
 type Props = {
@@ -17,19 +18,25 @@ type Props = {
 
 export interface IRecordingRef {
     getAudioResult: () => Blob|null;
+    stopRecording: () => Promise<Blob>;
+    getStatus: () => RecordStatusType;
 }
 
 const BaseRecording = ({onStartRecord, onDoneRecord, uploading}: Props, ref) => {
     const [audio, setAudio] = useState<Blob|null>(null);
+    const audioRecorderRef = useRef<IReactAudioRecorder>();
 
     useImperativeHandle(ref, () => {
         return {
             getAudioResult: () => audio,
+            stopRecording: () => audioRecorderRef?.current?.stopRecording?.(),
+            getStatus: () => audioRecorderRef?.current?.getStatus?.(),
         };
     });
 
     return (
         <ReactAudioRecorder
+            ref={audioRecorderRef}
             render={({
                 startRecording,
                 stopRecording,

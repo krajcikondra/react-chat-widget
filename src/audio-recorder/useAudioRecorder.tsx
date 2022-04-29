@@ -77,22 +77,25 @@ export const useAudioRecorder = () => {
     }
   }
 
-  const stopRecording = () => {
-    if (status !== RECORD_STATUS.IDLE) {
-      mediaRecorder.stop()
-      mediaRecorder.onstop = () => {
-        handleResetTimer()
-        let audioData = new Blob(dataArray.current, { type: 'audio/wav;' })
-        dataArray.current = []
-        setAudioResult(audioData)
-        setStatus(RECORD_STATUS.IDLE)
-        localStream.getAudioTracks().forEach((track: MediaStreamTrack) => {
-          track.stop()
-        })
+  const stopRecording = (): Promise<Blob> => {
+    return new Promise((resolve, reject) => {
+      if (status !== RECORD_STATUS.IDLE) {
+        mediaRecorder.stop()
+        mediaRecorder.onstop = () => {
+          handleResetTimer()
+          let audioData = new Blob(dataArray.current, { type: 'audio/wav;' })
+          dataArray.current = []
+          setAudioResult(audioData)
+          setStatus(RECORD_STATUS.IDLE)
+          localStream.getAudioTracks().forEach((track: MediaStreamTrack) => {
+            track.stop()
+          })
+          return resolve(audioData);
+        }
+      } else {
+        reject();
       }
-    } else {
-      return
-    }
+    });
   }
 
   return {
