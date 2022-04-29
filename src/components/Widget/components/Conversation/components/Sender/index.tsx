@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } f
 import cn from 'classnames';
 
 import {emojiBackwardConvert, emojiConvert} from "../../../../../../utils/emoji";
-import {getCaretIndex, isFirefox, updateCaret, insertNodeAtCaret, getSelection} from '../../../../../../utils/contentEditable'
+import {getCaretIndex, isFirefox, updateCaret, insertNodeAtCaret} from '../../../../../../utils/contentEditable'
 import {Emoji, EmojiSet} from "../../index";
 const send = require('../../../../../../../assets/send_button.svg') as string;
 const mic = require('../../../../../../../assets/mic.png') as string;
@@ -92,7 +92,7 @@ function Sender({
 
   const handlerSendMessage = () => {
     if (isMicActive) {
-      if (recordingRef.current?.getStatus() === 'recording') {
+      if (recordingRef.current?.getStatus() === 'recording' || recordingRef.current?.getStatus() === 'paused') {
         recordingRef.current?.stopRecording().then(audioBlob => {
           setAudioUploading(true);
           upload(audioBlob).then(() => {
@@ -108,7 +108,9 @@ function Sender({
       }
 
       setAudioUploading(true);
-      upload(audioBlob);
+      upload(audioBlob).then(() => {
+        setMicActive(false);
+      });
       return;
     }
 

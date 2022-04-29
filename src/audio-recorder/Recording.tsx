@@ -24,6 +24,7 @@ export interface IRecordingRef {
 
 const BaseRecording = ({onStartRecord, onDoneRecord, uploading}: Props, ref) => {
     const [audio, setAudio] = useState<Blob|null>(null);
+    const [recordedTimer, setRecordedTimer] = useState<number>(0);
     const audioRecorderRef = useRef<IReactAudioRecorder>();
 
     useImperativeHandle(ref, () => {
@@ -33,6 +34,7 @@ const BaseRecording = ({onStartRecord, onDoneRecord, uploading}: Props, ref) => 
             getStatus: () => audioRecorderRef?.current?.getStatus?.(),
         };
     });
+
 
     return (
         <ReactAudioRecorder
@@ -71,15 +73,23 @@ const BaseRecording = ({onStartRecord, onDoneRecord, uploading}: Props, ref) => 
 
             const stop = () => {
                 stopRecording();
+                setRecordedTimer(timer);
             };
 
             useEffect(() => {
                 setAudio(audioResult);
             }, [audioResult]);
 
-            const minutes = Math.floor(timer / 60);
-            const seconds = timer % 60;
-            const time = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`
+            const renderTime = () => {
+                if (audioResult) {
+
+                } else {
+                }
+                const _timer = audioResult ? recordedTimer : timer;
+                const minutes = Math.floor(_timer / 60);
+                const seconds = _timer % 60;
+                return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+            };
 
             return (
                 <div className="rcw-mic-recording-wrapper">
@@ -89,7 +99,7 @@ const BaseRecording = ({onStartRecord, onDoneRecord, uploading}: Props, ref) => 
                         {status === 'paused' && <img className="rcw-mic-recording-icon" src={play} onClick={record} alt="" />}
                         {status === 'recording' && <img className="rcw-mic-recording-icon" src={stopIcon} onClick={stop} alt="" />}
                         {status === 'recording' && <img className="rcw-mic-recording-icon" src={pause} alt="" onClick={pauseRecording} />}
-                        <span className="rcw-mic-recording-timer">{time}</span>
+                        <span className="rcw-mic-recording-timer">{renderTime()}</span>
                     </div>
                 </div>
             );
