@@ -54,6 +54,7 @@ type Props = {
   emojis?: boolean;
   emojiSet?: EmojiSet;
   micAllowed?: boolean;
+  uploadAudioUrl?: string;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
 };
@@ -83,6 +84,7 @@ function Conversation({
   onScrollTop,
   onFocus,
   micAllowed,
+  uploadAudioUrl,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -185,6 +187,7 @@ function Conversation({
         set={emojiSet ?? undefined}
         showChat={showChat}
         micAllowed={micAllowed}
+        uploadAudioUrl={uploadAudioUrl}
       />
     </div>
   );

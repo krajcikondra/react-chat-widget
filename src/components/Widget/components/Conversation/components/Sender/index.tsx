@@ -15,6 +15,7 @@ import './style.scss';
 type Props = {
   placeholder: string;
   className?: string;
+  uploadAudioUrl?: string;
   disabledInput: boolean;
   autofocus: boolean;
   sendMessage: (msg: string) => void;
@@ -33,6 +34,7 @@ type Props = {
 
 function Sender({
   sendMessage,
+  uploadAudioUrl,
   showChat,
   placeholder,
   disabledInput,
@@ -74,7 +76,11 @@ function Sender({
   }
 
   const upload = (audioBlob: Blob) => {
-    return fetch(`https://cocaino.test/api/file/upload-sound-blob`, {method:"POST", body: audioBlob})
+    if (!uploadAudioUrl) {
+      throw new Error('uploadAudioUrl is not set');
+    }
+
+    return fetch(uploadAudioUrl, {method:"POST", body: audioBlob})
         .then(response => {
           if (response.ok) return response;
           else throw Error(`Server returned ${response.status}: ${response.statusText}`)

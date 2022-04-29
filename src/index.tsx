@@ -38,6 +38,7 @@ type Props = {
   emojis?: boolean;
   emojiSet?: EmojiSet;
   micAllowed?: boolean;
+  uploadAudioUrl?: string;
   handleSubmit?: AnyFunction;
   showBadge?: boolean;
   resizable?: boolean;
@@ -78,6 +79,7 @@ function ConnectedWidget({
   handleScrollTop,
   handleOnFocus,
   micAllowed,
+  uploadAudioUrl,
 }: Props) {
   return (
     <Provider store={store}>
@@ -115,6 +117,7 @@ function ConnectedWidget({
         handleScrollTop={handleScrollTop}
         onFocus={handleOnFocus}
         micAllowed={micAllowed}
+        uploadAudioUrl={uploadAudioUrl}
       />
     </Provider>
   );

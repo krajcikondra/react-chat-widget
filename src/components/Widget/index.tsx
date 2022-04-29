@@ -47,6 +47,7 @@ type Props = {
   emojis?: boolean;
   emojiSet?: EmojiSet;
   micAllowed?: boolean;
+  uploadAudioUrl?: string;
   maxOpenWidgets?: number;
   handleScrollTop?(): void;
   onFocus?(chatId?: string): void;
@@ -87,6 +88,7 @@ function Widget({
   handleScrollTop,
   onFocus,
   micAllowed,
+  uploadAudioUrl,
 }: Props) {
   const dispatch = useDispatch();
 
@@ -166,6 +168,7 @@ function Widget({
       onScrollTop={onScrollTop}
       onFocus={onFocus}
       micAllowed={micAllowed}
+      uploadAudioUrl={uploadAudioUrl}
     />
   );
 }

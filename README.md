@@ -197,6 +197,7 @@ export default App;
 |**emojis**| boolean                                                 | NO       | false                                                                                       |enable emoji picker|
 |**showBadge**| boolean                                                 | NO       | true                                                                                        |Prop that allows to show or hide the unread message badge|
 |**micAllowed**| boolean                                                 | NO       || Is mic button allowed?                                                                      |
+|**uploadAudioUrl**| string                                                  | NO       || Url for upload recorded audio                                                               |
 |**startRecording**| PropTypes.func                                          | NO       || Initiated when the users presses and holds the mic button                                   |
 |**stopRecording**| PropTypes.func                                          | NO       || Initiated when the mic button is released                                                   |
 

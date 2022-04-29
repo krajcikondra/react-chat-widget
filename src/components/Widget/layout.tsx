@@ -42,6 +42,7 @@ type Props = {
   emojis?: boolean;
   emojiSet?: EmojiSet;
   micAllowed?: boolean;
+  uploadAudioUrl?: string;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
 }
@@ -78,6 +79,7 @@ function WidgetLayout({
   onScrollTop,
   onFocus,
   micAllowed,
+  uploadAudioUrl,
 }: Props) {
   const dispatch = useDispatch();
   const { dissableInput, showChat, visible } = useSelector((state: GlobalState) => ({
@@ -181,6 +183,7 @@ function WidgetLayout({
           onScrollTop={onScrollTop}
           onFocus={onFocus}
           micAllowed={micAllowed}
+          uploadAudioUrl={uploadAudioUrl}
         />
       }
       {customLauncher !== null && renderLauncher()}
