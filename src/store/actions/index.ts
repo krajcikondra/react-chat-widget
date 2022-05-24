@@ -89,6 +89,7 @@ export function addResponseAudioMessage(
 ): actionsTypes.AddResponseMessage {
   return {
     type: actionsTypes.ADD_NEW_RESPONSE_MESSAGE,
+    text: '',
     audioLink,
     id,
     date,
