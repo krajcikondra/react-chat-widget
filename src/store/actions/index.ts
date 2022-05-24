@@ -87,6 +87,7 @@ export function addResponseAudioMessage(
     chatId?: string,
     options?: MessageOptions,
 ): actionsTypes.AddResponseMessage {
+  console.log('addResponseAudioMessage', 'jsem tu');
   return {
     type: actionsTypes.ADD_NEW_RESPONSE_MESSAGE,
     text: '',
