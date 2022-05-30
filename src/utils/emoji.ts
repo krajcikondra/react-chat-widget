@@ -13,18 +13,18 @@ export const emojiConvert = (sanitizedHTML: string, emojiSet?: EmojiSet): string
     emojiConvertor.img_set = _emojiSet;
     emojiConvertor.include_title = true;
 
-    const translated = emojiConvertor.replace_colons(convertOneColonEmoji(msgHtml));
-    return replaceSpanEmojiByImgEmoji(translated);
+    return emojiConvertor.replace_colons(convertOneColonEmoji(msgHtml));
+    // return replaceSpanEmojiByImgEmoji(translated);
 }
 
 export const convertOneColonEmoji = (text: string): string => {
-    text = text.replaceAll(':-)', ':slightly_smiling_face:');
-    text = text.replaceAll(':)', ':slightly_smiling_face:');
-    text = text.replaceAll(':-D', ':grinning:');
-    text = text.replaceAll(':D', ':grinning:');
-    text = text.replaceAll(':-*', ':kissing_heart:');
-    text = text.replaceAll(':-(', ':unamused:');
-    text = text.replaceAll(':-/', ':face_with_rolling_eyes:');
+    // text = text.replaceAll(':-)', ':slightly_smiling_face:');
+    // text = text.replaceAll(':)', ':slightly_smiling_face:');
+    // text = text.replaceAll(':-D', ':grinning:');
+    // text = text.replaceAll(':D', ':grinning:');
+    // text = text.replaceAll(':-*', ':kissing_heart:');
+    // text = text.replaceAll(':-(', ':unamused:');
+    // text = text.replaceAll(':-/', ':face_with_rolling_eyes:');
     return text;
 };
 
