@@ -16,4 +16,9 @@ describe('Emoji convert', () => {
       'Hi <img src="/emoji-data/img-google-64/1f60d.png" class="emoji" data-codepoints="1f60d"  title="heart_eyes"/>'
     );
   });
+
+  it('emojiConvert and emojiBackwardConvert', () => {
+    const textUnconverted = 'Hi :heart_eyes: :heart_eyes: :heart_eyes:';
+    expect(emojiConvert(textUnconverted)).toEqual('Hi <img src="/emoji-data/img-google-64/1f60d.png" class="emoji" data-codepoints="1f60d"  title="heart_eyes"/> <img src="/emoji-data/img-google-64/1f60d.png" class="emoji" data-codepoints="1f60d"  title="heart_eyes"/> <img src="/emoji-data/img-google-64/1f60d.png" class="emoji" data-codepoints="1f60d"  title="heart_eyes"/>');
+  });
 });

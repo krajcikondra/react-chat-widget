@@ -13,18 +13,18 @@ export const emojiConvert = (sanitizedHTML: string, emojiSet?: EmojiSet): string
     emojiConvertor.img_set = _emojiSet;
     emojiConvertor.include_title = true;
 
-    return emojiConvertor.replace_colons(convertOneColonEmoji(msgHtml));
-    // return replaceSpanEmojiByImgEmoji(translated);
+    const translated = emojiConvertor.replace_colons(convertOneColonEmoji(msgHtml));
+    return replaceSpanEmojiByImgEmoji(translated);
 }
 
 export const convertOneColonEmoji = (text: string): string => {
-    // text = text.replaceAll(':-)', ':slightly_smiling_face:');
-    // text = text.replaceAll(':)', ':slightly_smiling_face:');
-    // text = text.replaceAll(':-D', ':grinning:');
-    // text = text.replaceAll(':D', ':grinning:');
-    // text = text.replaceAll(':-*', ':kissing_heart:');
-    // text = text.replaceAll(':-(', ':unamused:');
-    // text = text.replaceAll(':-/', ':face_with_rolling_eyes:');
+    text = text.replaceAll(':-)', ':slightly_smiling_face:');
+    text = text.replaceAll(':)', ':slightly_smiling_face:');
+    text = text.replaceAll(':-D', ':grinning:');
+    text = text.replaceAll(':D', ':grinning:');
+    text = text.replaceAll(':-*', ':kissing_heart:');
+    text = text.replaceAll(':-(', ':unamused:');
+    text = text.replaceAll(':-/', ':face_with_rolling_eyes:');
     return text;
 };
 
@@ -53,6 +53,10 @@ export const replaceSpanEmojiByImgEmoji = (text: string): string => {
     if (iterations > 0) {
         for (let i = 0; i < iterations; i++) {
             let index = text.indexOf("<span");
+            if (index === -1) {
+                return text;
+            }
+
             let ending = text.indexOf("></span>") + 8;
             const emojiSpan = text.substring(index, ending);
             let urlStartPos = text.indexOf("style=\"background-image:url(/") + 28;
@@ -69,7 +73,7 @@ export const replaceSpanEmojiByImgEmoji = (text: string): string => {
             const imgUrl = text.substring(urlStartPos, urlEndPos);
             const img = "<img class=\"emoji emoji-sizer\" src=\"" + imgUrl + "\" title=\"" + title + "\" data-codepoints=\"" + codePoints + "\" />";
 
-            return text.replace(emojiSpan, img);
+            text = text.replace(emojiSpan, img);
         }
     }
     return text;
