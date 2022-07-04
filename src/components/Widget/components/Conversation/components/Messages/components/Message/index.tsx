@@ -23,10 +23,10 @@ type Props = {
   set?: EmojiSet;
 }
 
-const renderPost = (post: PostOptions): React.ReactNode => {
+const renderPost = (post: PostOptions, set?: EmojiSet): React.ReactNode => {
   return (<div className="post-wrapper">
     <a href={post.link} target="_blank">
-      {post.text && <span className="post-text">{post.text}</span>}
+      {post.text && <span className="post-text" dangerouslySetInnerHTML={{ __html: emojiConvert(post.text, set) }} />}
       {post.imgLink && <img className="post-img" src={post.imgLink} alt="" />}
     </a>
   </div>)
@@ -46,7 +46,7 @@ function Message({ message, showTimeStamp, set }: Props) {
 
   return (
     <div className={`rcw-${message.sender}`}>
-      {message.post && renderPost(message.post)}
+      {message.post && renderPost(message.post, set)}
 
       {message.text && <div className="rcw-message-text" dangerouslySetInnerHTML={{ __html: emojiConvert(sanitizedHTML, set) }} />}
       {message.audioLink && <audio controls>
