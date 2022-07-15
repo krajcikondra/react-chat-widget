@@ -5,6 +5,7 @@ import markdownItSup from 'markdown-it-sup';
 import markdownItSanitizer from 'markdown-it-sanitizer';
 import markdownItClass from '@toycode/markdown-it-class';
 import markdownItLinkAttributes from 'markdown-it-link-attributes';
+import classnames from 'classnames';
 
 import { Message } from 'src/store/types';
 import {MESSAGE_SENDER} from "../../../../../../../../constants";
@@ -26,7 +27,11 @@ type Props = {
 const renderPost = (post: PostOptions, set?: EmojiSet): React.ReactNode => {
   return (<div className="post-wrapper">
     <a href={post.link} target="_blank">
-      {post.text && <span className="post-text" dangerouslySetInnerHTML={{ __html: emojiConvert(post.text, set) }} />}
+      {post.title && <span className="post-wrapper-title"><div>{post.title}</div></span>}
+      {post.text && <div className={classnames(
+          'post-text',
+          post.imgLink && 'has-img',
+      )} dangerouslySetInnerHTML={{ __html: emojiConvert(post.text, set) }} />}
       {post.imgLink && <img className="post-img" src={post.imgLink} alt="" />}
     </a>
   </div>)

@@ -28,6 +28,7 @@ export interface MessageOptions {
 }
 
 export interface PostOptions {
+  title?: string,
   link: string,
   text?: string,
   imgLink?: string,
