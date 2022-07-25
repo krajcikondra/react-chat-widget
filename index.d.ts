@@ -7,6 +7,7 @@ import {MessageOptions, PostOptions} from "./src/store/actions/types";
 export {Sender} from "./src/components/Widget/components/Conversation/components/Sender";
 import {Message} from "@types";
 import {EmojiSet} from "./src/components/Widget/components/Conversation";
+import {indexOfAll, isEmojiPosition, strEmojiLen, textWithEmojiTruncate} from "./src/utils/text-with-emoji-truncate";
 
 declare const Widget: ElementType;
 
@@ -56,5 +57,10 @@ export function setBadgeCount(count: number): void;
 
 export function emojiConvert(sanitizedHTML: string, emojiSet?: EmojiSet): string;
 export function emojiBackwardConvert(text: string): string;
+
+export function textWithEmojiTruncate(text: string, maxLength: number): string;
+export function strEmojiLen(text: string): number;
+export function isEmojiPosition(text: string, requiredPos: number): boolean;
+export function indexOfAll(haystack: string, needle: string): number[];
 
 export as namespace ReactChatWidget;

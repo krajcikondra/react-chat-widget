@@ -25,6 +25,7 @@ import { emojiBackwardConvert, emojiConvert } from './src/utils/emoji';
 import { emojiTruncate, EmojiPart } from './src/utils/text-with-emoji-truncate';
 import {PostOptions} from './src/store/types';
 import Sender from './src/components/Widget/components/Conversation/components/Sender';
+const {textWithEmojiTruncate, strEmojiLen, isEmojiPosition, indexOfAll} = emojiTruncate;
 
 export {
   ConnectedWidget as Widget,
@@ -48,6 +49,10 @@ export {
   getLastResponseMessage,
   emojiBackwardConvert,
   emojiConvert,
+  textWithEmojiTruncate,
+  strEmojiLen,
+  isEmojiPosition,
+  indexOfAll,
   emojiTruncate,
   EmojiPart,
   PostOptions,
