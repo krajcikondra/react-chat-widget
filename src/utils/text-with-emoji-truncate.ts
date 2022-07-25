@@ -37,7 +37,8 @@ const findEmojiParts = (haystack: string): EmojiPart[] => {
         return [];
     }
     const emojiParts: EmojiPart[] = [];
-    usedEmoji.forEach(ue => {
+    const uniqueEmoji = usedEmoji.filter((item, i, ar) => ar.indexOf(item) === i);
+    uniqueEmoji.forEach(ue => {
         indexOfAll(haystack, ue).forEach(startPos => {
             emojiParts.push({
                 emoji: ue,
