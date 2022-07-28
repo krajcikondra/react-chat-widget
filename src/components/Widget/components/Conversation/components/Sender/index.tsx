@@ -165,8 +165,11 @@ function Sender({
     const el = inputRef.current;
 
     if(event.charCode == 13 && !event.shiftKey) {
-      event.preventDefault()
-      handlerSendMessage();
+      // press enter
+      if (!disableSendSubmit) {
+        event.preventDefault()
+        handlerSendMessage();
+      }
     } else if(event.charCode === 13 && event.shiftKey) {
       event.preventDefault()
       insertNodeAtCaret(el);
