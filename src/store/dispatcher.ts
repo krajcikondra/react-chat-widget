@@ -103,6 +103,10 @@ export function deleteMessages(count: number, id?: string) {
   store.dispatch(actions.deleteMessages(count, id));
 }
 
+export function clearChat(chatId: string) {
+  store.dispatch(actions.clearChat(chatId));
+}
+
 export function markAllAsRead(chatId?: string) {
   store.dispatch(actions.markAllMessagesRead(chatId));
 }

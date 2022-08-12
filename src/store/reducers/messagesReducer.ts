@@ -12,6 +12,7 @@ import {
   DROP_MESSAGES,
   HIDE_AVATAR,
   DELETE_MESSAGES,
+  CLEAR_CHAT,
   MARK_ALL_READ,
   MARK_READ,
   MARK_DELIVERED,
@@ -69,6 +70,12 @@ const messagesReducer = {
         return index < targetMsg - count + 1 || index > targetMsg
       })
       : state.messages.slice(0, state.messages.length - count)
+  }),
+
+  [CLEAR_CHAT]: (state: MessagesState, { chatId }) =>
+  ({
+    ...state,
+    messages: state.messages.filter(tMsg => tMsg.chatId !== chatId),
   }),
 
   [SET_BADGE_COUNT]: (state: MessagesState, { count }) => ({ ...state, badgeCount: count }),

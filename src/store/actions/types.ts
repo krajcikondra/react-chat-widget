@@ -15,6 +15,7 @@ export const ADD_COMPONENT_MESSAGE = 'MESSAGES/ADD_COMPONENT_MESSAGE';
 export const DROP_MESSAGES = 'MESSAGES/DROP_MESSAGES';
 export const HIDE_AVATAR = 'MESSAGES/HIDE_AVATAR';
 export const DELETE_MESSAGES = 'MESSAGES/DELETE_MESSAGES';
+export const CLEAR_CHAT = 'MESSAGES/CLEAR_CHAT';
 export const MARK_ALL_READ = 'MESSAGES/MARK_ALL_READ';
 export const MARK_DELIVERED = 'MESSAGES/MARK_DELIVERED';
 export const MARK_READ = 'MESSAGES/MARK_READ';
@@ -108,6 +109,11 @@ export interface DeleteMessages {
   id?: string;
 }
 
+export interface ClearChat {
+  type: typeof CLEAR_CHAT;
+  chatId: string;
+}
+
 export interface SetQuickButtons {
   type: typeof SET_QUICK_BUTTONS;
   buttons: Array<{ label: string, value: string | number }>;
@@ -138,7 +144,7 @@ export type BehaviorActions = ToggleChat | ToggleInputDisabled | ToggleMsgLoader
 
 export type MessagesActions = AddUserMessage | AddResponseMessage | AddLinkSnippet | RenderCustomComponent
                               | DropMessages | HideAvatar | DeleteMessages | MarkAllMessagesRead | SetBadgeCount
-                              | MarkDelivered | MarkRead;
+                              | MarkDelivered | MarkRead | ClearChat;
 
 export type QuickButtonsActions = SetQuickButtons;
 

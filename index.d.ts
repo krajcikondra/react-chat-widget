@@ -48,6 +48,7 @@ export function setQuickButtons(buttons: Array<{ label: string, value: string | 
 export function deleteMessages(count: number): void;
 export function deleteMessages(count: number, id: string): void;
 export function deleteMessages(count: number, id: string, chatId: string): void;
+export function clearChat(chatId: string): void;
 
 export function markAllAsRead(): void;
 export function markAllAsRead(chatId: string): void;

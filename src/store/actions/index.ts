@@ -156,6 +156,13 @@ export function deleteMessages(count: number, id?: string): actionsTypes.DeleteM
   }
 }
 
+export function clearChat(chatId: string): actionsTypes.ClearChat {
+  return {
+    type: actionsTypes.CLEAR_CHAT,
+    chatId,
+  }
+}
+
 export function setBadgeCount(count: number): actionsTypes.SetBadgeCount {
   return {
     type: actionsTypes.SET_BADGE_COUNT,
