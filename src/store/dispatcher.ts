@@ -106,6 +106,16 @@ export function getLastResponseMessage(chatId?: string): null|Message {
   return messages[0];
 }
 
+export function getMessages(chatId?: string): Message[] {
+  let messages = store.getState().messages.messages;
+
+  if (chatId !== undefined) {
+    messages = messages.filter(m => m.chatId === chatId);
+  }
+
+  return messages;
+}
+
 export function setQuickButtons(buttons: Array<{ label: string, value: string | number }>) {
   store.dispatch(actions.setQuickButtons(buttons));
 }

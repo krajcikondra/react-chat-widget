@@ -21,7 +21,8 @@ import {
   setBadgeCount,
   markAsRead,
   markAsDelivered,
-  getLastResponseMessage
+  getLastResponseMessage,
+  getMessages
 } from './src/store/dispatcher';
 import { emojiBackwardConvert, emojiConvert } from './src/utils/emoji';
 import { emojiTruncate, EmojiPart } from './src/utils/text-with-emoji-truncate';
@@ -51,6 +52,7 @@ export {
   markAsRead,
   markAsDelivered,
   getLastResponseMessage,
+  getMessages,
   emojiBackwardConvert,
   emojiConvert,
   textWithEmojiTruncate,
