@@ -6,7 +6,7 @@ import React, {
   ImgHTMLAttributes,
   MouseEvent,
   ReactElement,
-  ReactNode
+  ReactNode, useImperativeHandle, forwardRef
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import format from 'date-fns/format';
@@ -21,6 +21,11 @@ import './styles.scss';
 import {Simulate} from "react-dom/test-utils";
 import load = Simulate.load;
 import {EmojiSet} from "../../index";
+import classnames from "classnames";
+
+export interface IMessagesRef {
+  scrollToBottom: () => void;
+}
 
 type Props = {
   chatId: string,
@@ -35,7 +40,7 @@ const compareMessage = (msg, secondMsg): boolean => {
   return msg.text === secondMsg.text && msg.sender === secondMsg.sender && msg.type === secondMsg.type;
 };
 
-function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, onScrollTop, set }: Props) {
+function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, onScrollTop, set }: Props, ref) {
   const dispatch = useDispatch();
   const { messages, typing, showChat, badgeCount } = useSelector((state: GlobalState) => ({
     messages: state.messages.messages,
@@ -49,6 +54,15 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
   const [lastMessageToScroll, setLastMessageToScroll] = useState<any|null>(null);
 
   const isChatVisible: boolean = showChat.includes(chatId);
+  useImperativeHandle(ref, () => {
+    return {
+      scrollToBottom: handlerScrollToBottom,
+    };
+  });
+
+  const handlerScrollToBottom = () => {
+    scrollToBottom(messageRef.current);
+  };
 
   const messageRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -59,7 +73,9 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
           messageRef.current.scrollTo(0, messageRef.current.scrollHeight - lastChatHeight);
         }
       } else {
-        scrollToBottom(messageRef.current);
+        setTimeout(() => {
+          scrollToBottom(messageRef.current);
+        }, 200);
       }
     }
 
@@ -95,7 +111,7 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
   // }
 
   const isClient = (sender) => sender === MESSAGE_SENDER.CLIENT;
-  const getChatMessages = (): any[] => {
+  const getChatMessages = (): Message[] => {
     if (!messages) {
       return [];
     }
@@ -151,7 +167,11 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
         };
 
         return (
-            <div className={`rcw-message ${isClient(message.sender) ? 'rcw-message-client' : ''}`}
+            <div className={classnames(
+                `rcw-message`,
+                `${isClient(message.sender) ? 'rcw-message-client' : ''}`,
+                message.isSystemMessage && 'rcw-message-system',
+            )}
                  key={`${index}-${format(message.timestamp, 'hh:mm')}`}>
               {((profileAvatar && !isClient(message.sender)) || (profileClientAvatar && isClient(message.sender))) &&
               message.showAvatar && renderAvatar(isClient(message.sender) ? profileClientAvatar : profileAvatar)}
@@ -164,4 +184,4 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
   );
 }
 
-export default Messages;
+export default forwardRef(Messages);

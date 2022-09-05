@@ -2,7 +2,7 @@ import { ElementType } from 'react';
 
 import * as actionsTypes from './types';
 import { LinkParams, ImageState } from '../types';
-import {MessageOptions, PostOptions} from "./types";
+import {AddResponseSystemMessage, MessageOptions, PostOptions} from "./types";
 
 export function toggleChat(chatId?: string): actionsTypes.ToggleChat {
   return {
@@ -71,6 +71,25 @@ export function addResponseMessage(
 ): actionsTypes.AddResponseMessage {
   return {
     type: actionsTypes.ADD_NEW_RESPONSE_MESSAGE,
+    text,
+    id,
+    date,
+    chatId,
+    options,
+    post,
+  };
+}
+
+export function addSystemResponseMessage(
+    text: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+    options?: MessageOptions,
+    post?: PostOptions,
+): actionsTypes.AddResponseSystemMessage {
+  return {
+    type: actionsTypes.ADD_NEW_SYSTEM_RESPONSE_MESSAGE,
     text,
     id,
     date,

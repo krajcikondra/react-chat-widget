@@ -18,6 +18,7 @@ export function createNewMessage(
   options?: MessageOptions,
   post?: PostOptions,
   audioLink?: string,
+  isSystemMessage = false,
 ): MessageI {
 
 
@@ -30,13 +31,14 @@ export function createNewMessage(
     text,
     sender,
     timestamp: date ? date : new Date(),
-    showAvatar: true,
+    showAvatar: !isSystemMessage,
     customId: id,
     unread: !read,
     chatId,
     delivered,
     post,
     audioLink,
+    isSystemMessage,
   };
 }
 

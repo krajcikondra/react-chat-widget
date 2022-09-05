@@ -4,7 +4,7 @@ import { Picker } from 'emoji-mart';
 import cn from 'classnames';
 
 import Header from './components/Header';
-import Messages from './components/Messages';
+import Messages, {IMessagesRef} from './components/Messages';
 import Sender from './components/Sender';
 import QuickButtons from './components/QuickButtons';
 
@@ -144,6 +144,7 @@ function Conversation({
     onFocus?.(chatId);
     setPicket(false);
   };
+  const messagesRef = useRef<IMessagesRef>(null!);
 
   return (
     <div id={"rcw-conversation-container-" + chatId} onMouseDown={initResize}
@@ -158,6 +159,7 @@ function Conversation({
         titleAvatar={titleAvatar}
       />
       <Messages
+        ref={messagesRef}
         chatId={chatId}
         profileAvatar={profileAvatar}
         profileClientAvatar={profileClientAvatar}

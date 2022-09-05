@@ -38,6 +38,17 @@ export function addResponseMessage(
   store.dispatch(actions.addResponseMessage(text, id, date, chatId, options, post));
 }
 
+export function addSystemResponseMessage(
+    text: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+    options?: MessageOptions,
+    post?: PostOptions,
+) {
+  store.dispatch(actions.addSystemResponseMessage(text, id, date, chatId, options, post));
+}
+
 export function addResponseAudioMessage(
     audioLink: string,
     id?: string,

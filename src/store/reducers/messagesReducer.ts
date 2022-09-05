@@ -7,6 +7,7 @@ import {
   MessagesActions,
   ADD_NEW_USER_MESSAGE,
   ADD_NEW_RESPONSE_MESSAGE,
+  ADD_NEW_SYSTEM_RESPONSE_MESSAGE,
   ADD_NEW_LINK_SNIPPET,
   ADD_COMPONENT_MESSAGE,
   DROP_MESSAGES,
@@ -47,6 +48,19 @@ const messagesReducer = {
         options,
         post,
         audioLink,
+      )), badgeCount: state.badgeCount + 1 }),
+
+  [ADD_NEW_SYSTEM_RESPONSE_MESSAGE]: (state: MessagesState, { text, id, date, chatId, options, post, audioLink }) =>
+    ({ ...state, messages: pushMessage(state.messages, createNewMessage(
+        text,
+        MESSAGE_SENDER.RESPONSE,
+        id,
+        date,
+        chatId,
+        options,
+        post,
+        audioLink,
+        true,
       )), badgeCount: state.badgeCount + 1 }),
 
   [ADD_NEW_LINK_SNIPPET]: (state: MessagesState, { link, id }) =>

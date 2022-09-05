@@ -9,6 +9,7 @@ export const TOGGLE_MESSAGE_LOADER = 'BEHAVIOR/TOGGLE_MSG_LOADER';
 export const SET_BADGE_COUNT = 'BEHAVIOR/SET_BADGE_COUNT';
 export const ADD_NEW_USER_MESSAGE = 'MESSAGES/ADD_NEW_USER_MESSAGE';
 export const ADD_NEW_RESPONSE_MESSAGE = 'MESSAGES/ADD_NEW_RESPONSE_MESSAGE';
+export const ADD_NEW_SYSTEM_RESPONSE_MESSAGE = 'MESSAGES/ADD_NEW_SYSTEM_RESPONSE_MESSAGE';
 export const GET_LAST_RESPONSE_MESSAGE = 'MESSAGES/GET_LAST_RESPONSE_MESSAGE';
 export const ADD_NEW_LINK_SNIPPET = 'MESSAGES/ADD_NEW_LINK_SNIPPET';
 export const ADD_COMPONENT_MESSAGE = 'MESSAGES/ADD_COMPONENT_MESSAGE';
@@ -66,6 +67,17 @@ export interface GetLastResponseMessage {
 
 export interface AddResponseMessage {
   type: typeof ADD_NEW_RESPONSE_MESSAGE;
+  text?: string;
+  audioLink?: string;
+  id?: string;
+  chatId?: string;
+  date?: Date;
+  options?: MessageOptions,
+  post?: PostOptions;
+}
+
+export interface AddResponseSystemMessage {
+  type: typeof ADD_NEW_SYSTEM_RESPONSE_MESSAGE;
   text?: string;
   audioLink?: string;
   id?: string;
@@ -144,7 +156,7 @@ export type BehaviorActions = ToggleChat | ToggleInputDisabled | ToggleMsgLoader
 
 export type MessagesActions = AddUserMessage | AddResponseMessage | AddLinkSnippet | RenderCustomComponent
                               | DropMessages | HideAvatar | DeleteMessages | MarkAllMessagesRead | SetBadgeCount
-                              | MarkDelivered | MarkRead | ClearChat;
+                              | MarkDelivered | MarkRead | ClearChat | AddResponseSystemMessage;
 
 export type QuickButtonsActions = SetQuickButtons;
 
