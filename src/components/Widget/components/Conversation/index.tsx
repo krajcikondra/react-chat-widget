@@ -57,6 +57,7 @@ type Props = {
   emojiSet?: EmojiSet;
   micAllowed?: boolean;
   uploadAudioUrl?: string;
+  headerBeginElement?: ReactElement;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
 };
@@ -88,6 +89,7 @@ function Conversation({
   onFocus,
   micAllowed,
   uploadAudioUrl,
+  headerBeginElement,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -170,6 +172,7 @@ function Conversation({
         minimalizeChat={minimalize}
         isMinimalized={isMinimalize}
         titleAvatar={titleAvatar}
+        headerBeginElement={headerBeginElement}
       />
       {!isMinimalize && <Messages
         ref={messagesRef}

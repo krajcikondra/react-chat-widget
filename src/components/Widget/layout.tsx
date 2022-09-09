@@ -44,6 +44,7 @@ type Props = {
   emojiSet?: EmojiSet;
   micAllowed?: boolean;
   uploadAudioUrl?: string;
+  headerBeginElement?: ReactElement;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
 }
@@ -82,6 +83,7 @@ function WidgetLayout({
   onFocus,
   micAllowed,
   uploadAudioUrl,
+  headerBeginElement,
 }: Props) {
   const dispatch = useDispatch();
   const { dissableInput, showChat, visible } = useSelector((state: GlobalState) => ({
@@ -187,6 +189,7 @@ function WidgetLayout({
           onFocus={onFocus}
           micAllowed={micAllowed}
           uploadAudioUrl={uploadAudioUrl}
+          headerBeginElement={headerBeginElement}
         />
       }
       {customLauncher !== null && renderLauncher()}

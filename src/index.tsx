@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import { Provider } from 'react-redux';
 
 import Widget from './components/Widget';
@@ -44,6 +44,7 @@ type Props = {
   showBadge?: boolean;
   resizable?: boolean;
   maxOpenWidgets?: number;
+  headerBeginElement?: ReactElement;
 } & typeof defaultProps;
 
 function ConnectedWidget({
@@ -82,6 +83,7 @@ function ConnectedWidget({
   handleOnFocus,
   micAllowed,
   uploadAudioUrl,
+  headerBeginElement,
 }: Props) {
   return (
     <Provider store={store}>
@@ -121,6 +123,7 @@ function ConnectedWidget({
         onFocus={handleOnFocus}
         micAllowed={micAllowed}
         uploadAudioUrl={uploadAudioUrl}
+        headerBeginElement={headerBeginElement}
       />
     </Provider>
   );

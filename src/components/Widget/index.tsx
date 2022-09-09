@@ -50,6 +50,7 @@ type Props = {
   micAllowed?: boolean;
   uploadAudioUrl?: string;
   maxOpenWidgets?: number;
+  headerBeginElement?: ReactElement;
   handleScrollTop?(): void;
   onFocus?(chatId?: string): void;
 }
@@ -91,6 +92,7 @@ function Widget({
   onFocus,
   micAllowed,
   uploadAudioUrl,
+  headerBeginElement,
 }: Props) {
   const dispatch = useDispatch();
 
@@ -172,6 +174,7 @@ function Widget({
       onFocus={onFocus}
       micAllowed={micAllowed}
       uploadAudioUrl={uploadAudioUrl}
+      headerBeginElement={headerBeginElement}
     />
   );
 }

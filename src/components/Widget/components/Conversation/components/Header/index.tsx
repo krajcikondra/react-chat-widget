@@ -5,6 +5,7 @@ import './style.scss';
 
 type Props = {
   title: string|ReactElement;
+  headerBeginElement?: ReactElement;
   subtitle: string;
   toggleChat: () => void;
   minimalizeChat?: (value: boolean) => void;
@@ -14,7 +15,17 @@ type Props = {
   titleAvatar?: string;
 }
 
-function Header({ title, subtitle, toggleChat, showCloseButton, titleAvatar, showMinimalizeButton, minimalizeChat, isMinimalized }: Props) {
+function Header({
+    title,
+    subtitle,
+    toggleChat,
+    showCloseButton,
+    titleAvatar,
+    showMinimalizeButton,
+    minimalizeChat,
+    isMinimalized,
+    headerBeginElement,
+}: Props) {
   return (
     <div className="rcw-header">
       {showMinimalizeButton &&
@@ -27,6 +38,7 @@ function Header({ title, subtitle, toggleChat, showCloseButton, titleAvatar, sho
           <Icons.Clear />
         </button>
       }
+      {headerBeginElement}
       <h4 className="rcw-title">
         {titleAvatar && <img src={titleAvatar} className="avatar" alt="profile" />}
         {title}
