@@ -1,23 +1,30 @@
 import React, {ReactElement} from 'react';
 
-const close = require('../../../../../../../assets/clear-button.svg') as string;
-
+import {Icons} from "../../../../../../icons";
 import './style.scss';
 
 type Props = {
   title: string|ReactElement;
   subtitle: string;
   toggleChat: () => void;
+  minimalizeChat?: (value: boolean) => void;
   showCloseButton: boolean;
+  showMinimalizeButton?: boolean;
+  isMinimalized?: boolean;
   titleAvatar?: string;
 }
 
-function Header({ title, subtitle, toggleChat, showCloseButton, titleAvatar }: Props) {
+function Header({ title, subtitle, toggleChat, showCloseButton, titleAvatar, showMinimalizeButton, minimalizeChat, isMinimalized }: Props) {
   return (
     <div className="rcw-header">
+      {showMinimalizeButton &&
+        <button className="rcw-minimalize-button" onClick={() => minimalizeChat?.(!isMinimalized)}>
+            {isMinimalized ? <Icons.Maximalize /> : <Icons.Minimalize />}
+        </button>
+      }
       {showCloseButton &&
         <button className="rcw-close-button" onClick={toggleChat}>
-          <img src={close} className="rcw-close" alt="close" />
+          <Icons.Clear />
         </button>
       }
       <h4 className="rcw-title">

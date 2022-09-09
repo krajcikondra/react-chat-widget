@@ -45,6 +45,7 @@ export interface CustomCompMessage extends BaseMessage {
 
 export interface BehaviorState {
   showChat: string[];
+  minimalizedChat: string[];
   disabledInput: boolean;
   messageLoader: boolean;
   maxOpenChats?: number;

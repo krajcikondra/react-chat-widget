@@ -2,12 +2,20 @@ import { ElementType } from 'react';
 
 import * as actionsTypes from './types';
 import { LinkParams, ImageState } from '../types';
-import {AddResponseSystemMessage, MessageOptions, PostOptions} from "./types";
+import {AddResponseSystemMessage, MessageOptions, MINIMALIZE_CHAT, MinimalizeChat, PostOptions} from "./types";
 
 export function toggleChat(chatId?: string): actionsTypes.ToggleChat {
   return {
     type: actionsTypes.TOGGLE_CHAT,
     chatId,
+  };
+}
+
+export function minimalizeChat(value: boolean, chatId?: string): actionsTypes.MinimalizeChat {
+  return {
+    type: actionsTypes.MINIMALIZE_CHAT,
+    chatId,
+    value,
   };
 }
 

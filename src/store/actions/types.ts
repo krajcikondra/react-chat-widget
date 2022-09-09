@@ -3,6 +3,7 @@ import { ElementType } from 'react';
 import { LinkParams, FullscreenPreviewState } from '../types';
 
 export const TOGGLE_CHAT = 'BEHAVIOR/TOGGLE_CHAT';
+export const MINIMALIZE_CHAT = 'BEHAVIOR/MINIMALIZE_CHAT';
 export const TOGGLE_INPUT_DISABLED = 'BEHAVIOR/TOGGLE_INPUT_DISABLED';
 export const SET_MAX_OPEN_CHATS = 'BEHAVIOR/SET_MAX_OPEN_CHATS';
 export const TOGGLE_MESSAGE_LOADER = 'BEHAVIOR/TOGGLE_MSG_LOADER';
@@ -38,6 +39,12 @@ export interface PostOptions {
 
 export interface ToggleChat {
   type: typeof TOGGLE_CHAT;
+  chatId?: string;
+}
+
+export interface MinimalizeChat {
+  type: typeof MINIMALIZE_CHAT;
+  value: boolean;
   chatId?: string;
 }
 
@@ -152,7 +159,7 @@ export interface MarkRead {
   id: string;
 }
 
-export type BehaviorActions = ToggleChat | ToggleInputDisabled | ToggleMsgLoader | SetMaxOpenChats;
+export type BehaviorActions = ToggleChat | ToggleInputDisabled | ToggleMsgLoader | SetMaxOpenChats | MinimalizeChat;
 
 export type MessagesActions = AddUserMessage | AddResponseMessage | AddLinkSnippet | RenderCustomComponent
                               | DropMessages | HideAvatar | DeleteMessages | MarkAllMessagesRead | SetBadgeCount

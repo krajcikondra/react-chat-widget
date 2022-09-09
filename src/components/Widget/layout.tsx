@@ -24,6 +24,7 @@ type Props = {
   profileAvatar?: string|ReactElement;
   profileClientAvatar?: string|ReactElement;
   showCloseButton: boolean;
+  showMinimalizeButton?: boolean;
   fullScreenMode: boolean;
   autofocus: boolean;
   customLauncher?: AnyFunction|null;
@@ -59,6 +60,7 @@ function WidgetLayout({
   profileAvatar,
   profileClientAvatar,
   showCloseButton,
+  showMinimalizeButton,
   fullScreenMode,
   autofocus,
   customLauncher,
@@ -169,6 +171,7 @@ function WidgetLayout({
           profileClientAvatar={profileClientAvatar}
           toggleChat={onToggleConversation}
           showCloseButton={showCloseButton}
+          showMinimalizeButton={showMinimalizeButton}
           disabledInput={dissableInput}
           autofocus={autofocus}
           titleAvatar={titleAvatar}

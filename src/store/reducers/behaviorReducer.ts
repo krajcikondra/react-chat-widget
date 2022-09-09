@@ -2,7 +2,7 @@ import { createReducer } from '../../utils/createReducer';
 import { BehaviorState } from '../types';
 
 import {
-  BehaviorActions, SET_MAX_OPEN_CHATS, SetMaxOpenChats,
+  BehaviorActions, MINIMALIZE_CHAT, SET_MAX_OPEN_CHATS, SetMaxOpenChats,
   TOGGLE_CHAT,
   TOGGLE_INPUT_DISABLED,
   TOGGLE_MESSAGE_LOADER
@@ -10,6 +10,7 @@ import {
 
 const initialState = {
   showChat: [],
+  minimalizedChat: [],
   disabledInput: false,
   messageLoader: false,
   maxOpenChats: undefined,
@@ -31,6 +32,20 @@ const behaviorReducer = {
     return {
       ...state,
       showChat: [...state.showChat],
+      minimalizedChat: [...state.minimalizedChat.filter(name => state.showChat.includes(name))],
+    };
+  },
+  [MINIMALIZE_CHAT]: (state: BehaviorState, {chatId, value}) => {
+    const chId = chatId ?? 'default';
+    if (value) {
+      state.minimalizedChat.push(chId);
+    } else {
+      state.minimalizedChat = state.minimalizedChat.filter(name => name !== chId);
+    }
+
+    return {
+      ...state,
+      minimalizedChat: [...state.minimalizedChat],
     };
   },
 

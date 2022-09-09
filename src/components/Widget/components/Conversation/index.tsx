@@ -12,8 +12,9 @@ import { AnyFunction } from '../../../../utils/types';
 
 import './style.scss';
 import {isWidgetOpened, toggleWidget} from "../../../../../index";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "@types";
+import {minimalizeChat, setBadgeCount} from "@actions";
 
 interface ISenderRef {
   onSelectEmoji: (event: any) => void;
@@ -37,6 +38,7 @@ type Props = {
   subtitle: string;
   senderPlaceHolder: string;
   showCloseButton: boolean;
+  showMinimalizeButton?: boolean;
   disabledInput: boolean;
   autofocus: boolean;
   className: string;
@@ -64,6 +66,7 @@ function Conversation({
   subtitle,
   senderPlaceHolder,
   showCloseButton,
+  showMinimalizeButton,
   disabledInput,
   autofocus,
   className,
@@ -145,10 +148,17 @@ function Conversation({
     setPicket(false);
   };
   const messagesRef = useRef<IMessagesRef>(null!);
+  const dispatch = useDispatch();
+  const minimalize = (value: boolean) => {
+    dispatch(minimalizeChat(value, chatId));
+  };
+  const isMinimalize = useSelector((state: GlobalState) => state.behavior.minimalizedChat.includes(chatId));
 
   return (
     <div id={"rcw-conversation-container-" + chatId} onMouseDown={initResize}
-      className={cn('rcw-conversation-container', className)} aria-live="polite">
+      className={cn('rcw-conversation-container', className, isMinimalize && 'minimalize')}
+      aria-live="polite"
+    >
       {resizable && <div className="rcw-conversation-resizer"
       />}
       <Header
@@ -156,9 +166,12 @@ function Conversation({
         subtitle={subtitle}
         toggleChat={toggleChat}
         showCloseButton={showCloseButton}
+        showMinimalizeButton={showMinimalizeButton}
+        minimalizeChat={minimalize}
+        isMinimalized={isMinimalize}
         titleAvatar={titleAvatar}
       />
-      <Messages
+      {!isMinimalize && <Messages
         ref={messagesRef}
         chatId={chatId}
         profileAvatar={profileAvatar}
@@ -166,14 +179,14 @@ function Conversation({
         showTimeStamp={showTimeStamp}
         onScrollTop={onScrollTop}
         set={emojiSet ?? undefined}
-      />
-      <QuickButtons onQuickButtonClicked={onQuickButtonClicked} />
+      />}
+      {!isMinimalize && <QuickButtons onQuickButtonClicked={onQuickButtonClicked} />}
       {emojis && pickerStatus && (<Picker
         style={{ position: 'absolute', bottom: pickerOffset, left: '0', width: '100%' }}
         onSelect={onSelectEmoji}
         set={emojiSet ?? undefined}
       />)}
-      <Sender
+      {!isMinimalize && <Sender
         ref={senderRef}
         sendMessage={handlerSendMsn}
         sendAudio={sendAudio}
@@ -190,7 +203,7 @@ function Conversation({
         showChat={showChat}
         micAllowed={micAllowed}
         uploadAudioUrl={uploadAudioUrl}
-      />
+      />}
     </div>
   );
 }

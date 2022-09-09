@@ -19,6 +19,7 @@ type Props = {
   subtitle?: string;
   senderPlaceHolder?: string;
   showCloseButton?: boolean;
+  showMinimalizeButton?: boolean;
   fullScreenMode?: boolean;
   autofocus?: boolean;
   profileAvatar?: string;
@@ -51,6 +52,7 @@ function ConnectedWidget({
   subtitle,
   senderPlaceHolder,
   showCloseButton,
+  showMinimalizeButton,
   fullScreenMode,
   autofocus,
   profileAvatar,
@@ -94,6 +96,7 @@ function ConnectedWidget({
         profileAvatar={profileAvatar}
         profileClientAvatar={profileClientAvatar}
         showCloseButton={showCloseButton}
+        showMinimalizeButton={showMinimalizeButton}
         fullScreenMode={fullScreenMode}
         autofocus={autofocus}
         customLauncher={launcher}

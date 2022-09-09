@@ -25,6 +25,7 @@ function Launcher({ toggle, chatId, openImg, closeImg, openLabel, closeLabel, sh
   const dispatch = useDispatch();
   const { showChat, badgeCount } = useSelector((state: GlobalState) => ({
     showChat: state.behavior.showChat,
+    minimalizedChat: state.behavior.minimalizedChat,
     badgeCount: state.messages.badgeCount
   }));
 

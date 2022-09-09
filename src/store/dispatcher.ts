@@ -75,6 +75,10 @@ export function toggleWidget(chatId?: string) {
   store.dispatch(actions.toggleChat(chatId));
 }
 
+export function minimalizeChat(value: boolean, chatId?: string): void {
+  store.dispatch(actions.minimalizeChat(value, chatId));
+}
+
 export function setMaxOpenWidgets(maxOpenedChats?: number) {
   store.dispatch(actions.setMaxOpenChats(maxOpenedChats));
 }
@@ -89,6 +93,10 @@ export function dropMessages(chatId?: string) {
 
 export function isWidgetOpened(chatId?: string): boolean {
   return store.getState().behavior.showChat.includes(chatId ?? 'default');
+}
+
+export function isWidgetMinimalized(chatId?: string): boolean {
+  return store.getState().behavior.minimalizedChat.includes(chatId ?? 'default');
 }
 
 export function getLastResponseMessage(chatId?: string): null|Message {
