@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import classnames from 'classnames';
 
 import { GlobalState, QuickButton } from 'src/store/types';
 import { AnyFunction } from 'src/utils/types';
@@ -26,7 +27,7 @@ function QuickButtons({ onQuickButtonClicked }: Props) {
   if (!buttons.length) return null;
 
   return (
-    <div className="quick-buttons-container">
+    <div className={classnames('quick-buttons-container')}>
       <ul className="quick-buttons">
         {buttons.map((button, index) =>
           <li className="quick-list-button" key={`${button.label}-${index}`}>

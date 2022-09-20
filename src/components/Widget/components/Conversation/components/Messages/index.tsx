@@ -147,7 +147,12 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
   }, [getChatMessages()]);
 
   return (
-    <div id={"messages-" + chatId} className="rcw-messages-container" ref={messageRef} onScroll={scroll}>
+    <div
+        id={"messages-" + chatId}
+        className={classnames('rcw-messages-container')}
+        ref={messageRef}
+        onScroll={scroll}
+    >
       {getChatMessages().map((message, index) => {
         const renderAvatar = (avatar?: string|ReactElement): ReactNode => {
           if (avatar === undefined) {

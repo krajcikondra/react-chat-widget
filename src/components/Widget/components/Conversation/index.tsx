@@ -174,7 +174,7 @@ function Conversation({
         titleAvatar={titleAvatar}
         headerBeginElement={headerBeginElement}
       />
-      {!isMinimalize && <Messages
+      <Messages
         ref={messagesRef}
         chatId={chatId}
         profileAvatar={profileAvatar}
@@ -182,14 +182,16 @@ function Conversation({
         showTimeStamp={showTimeStamp}
         onScrollTop={onScrollTop}
         set={emojiSet ?? undefined}
-      />}
-      {!isMinimalize && <QuickButtons onQuickButtonClicked={onQuickButtonClicked} />}
+      />
+      <QuickButtons
+          onQuickButtonClicked={onQuickButtonClicked}
+      />
       {emojis && pickerStatus && (<Picker
         style={{ position: 'absolute', bottom: pickerOffset, left: '0', width: '100%' }}
         onSelect={onSelectEmoji}
         set={emojiSet ?? undefined}
       />)}
-      {!isMinimalize && <Sender
+      <Sender
         ref={senderRef}
         sendMessage={handlerSendMsn}
         sendAudio={sendAudio}
@@ -206,7 +208,7 @@ function Conversation({
         showChat={showChat}
         micAllowed={micAllowed}
         uploadAudioUrl={uploadAudioUrl}
-      />}
+      />
     </div>
   );
 }
