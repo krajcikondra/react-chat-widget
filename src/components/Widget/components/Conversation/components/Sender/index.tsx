@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+import React, {useRef, useEffect, useState, forwardRef, useImperativeHandle, ReactNode} from 'react';
 import cn from 'classnames';
 
 import {emojiBackwardConvert, emojiConvert} from "../../../../../../utils/emoji";
@@ -30,6 +30,8 @@ type Props = {
   onFocus?: () => void;
   disableSendSubmit?: boolean;
   micAllowed?: boolean;
+  sendIcon?: ReactNode;
+  smileIcon?: ReactNode;
 }
 
 function Sender({
@@ -50,6 +52,8 @@ function Sender({
   className,
   micAllowed,
   sendAudio,
+  sendIcon,
+  smileIcon,
 }: Props, ref) {
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
@@ -252,7 +256,7 @@ function Sender({
   return (
     <div ref={refContainer} className={cn("rcw-sender", className)}>
       {!isMicActive && <button className='rcw-picker-btn' type="button" onClick={handlerPressEmoji}>
-        <img src={emoji} className="rcw-picker-icon" alt="" />
+        {smileIcon ? smileIcon : <img src={emoji} className="rcw-picker-icon" alt="" />}
       </button>}
       {isMicActive ? <Recording
           uploading={isAudioUploading}
@@ -280,7 +284,7 @@ function Sender({
         <img src={mic} alt="" className="rcw-mic-icon" />
       </button>}
       {!disableSendSubmit && <button type="submit" className="rcw-send" onClick={handlerSendMessage} disabled={isAudioUploading}>
-        <img src={send} className="rcw-send-icon" alt={buttonAlt} />
+        {sendIcon ? sendIcon : <img src={send} className="rcw-send-icon" alt={buttonAlt} />}
       </button>}
     </div>
   );
