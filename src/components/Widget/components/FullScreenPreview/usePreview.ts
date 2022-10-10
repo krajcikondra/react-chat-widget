@@ -52,11 +52,15 @@ const usePreview = (zoomStep) => {
   const [state, dispatch] = useReducer(reducer, { ...initState });
 
   const initFileSize = (width: number, height: number):void => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const { innerWidth, innerHeight } = window;
     setWindowSize({ width: innerWidth, height: innerHeight });
     // default size
     setFileSize({ width, height });
-    
+
     const payload: STATE = { layout: {}, direction: 'horizontal' };
 
     /**

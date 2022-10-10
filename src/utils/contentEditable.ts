@@ -1,4 +1,8 @@
 export const getCaretIndex = (el): number => {
+  if (typeof window === 'undefined') {
+    return 0;
+  }
+
   const selection = window.getSelection();
   if (selection === null) {
     return 0;
@@ -8,6 +12,13 @@ export const getCaretIndex = (el): number => {
 }
 
 export const getSelection = (el) => {
+  if (typeof window === 'undefined') {
+    return {
+      start: 0,
+      end: 0,
+    };
+  }
+
   const range = window.getSelection()!.getRangeAt(0);
   const preSelectionRange = range.cloneRange();
   preSelectionRange.selectNodeContents(el);
@@ -61,6 +72,10 @@ const getCharacterOffsetWithinFinal = (range, node) => {
 export const isFirefox = () => navigator.userAgent.search("Firefox") > 0;
 
 export const updateCaret = (el, caret, offset) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
   const range = document.createRange();
   const selection = window.getSelection()!;
   const result = calculatePos(el.childNodes, caret+offset);
@@ -114,6 +129,11 @@ export const insertNodeAtCaret = (el) => {
       characterToEnter = '\n';
     }
   }
+
+  if (typeof window === 'undefined') {
+    return;
+  }
+
   const selection = window.getSelection()!;
   const node = document.createTextNode(characterToEnter);
   const range = selection.getRangeAt(0);

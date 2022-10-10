@@ -100,6 +100,10 @@ function Conversation({
   }, []);
 
   const initResize = (e) => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     if (resizable) {
       startX = e.clientX;
       if (document.defaultView && containerDiv){
@@ -117,6 +121,9 @@ function Conversation({
   }
 
   const stopResize = (e) => {
+    if (typeof window === 'undefined') {
+      return;
+    }
     window.removeEventListener('mousemove', resize, false);
     window.removeEventListener('mouseup', stopResize, false);
   }

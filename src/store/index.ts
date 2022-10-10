@@ -11,7 +11,8 @@ declare global {
   }
 }
 
-const composeEnhancers =   (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const devTools = typeof window === 'undefined' ? undefined : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+const composeEnhancers =   (process.env.NODE_ENV !== 'production' && devTools) || compose;
 const reducer = combineReducers({ behavior, messages, quickButtons, preview });
 
 export default createStore(reducer, composeEnhancers());
