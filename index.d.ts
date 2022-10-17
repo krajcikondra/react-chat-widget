@@ -28,11 +28,11 @@ export function addResponseMessage(text: string, id: string, date: Date, chatId:
 export function addResponseMessage(text: string, id: string, date: Date, chatId: string, options: MessageOptions, post?: PostOptions): void;
 
 export function addSystemResponseMessage(text: string): void;
-export function addSystemResponseMessage(text: string, id: string): void;
-export function addSystemResponseMessage(text: string, id: string, date: Date): void;
-export function addSystemResponseMessage(text: string, id: string, date: Date, chatId: string): void;
-export function addSystemResponseMessage(text: string, id: string, date: Date, chatId: string, options: MessageOptions): void;
-export function addSystemResponseMessage(text: string, id: string, date: Date, chatId: string, options: MessageOptions, post?: PostOptions): void;
+export function addSystemResponseMessage(text: string, id: string|undefined): void;
+export function addSystemResponseMessage(text: string, id: string|undefined, date: Date): void;
+export function addSystemResponseMessage(text: string, id: string|undefined, date: Date, chatId: string): void;
+export function addSystemResponseMessage(text: string, id: string|undefined, date: Date, chatId: string, options: MessageOptions): void;
+export function addSystemResponseMessage(text: string, id: string|undefined, date: Date, chatId: string, options: MessageOptions, post?: PostOptions): void;
 
 export function addUserAudioMessage(audioLink: string, id?: string, date?: Date, chatId: string, options?: MessageOptions): void;
 export function addResponseAudioMessage(audioLink: string, id?: string, date?: Date, chatId?: string, options?: MessageOptions): void;
