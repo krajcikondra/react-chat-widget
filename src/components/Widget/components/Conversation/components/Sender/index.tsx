@@ -55,6 +55,10 @@ function Sender({
   sendIcon,
   smileIcon,
 }: Props, ref) {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
   const recordingRef = useRef<IRecordingRef>(null);

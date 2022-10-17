@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect} from 'react';
+import React, {ReactElement, ReactNode, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 
 import {toggleChat, addUserMessage, addUserAudioMessage} from '../../store/actions';
@@ -10,7 +10,7 @@ import {EmojiSet} from "./components/Conversation";
 import {md5} from "../../utils/hash-generator";
 import {emojiBackwardConvert} from "../../utils/emoji";
 
-type AudioResponseData = {
+export type AudioResponseData = {
   id?: number,
   url: string,
 };
@@ -51,6 +51,8 @@ type Props = {
   uploadAudioUrl?: string;
   maxOpenWidgets?: number;
   headerBeginElement?: ReactElement;
+  sendIcon?: ReactNode;
+  smileIcon?: ReactNode;
   handleScrollTop?(): void;
   onFocus?(chatId?: string): void;
 }
@@ -93,6 +95,8 @@ function Widget({
   micAllowed,
   uploadAudioUrl,
   headerBeginElement,
+  smileIcon,
+  sendIcon,
 }: Props) {
   const dispatch = useDispatch();
 
@@ -175,6 +179,8 @@ function Widget({
       micAllowed={micAllowed}
       uploadAudioUrl={uploadAudioUrl}
       headerBeginElement={headerBeginElement}
+      smileIcon={smileIcon}
+      sendIcon={sendIcon}
     />
   );
 }

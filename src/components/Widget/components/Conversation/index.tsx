@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, ReactNode} from 'react';
 import { useRef, useState, useEffect } from 'react';
 import { Picker } from 'emoji-mart';
 import cn from 'classnames';
@@ -58,6 +58,8 @@ type Props = {
   micAllowed?: boolean;
   uploadAudioUrl?: string;
   headerBeginElement?: ReactElement;
+  sendIcon?: ReactNode;
+  smileIcon?: ReactNode;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
 };
@@ -90,6 +92,8 @@ function Conversation({
   micAllowed,
   uploadAudioUrl,
   headerBeginElement,
+  smileIcon,
+  sendIcon,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -215,6 +219,8 @@ function Conversation({
         showChat={showChat}
         micAllowed={micAllowed}
         uploadAudioUrl={uploadAudioUrl}
+        smileIcon={smileIcon}
+        sendIcon={sendIcon}
       />
     </div>
   );

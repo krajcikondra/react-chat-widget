@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useRef} from 'react';
+import React, {ReactElement, ReactNode, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 
@@ -45,6 +45,8 @@ type Props = {
   micAllowed?: boolean;
   uploadAudioUrl?: string;
   headerBeginElement?: ReactElement;
+  sendIcon?: ReactNode;
+  smileIcon?: ReactNode;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
 }
@@ -84,6 +86,8 @@ function WidgetLayout({
   micAllowed,
   uploadAudioUrl,
   headerBeginElement,
+  smileIcon,
+  sendIcon,
 }: Props) {
   const dispatch = useDispatch();
   const { dissableInput, showChat, visible } = useSelector((state: GlobalState) => ({
@@ -190,6 +194,8 @@ function WidgetLayout({
           micAllowed={micAllowed}
           uploadAudioUrl={uploadAudioUrl}
           headerBeginElement={headerBeginElement}
+          smileIcon={smileIcon}
+          sendIcon={sendIcon}
         />
       }
       {customLauncher !== null && renderLauncher()}

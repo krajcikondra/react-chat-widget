@@ -6,10 +6,12 @@ import { ElementType } from 'react';
 import {MessageOptions, PostOptions} from "./src/store/actions/types";
 export {Sender} from "./src/components/Widget/components/Conversation/components/Sender";
 import {Message} from "@types";
+import ConnectedWidget from "./src/index";
 import {EmojiSet} from "./src/components/Widget/components/Conversation";
 import {indexOfAll, isEmojiPosition, strEmojiLen, textWithEmojiTruncate} from "./src/utils/text-with-emoji-truncate";
+export {AudioResponseData} from "./src/components/Widget";
 
-declare const Widget: ElementType;
+export const Widget = ConnectedWidget;
 
 export function addUserMessage(text: string): void;
 export function addUserMessage(text: string, id: string): void;

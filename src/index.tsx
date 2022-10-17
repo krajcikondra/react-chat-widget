@@ -1,7 +1,7 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, ReactNode} from 'react';
 import { Provider } from 'react-redux';
 
-import Widget from './components/Widget';
+import Widget, {AudioResponseData} from './components/Widget';
 
 import store from  './store';
 
@@ -9,9 +9,9 @@ import { AnyFunction } from './utils/types';
 import {EmojiSet} from "./components/Widget/components/Conversation";
 
 type Props = {
-  handleNewUserMessage: AnyFunction;
-  handleNewUserAudio: AnyFunction;
-  handleQuickButtonClicked?: AnyFunction;
+  handleNewUserMessage: (msg: string, hash: string) => void;
+  handleNewUserAudio: (audioData: AudioResponseData, msgHash: string) => void;
+  handleQuickButtonClicked?: (value: string) => void;
   handleScrollTop?(): void;
   handleOnFocus?(chatId?: string): void;
   title?: string;
@@ -45,6 +45,8 @@ type Props = {
   resizable?: boolean;
   maxOpenWidgets?: number;
   headerBeginElement?: ReactElement;
+  sendIcon?: ReactNode;
+  smileIcon?: ReactNode;
 } & typeof defaultProps;
 
 function ConnectedWidget({
@@ -84,47 +86,58 @@ function ConnectedWidget({
   micAllowed,
   uploadAudioUrl,
   headerBeginElement,
+  sendIcon,
+  smileIcon,
 }: Props) {
+  const isNextJs = typeof window === 'undefined';
+  if (isNextJs) {
+    return null;
+  }
+
   return (
     <Provider store={store}>
-      <Widget
-        title={title}
-        titleAvatar={titleAvatar}
-        subtitle={subtitle}
-        handleNewUserMessage={handleNewUserMessage}
-        handleNewUserAudio={handleNewUserAudio}
-        handleQuickButtonClicked={handleQuickButtonClicked}
-        senderPlaceHolder={senderPlaceHolder}
-        profileAvatar={profileAvatar}
-        profileClientAvatar={profileClientAvatar}
-        showCloseButton={showCloseButton}
-        showMinimalizeButton={showMinimalizeButton}
-        fullScreenMode={fullScreenMode}
-        autofocus={autofocus}
-        customLauncher={launcher}
-        handleTextInputChange={handleTextInputChange}
-        chatId={chatId}
-        handleToggle={handleToggle}
-        launcherOpenLabel={launcherOpenLabel}
-        launcherCloseLabel={launcherCloseLabel}
-        launcherCloseImg={launcherCloseImg}
-        launcherOpenImg={launcherOpenImg}
-        sendButtonAlt={sendButtonAlt}
-        showTimeStamp={showTimeStamp}
-        imagePreview={imagePreview}
-        zoomStep={zoomStep}
-        handleSubmit={handleSubmit}
-        showBadge={showBadge}
-        resizable={resizable}
-        emojis={emojis}
-        emojiSet={emojiSet}
-        maxOpenWidgets={maxOpenWidgets}
-        handleScrollTop={handleScrollTop}
-        onFocus={handleOnFocus}
-        micAllowed={micAllowed}
-        uploadAudioUrl={uploadAudioUrl}
-        headerBeginElement={headerBeginElement}
-      />
+      <>
+        {!isNextJs && <Widget
+            title={title}
+            titleAvatar={titleAvatar}
+            subtitle={subtitle}
+            handleNewUserMessage={handleNewUserMessage}
+            handleNewUserAudio={handleNewUserAudio}
+            handleQuickButtonClicked={handleQuickButtonClicked}
+            senderPlaceHolder={senderPlaceHolder}
+            profileAvatar={profileAvatar}
+            profileClientAvatar={profileClientAvatar}
+            showCloseButton={showCloseButton}
+            showMinimalizeButton={showMinimalizeButton}
+            fullScreenMode={fullScreenMode}
+            autofocus={autofocus}
+            customLauncher={launcher}
+            handleTextInputChange={handleTextInputChange}
+            chatId={chatId}
+            handleToggle={handleToggle}
+            launcherOpenLabel={launcherOpenLabel}
+            launcherCloseLabel={launcherCloseLabel}
+            launcherCloseImg={launcherCloseImg}
+            launcherOpenImg={launcherOpenImg}
+            sendButtonAlt={sendButtonAlt}
+            showTimeStamp={showTimeStamp}
+            imagePreview={imagePreview}
+            zoomStep={zoomStep}
+            handleSubmit={handleSubmit}
+            showBadge={showBadge}
+            resizable={resizable}
+            emojis={emojis}
+            emojiSet={emojiSet}
+            maxOpenWidgets={maxOpenWidgets}
+            handleScrollTop={handleScrollTop}
+            onFocus={handleOnFocus}
+            micAllowed={micAllowed}
+            uploadAudioUrl={uploadAudioUrl}
+            headerBeginElement={headerBeginElement}
+            sendIcon={sendIcon}
+            smileIcon={smileIcon}
+        />}
+      </>
     </Provider>
   );
 }
