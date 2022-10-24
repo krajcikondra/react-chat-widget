@@ -1,5 +1,6 @@
 import EmojiConvertor from 'emoji-js';
 import {EmojiSet} from "../components/Widget/components/Conversation";
+import {emojiUtils} from "./emoji-utils";
 
 const emojiConvertor = new EmojiConvertor();
 
@@ -14,7 +15,7 @@ export const emojiConvert = (sanitizedHTML: string, emojiSet?: EmojiSet): string
     emojiConvertor.include_title = true;
 
     const translated = emojiConvertor.replace_colons(convertOneColonEmoji(msgHtml));
-    return replaceSpanEmojiByImgEmoji(translated);
+    return emojiUtils.wrapEmojiByFont(replaceSpanEmojiByImgEmoji(translated));
 }
 
 export const convertOneColonEmoji = (text: string): string => {
