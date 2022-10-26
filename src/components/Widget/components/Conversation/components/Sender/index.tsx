@@ -32,6 +32,7 @@ type Props = {
   micAllowed?: boolean;
   sendIcon?: ReactNode;
   smileIcon?: ReactNode;
+  defaultValue?: string;
 }
 
 function Sender({
@@ -54,6 +55,7 @@ function Sender({
   sendAudio,
   sendIcon,
   smileIcon,
+  defaultValue,
 }: Props, ref) {
   if (typeof window === 'undefined') {
     return null;
@@ -69,7 +71,12 @@ function Sender({
 
   // @ts-ignore
   useEffect(() => { if (showChat && autofocus) inputRef.current?.focus(); }, [showChat]);
-  useEffect(() => { setFirefox(isFirefox())}, [])
+  useEffect(() => {
+    setFirefox(isFirefox());
+    if (defaultValue !== undefined) {
+      setInputText(defaultValue);
+    }
+  }, [])
 
   useImperativeHandle(ref, () => {
     return {
