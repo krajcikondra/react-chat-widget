@@ -111,7 +111,7 @@ export function getLastResponseMessage(chatId?: string): null|Message {
     return null;
   }
 
-  return messages[0];
+  return messages[messages.length - 1];
 }
 
 export function getMessages(chatId?: string): Message[] {
