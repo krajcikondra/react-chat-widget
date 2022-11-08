@@ -28,7 +28,7 @@ const BaseReactAudioRecorder = ({
     errorMessage: string
     timer: number
   }) => ReactElement
-}, ref) => {
+}, ref: any) => {
   const {
     startRecording,
     stopRecording,
