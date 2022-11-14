@@ -177,7 +177,7 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
                 `${isClient(message.sender) ? 'rcw-message-client' : ''}`,
                 message.isSystemMessage && 'rcw-message-system',
             )}
-                 key={`${index}-${format(message.timestamp, 'hh:mm')}`}>
+                 key={`${index}-${format(message.timestamp, 'HH:mm')}`}>
               {((profileAvatar && !isClient(message.sender)) || (profileClientAvatar && isClient(message.sender))) &&
               message.showAvatar && renderAvatar(isClient(message.sender) ? profileClientAvatar : profileAvatar)}
               {getComponentToRender(message)}

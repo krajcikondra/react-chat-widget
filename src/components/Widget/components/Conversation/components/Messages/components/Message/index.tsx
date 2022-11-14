@@ -58,7 +58,7 @@ function Message({ message, showTimeStamp, set }: Props) {
         <source src={message.audioLink} type="audio/wav" />
       </audio>}
 
-      {showTimeStamp && <span className="rcw-timestamp">{format(message.timestamp, 'hh:mm')}</span>}
+      {showTimeStamp && <span className="rcw-timestamp">{format(message.timestamp, 'HH:mm')}</span>}
         {isClient(message.sender) && <span className="rcw-checks" style={{ textAlign: 'right' }}>
         {(message.delivered)
             ? <img src={checkSuccessIcon} className="rcw-message-delivered-icon" alt="delivered" title="delivered" />
