@@ -161,12 +161,12 @@ function Sender({
       const secondPart = el.innerHTML.substring(index);
 
       const originLength = getInputText().length;
-      const convertedEmoji = emoji.colons;
+      const convertedEmoji = emoji.shortcodes;
       setInputText(firstPart + convertedEmoji + secondPart);
       const emojiLen = getInputText().length - originLength;
       updateCaret(el, index, emojiLen);
     } else {
-      setInputText(emoji.colons);
+      setInputText(emoji.shortcodes);
       updateCaret(el, 1, 0);
     }
     return el.innerHTML;

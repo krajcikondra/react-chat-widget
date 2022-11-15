@@ -23,7 +23,7 @@ interface ISenderRef {
 
 export type EmojiSet = 'apple' | 'google' | 'twitter' | 'facebook';
 export type Emoji = {
-  colons: string,
+  shortcodes: string,
   emoticons: any[],
   id: string,
   name: string,
@@ -201,7 +201,7 @@ function Conversation({
       {emojis && pickerStatus && (<Picker
         data={data}
         style={{ position: 'absolute', bottom: pickerOffset, left: '0', width: '100%' }}
-        onSelect={onSelectEmoji}
+        onEmojiSelect={onSelectEmoji}
         set={emojiSet ?? undefined}
       />)}
       <Sender
