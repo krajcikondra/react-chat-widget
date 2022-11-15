@@ -1,6 +1,7 @@
 import React, {ReactElement, ReactNode} from 'react';
 import { useRef, useState, useEffect } from 'react';
-import { Picker } from 'emoji-mart';
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
 import cn from 'classnames';
 
 import Header from './components/Header';
@@ -198,6 +199,7 @@ function Conversation({
           onQuickButtonClicked={onQuickButtonClicked}
       />
       {emojis && pickerStatus && (<Picker
+        data={data}
         style={{ position: 'absolute', bottom: pickerOffset, left: '0', width: '100%' }}
         onSelect={onSelectEmoji}
         set={emojiSet ?? undefined}

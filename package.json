@@ -19,10 +19,12 @@
     "javascript"
   ],
   "dependencies": {
+    "@emoji-mart/data": "^1.0.8",
+    "@emoji-mart/react": "^1.0.1",
     "classnames": "^2.2.6",
     "date-fns": "^2.11.1",
     "emoji-js": "^3.7.0",
-    "emoji-mart": "^3.0.1",
+    "emoji-mart": "^5.3.2",
     "get-user-media-promise": "^1.1.4",
     "markdown-it": "^8.4.1",
     "markdown-it-link-attributes": "^2.1.0",
