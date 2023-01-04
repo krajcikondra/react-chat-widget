@@ -14,6 +14,7 @@ type Props = {
   handleQuickButtonClicked?: (value: string) => void;
   handleScrollTop?(): void;
   handleOnFocus?(chatId?: string): void;
+  onImageClick?(url: string): void;
   title?: string;
   titleAvatar?: string;
   subtitle?: string;
@@ -88,6 +89,7 @@ function ConnectedWidget({
   headerBeginElement,
   sendIcon,
   smileIcon,
+  onImageClick,
 }: Props) {
   const isNextJs = typeof window === 'undefined';
   if (isNextJs) {
@@ -136,6 +138,7 @@ function ConnectedWidget({
             headerBeginElement={headerBeginElement}
             sendIcon={sendIcon}
             smileIcon={smileIcon}
+            onImageClick={onImageClick}
         />}
       </>
     </Provider>

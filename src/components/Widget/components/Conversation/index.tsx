@@ -63,6 +63,7 @@ type Props = {
   smileIcon?: ReactNode;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
+  onImageClick?(url: string): void;
   isShowEmoji: boolean;
   isShowFileUploader: boolean;
 };
@@ -99,6 +100,7 @@ function Conversation({
   sendIcon,
   isShowFileUploader = false,
   isShowEmoji = true,
+  onImageClick,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -198,6 +200,7 @@ function Conversation({
         showTimeStamp={showTimeStamp}
         onScrollTop={onScrollTop}
         set={emojiSet ?? undefined}
+        onImageClick={onImageClick}
       />
       <QuickButtons
           onQuickButtonClicked={onQuickButtonClicked}

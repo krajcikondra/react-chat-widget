@@ -55,6 +55,7 @@ type Props = {
   smileIcon?: ReactNode;
   handleScrollTop?(): void;
   onFocus?(chatId?: string): void;
+  onImageClick?(url: string): void;
   isShowEmoji?: boolean;
   isShowFileUploader?: boolean;
 }
@@ -99,6 +100,7 @@ function Widget({
   headerBeginElement,
   smileIcon,
   sendIcon,
+  onImageClick,
   isShowFileUploader = true,
   isShowEmoji = false,
 }: Props) {
@@ -186,6 +188,7 @@ function Widget({
       sendIcon={sendIcon}
       isShowFileUploader={isShowFileUploader}
       isShowEmoji={isShowEmoji}
+      onImageClick={onImageClick}
     />
   );
 }

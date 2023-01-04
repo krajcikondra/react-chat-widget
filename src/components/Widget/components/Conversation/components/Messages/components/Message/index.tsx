@@ -22,6 +22,7 @@ type Props = {
   message: Message;
   showTimeStamp: boolean;
   set?: EmojiSet;
+  onImageClick?(url: string): void;
 }
 
 const renderPost = (post: PostOptions, set?: EmojiSet): React.ReactNode => {
@@ -37,7 +38,7 @@ const renderPost = (post: PostOptions, set?: EmojiSet): React.ReactNode => {
   </div>)
 };
 
-function Message({ message, showTimeStamp, set }: Props) {
+function Message({ message, showTimeStamp, set, onImageClick }: Props) {
   let sanitizedHTML = markdownIt({ break: true })
     .use(markdownItClass, {
       img: ['rcw-message-img']
@@ -54,7 +55,12 @@ function Message({ message, showTimeStamp, set }: Props) {
       {message.post && renderPost(message.post, set)}
 
       {message.imageLink && <div className="rcw-message-text">
-        <p><img src={message.imageLink} alt="" className="rcw-message-img" /></p>
+        <p><img
+            src={message.imageLink}
+            alt=""
+            className="rcw-message-img"
+            onClick={() => onImageClick?.(String(message.imageLink))}
+        /></p>
       </div>}
       {message.text && <div className="rcw-message-text" dangerouslySetInnerHTML={{ __html: emojiConvert(sanitizedHTML, set) }} />}
       {message.audioLink && <audio controls>

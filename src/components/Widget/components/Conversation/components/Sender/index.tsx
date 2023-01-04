@@ -284,10 +284,6 @@ function Sender({
         </button>
       )}
 
-      {isShowFileUploader && (
-        <FileUpload onClick={handleFileInput} />
-      )}
-
       {isMicActive ? <Recording
           uploading={isAudioUploading}
           ref={recordingRef}
@@ -310,6 +306,9 @@ function Sender({
             onClick={onFocus}
         />
       </div>}
+      {isShowFileUploader && (
+          <FileUpload onClick={handleFileInput} />
+      )}
       {(micAllowed && !isMicActive) && <button className="rcw-mic" onClick={() => setMicActive(!isMicActive)}>
         <img src={mic} alt="" className="rcw-mic-icon" />
       </button>}

@@ -10,19 +10,21 @@ type Props = {
 
 export const FileUpload: React.FC<Props> = ({ onClick }) => {
   const [files, selectFiles,] = useUploadFiles();
-  
+
   useEffect(() => {
     if (files.length) {
       onClick(files);
     }
   }, [files]);
-  
+
   return (
-    <div className="image-upload">
-      <label htmlFor="upload-photo">
-        <img src={send} />
-      </label>
-      <input accept="image/*" onChange={selectFiles} type="file" multiple name="photo" id="upload-photo" />
-    </div>
+      <button className="rcw-upload image-upload">
+          <span>
+              <label htmlFor="upload-photo">
+                  <img src={send} />
+              </label>
+              <input accept="image/*" onChange={selectFiles} type="file" multiple name="photo" id="upload-photo" />
+          </span>
+      </button>
   );
 };
