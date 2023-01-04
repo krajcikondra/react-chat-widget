@@ -49,6 +49,8 @@ type Props = {
   smileIcon?: ReactNode;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
+  isShowEmoji: boolean;
+  isShowFileUploader: boolean;
 }
 
 function WidgetLayout({
@@ -88,6 +90,8 @@ function WidgetLayout({
   headerBeginElement,
   smileIcon,
   sendIcon,
+  isShowFileUploader,
+  isShowEmoji,
 }: Props) {
   const dispatch = useDispatch();
   const { dissableInput, showChat, visible } = useSelector((state: GlobalState) => ({
@@ -196,6 +200,8 @@ function WidgetLayout({
           headerBeginElement={headerBeginElement}
           smileIcon={smileIcon}
           sendIcon={sendIcon}
+          isShowFileUploader={isShowFileUploader}
+          isShowEmoji={isShowEmoji}
         />
       }
       {customLauncher !== null && renderLauncher()}

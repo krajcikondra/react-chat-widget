@@ -63,6 +63,8 @@ type Props = {
   smileIcon?: ReactNode;
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
+  isShowEmoji: boolean;
+  isShowFileUploader: boolean;
 };
 
 function Conversation({
@@ -95,6 +97,8 @@ function Conversation({
   headerBeginElement,
   smileIcon,
   sendIcon,
+  isShowFileUploader = false,
+  isShowEmoji = true,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -198,6 +202,7 @@ function Conversation({
       <QuickButtons
           onQuickButtonClicked={onQuickButtonClicked}
       />
+    <QuickButtons onQuickButtonClicked={onQuickButtonClicked} />
       {emojis && pickerStatus && (<Picker
         data={data}
         style={{ position: 'absolute', bottom: pickerOffset, left: '0', width: '100%' }}
@@ -206,6 +211,8 @@ function Conversation({
       />)}
       <Sender
         ref={senderRef}
+        isShowFileUploader={isShowFileUploader}
+        isShowEmoji={isShowEmoji}
         sendMessage={handlerSendMsn}
         sendAudio={sendAudio}
         placeholder={senderPlaceHolder}

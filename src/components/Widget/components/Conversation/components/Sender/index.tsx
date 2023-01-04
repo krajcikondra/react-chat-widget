@@ -3,6 +3,7 @@ import cn from 'classnames';
 
 import {emojiBackwardConvert, emojiConvert} from "../../../../../../utils/emoji";
 import {getCaretIndex, isFirefox, updateCaret, insertNodeAtCaret} from '../../../../../../utils/contentEditable'
+import {FileUpload} from '../File-Upload';
 import {Emoji, EmojiSet} from "../../index";
 const send = require('../../../../../../../assets/send_button.svg') as string;
 const mic = require('../../../../../../../assets/mic.png') as string;
@@ -13,6 +14,8 @@ const brRegex = /<br>/g;
 import './style.scss';
 
 type Props = {
+  isShowEmoji: boolean;
+  isShowFileUploader: boolean;
   placeholder: string;
   className?: string;
   uploadAudioUrl?: string;
@@ -56,11 +59,14 @@ function Sender({
   sendIcon,
   smileIcon,
   defaultValue,
+  isShowEmoji,
+  isShowFileUploader,
 }: Props, ref) {
   if (typeof window === 'undefined') {
     return null;
   }
 
+  // const showChat = useSelector((state: GlobalState) => state.behavior.showChat);
   const inputRef = useRef<HTMLDivElement>(null!);
   const refContainer = useRef<HTMLDivElement>(null);
   const recordingRef = useRef<IRecordingRef>(null);
@@ -263,12 +269,25 @@ function Sender({
   }
 
   const [isMicActive, setMicActive] = useState(false);
+  const handleFileInput = (files: { source: string }[] = []) => {
+    files.forEach((file) => sendMessage(`![](${file.source})`));
+  };
 
   return (
     <div ref={refContainer} className={cn("rcw-sender", className)}>
-      {!isMicActive && <button className='rcw-picker-btn' type="button" onClick={handlerPressEmoji}>
+        {!isMicActive && <button className='rcw-picker-btn' type="button" onClick={handlerPressEmoji}>
         {smileIcon ? smileIcon : <img src={emoji} className="rcw-picker-icon" alt="" />}
-      </button>}
+          </button>}
+        {isShowEmoji && (
+        <button className='rcw-picker-btn' type="submit" onClick={handlerPressEmoji}>
+          <img src={emoji} className="rcw-picker-icon" alt="" />
+        </button>
+      )}
+
+      {isShowFileUploader && (
+        <FileUpload onClick={handleFileInput} />
+      )}
+
       {isMicActive ? <Recording
           uploading={isAudioUploading}
           ref={recordingRef}

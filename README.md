@@ -165,6 +165,7 @@ export default App;
 
 #### Props
 
+
 |prop| type                                                    | required | default value                                                                               | description                                                                                 |
 |---|---------------------------------------------------------|----------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 |**handleNewUserMessage**| (...args: any[]) => any                                 | YES      |                                                                                             | Function to handle the user input, will receive the full text message when submitted        |
@@ -201,6 +202,7 @@ export default App;
 |**uploadAudioUrl**| string                                                  | NO       || Url for upload recorded audio                                                               |
 |**startRecording**| PropTypes.func                                          | NO       || Initiated when the users presses and holds the mic button                                   |
 |**stopRecording**| PropTypes.func                                          | NO       || Initiated when the mic button is released                                                   |
+|**isShowFileUploader**|boolean|NO|true| Prop that allows to show or hide the file upload icon                                |
 
 #### Styles
 

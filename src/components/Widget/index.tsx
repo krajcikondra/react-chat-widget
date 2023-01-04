@@ -55,6 +55,8 @@ type Props = {
   smileIcon?: ReactNode;
   handleScrollTop?(): void;
   onFocus?(chatId?: string): void;
+  isShowEmoji?: boolean;
+  isShowFileUploader?: boolean;
 }
 
 function Widget({
@@ -97,6 +99,8 @@ function Widget({
   headerBeginElement,
   smileIcon,
   sendIcon,
+  isShowFileUploader = true,
+  isShowEmoji = false,
 }: Props) {
   const dispatch = useDispatch();
 
@@ -113,7 +117,6 @@ function Widget({
     if (!userInput.trim()) {
       return;
     }
-
     handleSubmit?.(userInput);
     const msgHash = md5(userInput + (new Date()).getTime());
     const userMessage = emojiBackwardConvert(userInput);
@@ -181,6 +184,8 @@ function Widget({
       headerBeginElement={headerBeginElement}
       smileIcon={smileIcon}
       sendIcon={sendIcon}
+      isShowFileUploader={isShowFileUploader}
+      isShowEmoji={isShowEmoji}
     />
   );
 }
