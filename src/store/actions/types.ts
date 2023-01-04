@@ -66,6 +66,7 @@ export interface AddUserMessage {
   options?: MessageOptions,
   post?: PostOptions;
   audioLink?: string;
+  imageLink?: string;
 }
 
 export interface GetLastResponseMessage {
@@ -76,6 +77,7 @@ export interface AddResponseMessage {
   type: typeof ADD_NEW_RESPONSE_MESSAGE;
   text?: string;
   audioLink?: string;
+  imageLink?: string;
   id?: string;
   chatId?: string;
   date?: Date;

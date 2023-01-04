@@ -27,7 +27,7 @@ const initialState = {
 };
 
 const messagesReducer = {
-  [ADD_NEW_USER_MESSAGE]: (state: MessagesState, { text, showClientAvatar, id, date, chatId, options, post, audioLink }) =>
+  [ADD_NEW_USER_MESSAGE]: (state: MessagesState, { text, showClientAvatar, id, date, chatId, options, post, audioLink, imageLink }) =>
     ({ ...state, messages: pushMessage(state.messages, createNewMessage(
         text,
         MESSAGE_SENDER.CLIENT,
@@ -37,8 +37,10 @@ const messagesReducer = {
         options,
         post,
         audioLink,
+        false,
+        imageLink,
       ))}),
-  [ADD_NEW_RESPONSE_MESSAGE]: (state: MessagesState, { text, id, date, chatId, options, post, audioLink }) =>
+  [ADD_NEW_RESPONSE_MESSAGE]: (state: MessagesState, { text, id, date, chatId, options, post, audioLink, imageLink }) =>
     ({ ...state, messages: pushMessage(state.messages, createNewMessage(
         text,
         MESSAGE_SENDER.RESPONSE,
@@ -48,6 +50,8 @@ const messagesReducer = {
         options,
         post,
         audioLink,
+        false,
+        imageLink,
       )), badgeCount: state.badgeCount + 1 }),
 
   [ADD_NEW_SYSTEM_RESPONSE_MESSAGE]: (state: MessagesState, { text, id, date, chatId, options, post, audioLink }) =>

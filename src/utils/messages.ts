@@ -19,6 +19,7 @@ export function createNewMessage(
   post?: PostOptions,
   audioLink?: string,
   isSystemMessage = false,
+  imageLink?: string,
 ): MessageI {
 
 
@@ -38,6 +39,7 @@ export function createNewMessage(
     delivered,
     post,
     audioLink,
+    imageLink,
     isSystemMessage,
   };
 }

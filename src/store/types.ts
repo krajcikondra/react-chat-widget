@@ -18,6 +18,7 @@ type BaseMessage = {
 export interface Message extends BaseMessage {
   text?: string;
   audioLink?: string;
+  imageLink?: string;
   isSystemMessage?: boolean,
 };
 

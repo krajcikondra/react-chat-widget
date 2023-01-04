@@ -53,6 +53,9 @@ function Message({ message, showTimeStamp, set }: Props) {
     <div className={`rcw-${message.sender}`}>
       {message.post && renderPost(message.post, set)}
 
+      {message.imageLink && <div className="rcw-message-text">
+        <p><img src={message.imageLink} alt="" className="rcw-message-img" /></p>
+      </div>}
       {message.text && <div className="rcw-message-text" dangerouslySetInnerHTML={{ __html: emojiConvert(sanitizedHTML, set) }} />}
       {message.audioLink && <audio controls>
         <source src={message.audioLink} type="audio/wav" />

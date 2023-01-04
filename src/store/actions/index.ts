@@ -69,6 +69,24 @@ export function addUserAudioMessage(
   };
 }
 
+export function addUserImageMessage(
+    imageLink: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+    options?: MessageOptions,
+): actionsTypes.AddUserMessage {
+  return {
+    type: actionsTypes.ADD_NEW_USER_MESSAGE,
+    text: '',
+    id,
+    date,
+    chatId,
+    imageLink,
+    options,
+  };
+}
+
 export function addResponseMessage(
     text: string,
     id?: string,
@@ -118,6 +136,24 @@ export function addResponseAudioMessage(
     type: actionsTypes.ADD_NEW_RESPONSE_MESSAGE,
     text: '',
     audioLink,
+    id,
+    date,
+    chatId,
+    options,
+  };
+}
+
+export function addResponseImageMessage(
+    imageLink: string,
+    id?: string,
+    date?: Date,
+    chatId?: string,
+    options?: MessageOptions,
+): actionsTypes.AddResponseMessage {
+  return {
+    type: actionsTypes.ADD_NEW_RESPONSE_MESSAGE,
+    text: '',
+    imageLink,
     id,
     date,
     chatId,
