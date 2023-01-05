@@ -45,6 +45,7 @@ type Props = {
   className: string;
   sendMessage: AnyFunction;
   sendAudio?: AnyFunction;
+  sendImage?: AnyFunction;
   toggleChat: AnyFunction;
   profileAvatar?: string|ReactElement;
   profileClientAvatar?: string|ReactElement;
@@ -58,6 +59,7 @@ type Props = {
   emojiSet?: EmojiSet;
   micAllowed?: boolean;
   uploadAudioUrl?: string;
+  uploadImageUrl?: string;
   headerBeginElement?: ReactElement;
   sendIcon?: ReactNode;
   smileIcon?: ReactNode;
@@ -79,6 +81,7 @@ function Conversation({
   className,
   sendMessage,
   sendAudio,
+  sendImage,
   toggleChat,
   profileAvatar,
   profileClientAvatar,
@@ -95,6 +98,7 @@ function Conversation({
   onFocus,
   micAllowed,
   uploadAudioUrl,
+  uploadImageUrl,
   headerBeginElement,
   smileIcon,
   sendIcon,
@@ -218,6 +222,7 @@ function Conversation({
         isShowEmoji={isShowEmoji}
         sendMessage={handlerSendMsn}
         sendAudio={sendAudio}
+        sendImage={sendImage}
         placeholder={senderPlaceHolder}
         disabledInput={disabledInput}
         autofocus={autofocus}
@@ -231,6 +236,7 @@ function Conversation({
         showChat={showChat}
         micAllowed={micAllowed}
         uploadAudioUrl={uploadAudioUrl}
+        uploadImageUrl={uploadImageUrl}
         smileIcon={smileIcon}
         sendIcon={sendIcon}
       />

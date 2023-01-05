@@ -18,6 +18,7 @@ type Props = {
   subtitle: string;
   onSendMessage: AnyFunction;
   onSendAudio?: AnyFunction;
+  onSendImage?: AnyFunction;
   onToggleConversation: AnyFunction;
   senderPlaceHolder: string;
   onQuickButtonClicked: AnyFunction;
@@ -44,6 +45,7 @@ type Props = {
   emojiSet?: EmojiSet;
   micAllowed?: boolean;
   uploadAudioUrl?: string;
+  uploadImageUrl?: string;
   headerBeginElement?: ReactElement;
   sendIcon?: ReactNode;
   smileIcon?: ReactNode;
@@ -60,6 +62,7 @@ function WidgetLayout({
   subtitle,
   onSendMessage,
   onSendAudio,
+  onSendImage,
   onToggleConversation,
   senderPlaceHolder,
   onQuickButtonClicked,
@@ -88,6 +91,7 @@ function WidgetLayout({
   onFocus,
   micAllowed,
   uploadAudioUrl,
+  uploadImageUrl,
   headerBeginElement,
   smileIcon,
   sendIcon,
@@ -178,6 +182,7 @@ function WidgetLayout({
           subtitle={subtitle}
           sendMessage={onSendMessage}
           sendAudio={onSendAudio}
+          sendImage={onSendImage}
           senderPlaceHolder={senderPlaceHolder}
           profileAvatar={profileAvatar}
           profileClientAvatar={profileClientAvatar}
@@ -199,6 +204,7 @@ function WidgetLayout({
           onFocus={onFocus}
           micAllowed={micAllowed}
           uploadAudioUrl={uploadAudioUrl}
+          uploadImageUrl={uploadImageUrl}
           headerBeginElement={headerBeginElement}
           smileIcon={smileIcon}
           sendIcon={sendIcon}

@@ -19,10 +19,12 @@ type Props = {
   placeholder: string;
   className?: string;
   uploadAudioUrl?: string;
+  uploadImageUrl?: string;
   disabledInput: boolean;
   autofocus: boolean;
   sendMessage: (msg: string) => void;
   sendAudio?: (response: string) => void;
+  sendImage?: (response: string) => void;
   buttonAlt: string;
   set?: EmojiSet;
   showChat?: string[];
@@ -41,6 +43,7 @@ type Props = {
 function Sender({
   sendMessage,
   uploadAudioUrl,
+  uploadImageUrl,
   showChat,
   placeholder,
   disabledInput,
@@ -56,6 +59,7 @@ function Sender({
   className,
   micAllowed,
   sendAudio,
+  sendImage,
   sendIcon,
   smileIcon,
   defaultValue,
@@ -113,6 +117,29 @@ function Sender({
         })
         .catch(err => {
           setAudioUploading(false);
+          alert(err);
+        });
+  }
+
+  const uploadImage = (base64: string) => {
+    if (!uploadImageUrl) {
+      throw new Error('uploadImageUrl is not set');
+    }
+
+    return fetch(uploadImageUrl, {method:"POST", body: JSON.stringify({
+      content: base64,
+      })})
+        .then(response => {
+          if (response.ok) return response;
+          else throw Error(`Server returned ${response.status}: ${response.statusText}`)
+        })
+        .then(async response => {
+          // setAudioUploading(false);
+          const responseText = await response.text();
+          sendImage?.(responseText);
+        })
+        .catch(err => {
+          // setAudioUploading(false);
           alert(err);
         });
   }
@@ -270,7 +297,7 @@ function Sender({
 
   const [isMicActive, setMicActive] = useState(false);
   const handleFileInput = (files: { source: string }[] = []) => {
-    files.forEach((file) => sendMessage(`![](${file.source})`));
+    files.forEach((file) => uploadImage(file.source));
   };
 
   return (

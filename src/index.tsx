@@ -11,6 +11,7 @@ import {EmojiSet} from "./components/Widget/components/Conversation";
 type Props = {
   handleNewUserMessage: (msg: string, hash: string) => void;
   handleNewUserAudio: (audioData: AudioResponseData, msgHash: string) => void;
+  handleNewUserImage: (audioData: any, msgHash: string) => void;
   handleQuickButtonClicked?: (value: string) => void;
   handleScrollTop?(): void;
   handleOnFocus?(chatId?: string): void;
@@ -41,6 +42,7 @@ type Props = {
   emojiSet?: EmojiSet;
   micAllowed?: boolean;
   uploadAudioUrl?: string;
+  uploadImageUrl?: string;
   handleSubmit?: AnyFunction;
   showBadge?: boolean;
   resizable?: boolean;
@@ -64,6 +66,7 @@ function ConnectedWidget({
   launcher,
   handleNewUserMessage,
   handleNewUserAudio,
+  handleNewUserImage,
   handleQuickButtonClicked,
   handleTextInputChange,
   chatId,
@@ -86,6 +89,7 @@ function ConnectedWidget({
   handleOnFocus,
   micAllowed,
   uploadAudioUrl,
+  uploadImageUrl,
   headerBeginElement,
   sendIcon,
   smileIcon,
@@ -105,6 +109,7 @@ function ConnectedWidget({
             subtitle={subtitle}
             handleNewUserMessage={handleNewUserMessage}
             handleNewUserAudio={handleNewUserAudio}
+            handleNewUserImage={handleNewUserImage}
             handleQuickButtonClicked={handleQuickButtonClicked}
             senderPlaceHolder={senderPlaceHolder}
             profileAvatar={profileAvatar}
@@ -135,6 +140,7 @@ function ConnectedWidget({
             onFocus={handleOnFocus}
             micAllowed={micAllowed}
             uploadAudioUrl={uploadAudioUrl}
+            uploadImageUrl={uploadImageUrl}
             headerBeginElement={headerBeginElement}
             sendIcon={sendIcon}
             smileIcon={smileIcon}

@@ -1,7 +1,7 @@
 import React, {ReactElement, ReactNode, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 
-import {toggleChat, addUserMessage, addUserAudioMessage} from '../../store/actions';
+import {toggleChat, addUserMessage, addUserAudioMessage, addUserImageMessage} from '../../store/actions';
 import {isWidgetOpened, setMaxOpenWidgets} from '../../store/dispatcher';
 import { AnyFunction } from '../../utils/types';
 
@@ -29,6 +29,7 @@ type Props = {
   customLauncher?: AnyFunction|null;
   handleNewUserMessage: AnyFunction;
   handleNewUserAudio?: (audioData: AudioResponseData, msgHash: string) => void;
+  handleNewUserImage?: (audioData: AudioResponseData, msgHash: string) => void;
   handleQuickButtonClicked?: AnyFunction;
   handleTextInputChange?: (event: any) => void;
   chatId: string;
@@ -49,6 +50,7 @@ type Props = {
   emojiSet?: EmojiSet;
   micAllowed?: boolean;
   uploadAudioUrl?: string;
+  uploadImageUrl?: string;
   maxOpenWidgets?: number;
   headerBeginElement?: ReactElement;
   sendIcon?: ReactNode;
@@ -74,6 +76,7 @@ function Widget({
   customLauncher,
   handleNewUserMessage,
   handleNewUserAudio,
+  handleNewUserImage,
   handleQuickButtonClicked,
   handleTextInputChange,
   chatId,
@@ -97,6 +100,7 @@ function Widget({
   onFocus,
   micAllowed,
   uploadAudioUrl,
+  uploadImageUrl,
   headerBeginElement,
   smileIcon,
   sendIcon,
@@ -139,6 +143,18 @@ function Widget({
     handleNewUserAudio?.(audioResponseData, msgHash);
   }
 
+  const handleSendImage = (response: string) => {
+    if (!response) {
+      return;
+    }
+
+    const msgHash = md5(response + (new Date()).getTime());
+    const imageResponseData: AudioResponseData = JSON.parse(response) as any;
+
+    dispatch(addUserImageMessage(imageResponseData.url, msgHash, undefined, chatId));
+    handleNewUserImage?.(imageResponseData, msgHash);
+  }
+
   const onQuickButtonClicked = (event, value) => {
     event.preventDefault();
     handleQuickButtonClicked?.(value)
@@ -153,6 +169,7 @@ function Widget({
       onToggleConversation={toggleConversation}
       onSendMessage={handleMessageSubmit}
       onSendAudio={handleSendAudio}
+      onSendImage={handleSendImage}
       onQuickButtonClicked={onQuickButtonClicked}
       title={title}
       titleAvatar={titleAvatar}
@@ -183,6 +200,7 @@ function Widget({
       onFocus={onFocus}
       micAllowed={micAllowed}
       uploadAudioUrl={uploadAudioUrl}
+      uploadImageUrl={uploadImageUrl}
       headerBeginElement={headerBeginElement}
       smileIcon={smileIcon}
       sendIcon={sendIcon}
