@@ -9,6 +9,7 @@ import WidgetLayout from './layout';
 import {EmojiSet} from "./components/Conversation";
 import {md5} from "../../utils/hash-generator";
 import {emojiBackwardConvert} from "../../utils/emoji";
+import {Message} from "@types";
 
 export type AudioResponseData = {
   id?: number,
@@ -58,6 +59,7 @@ type Props = {
   handleScrollTop?(): void;
   onFocus?(chatId?: string): void;
   onImageClick?(url: string): void;
+  onRemoveMessage?(message: Message): void;
   isShowEmoji?: boolean;
   isShowFileUploader?: boolean;
 }
@@ -107,6 +109,7 @@ function Widget({
   onImageClick,
   isShowFileUploader = true,
   isShowEmoji = false,
+  onRemoveMessage,
 }: Props) {
   const dispatch = useDispatch();
 
@@ -207,6 +210,7 @@ function Widget({
       isShowFileUploader={isShowFileUploader}
       isShowEmoji={isShowEmoji}
       onImageClick={onImageClick}
+      onRemoveMessage={onRemoveMessage}
     />
   );
 }

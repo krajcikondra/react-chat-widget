@@ -2,11 +2,11 @@ import React, {ReactElement, ReactNode} from 'react';
 import { Provider } from 'react-redux';
 
 import Widget, {AudioResponseData} from './components/Widget';
+import {EmojiSet} from './components/Widget/components/Conversation';
+import {Message} from '@types';
 
 import store from  './store';
-
-import { AnyFunction } from './utils/types';
-import {EmojiSet} from "./components/Widget/components/Conversation";
+import {AnyFunction} from './utils/types';
 
 type Props = {
   handleNewUserMessage: (msg: string, hash: string) => void;
@@ -16,6 +16,7 @@ type Props = {
   handleScrollTop?(): void;
   handleOnFocus?(chatId?: string): void;
   onImageClick?(url: string): void;
+  onRemoveMessage?(message: Message): void;
   title?: string;
   titleAvatar?: string;
   subtitle?: string;
@@ -94,6 +95,7 @@ function ConnectedWidget({
   sendIcon,
   smileIcon,
   onImageClick,
+  onRemoveMessage,
 }: Props) {
   const isNextJs = typeof window === 'undefined';
   if (isNextJs) {
@@ -145,6 +147,7 @@ function ConnectedWidget({
             sendIcon={sendIcon}
             smileIcon={smileIcon}
             onImageClick={onImageClick}
+            onRemoveMessage={onRemoveMessage}
         />}
       </>
     </Provider>

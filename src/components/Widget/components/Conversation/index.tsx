@@ -14,7 +14,7 @@ import { AnyFunction } from '../../../../utils/types';
 import './style.scss';
 import {isWidgetOpened, toggleWidget} from "../../../../../index";
 import {useDispatch, useSelector} from "react-redux";
-import {GlobalState} from "@types";
+import {GlobalState, Message} from "@types";
 import {minimalizeChat, setBadgeCount} from "@actions";
 
 interface ISenderRef {
@@ -66,6 +66,7 @@ type Props = {
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
   onImageClick?(url: string): void;
+  onRemoveMessage?(message: Message): void;
   isShowEmoji: boolean;
   isShowFileUploader: boolean;
 };
@@ -105,6 +106,7 @@ function Conversation({
   isShowFileUploader = false,
   isShowEmoji = true,
   onImageClick,
+  onRemoveMessage,
 }: Props) {
   const [containerDiv, setContainerDiv] = useState<HTMLElement | null>();
   let startX, startWidth;
@@ -205,6 +207,7 @@ function Conversation({
         onScrollTop={onScrollTop}
         set={emojiSet ?? undefined}
         onImageClick={onImageClick}
+        onRemoveMessage={onRemoveMessage}
       />
       <QuickButtons
           onQuickButtonClicked={onQuickButtonClicked}

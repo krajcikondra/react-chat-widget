@@ -2,7 +2,7 @@ import React, {ReactElement, ReactNode, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 
-import { GlobalState } from 'src/store/types';
+import {GlobalState, Message} from 'src/store/types';
 import { AnyFunction } from 'src/utils/types';
 import { openFullscreenPreview } from '@actions';
 
@@ -52,6 +52,7 @@ type Props = {
   onScrollTop(): void;
   onFocus?(chatId?: string): void;
   onImageClick?(url: string): void;
+  onRemoveMessage?(message: Message): void;
   isShowEmoji: boolean;
   isShowFileUploader: boolean;
 }
@@ -98,6 +99,7 @@ function WidgetLayout({
   isShowFileUploader,
   isShowEmoji,
   onImageClick,
+  onRemoveMessage,
 }: Props) {
   const dispatch = useDispatch();
   const { dissableInput, showChat, visible } = useSelector((state: GlobalState) => ({
@@ -211,6 +213,7 @@ function WidgetLayout({
           isShowFileUploader={isShowFileUploader}
           isShowEmoji={isShowEmoji}
           onImageClick={onImageClick}
+          onRemoveMessage={onRemoveMessage}
         />
       }
       {customLauncher !== null && renderLauncher()}

@@ -35,13 +35,23 @@ type Props = {
   set?: EmojiSet;
   onScrollTop(): void;
   onImageClick?(url: string): void;
+  onRemoveMessage?(message: Message): void;
 }
 
 const compareMessage = (msg, secondMsg): boolean => {
   return msg.text === secondMsg.text && msg.sender === secondMsg.sender && msg.type === secondMsg.type;
 };
 
-function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, onScrollTop, set, onImageClick }: Props, ref) {
+function Messages({
+  profileAvatar,
+  profileClientAvatar,
+  showTimeStamp,
+  chatId,
+  onScrollTop,
+  set,
+  onImageClick,
+  onRemoveMessage,
+}: Props, ref) {
   const dispatch = useDispatch();
   const { messages, typing, showChat, badgeCount } = useSelector((state: GlobalState) => ({
     messages: state.messages.messages,
@@ -98,9 +108,20 @@ function Messages({ profileAvatar, profileClientAvatar, showTimeStamp, chatId, o
   const getComponentToRender = (message: Message | Link | CustomCompMessage) => {
     const ComponentToRender = message.component;
     if (message.type === 'component') {
-      return <ComponentToRender {...message.props} set={set} onImageClick={onImageClick} />;
+      return <ComponentToRender
+          {...message.props}
+          set={set}
+          onImageClick={onImageClick}
+          onRemoveMessage={onRemoveMessage}
+      />;
     }
-    return <ComponentToRender message={message} showTimeStamp={showTimeStamp} set={set} onImageClick={onImageClick} />;
+    return <ComponentToRender
+        message={message}
+        showTimeStamp={showTimeStamp}
+        set={set}
+        onImageClick={onImageClick}
+        onRemoveMessage={onRemoveMessage}
+    />;
   };
 
   // TODO: Fix this function or change to move the avatar to last message from response

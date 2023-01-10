@@ -16,6 +16,7 @@ import {PostOptions} from "../../../../../../../../store/actions/types";
 import './styles.scss';
 const checkIcon = require('../../../../../../../../../assets/check.svg') as string;
 const checkSuccessIcon = require('../../../../../../../../../assets/check-success.svg') as string;
+const close = require('../../../../../../../../../assets/close.svg') as string;
 
 
 type Props = {
@@ -23,6 +24,7 @@ type Props = {
   showTimeStamp: boolean;
   set?: EmojiSet;
   onImageClick?(url: string): void;
+  onRemoveMessage?(message: Message): void;
 }
 
 const renderPost = (post: PostOptions, set?: EmojiSet): React.ReactNode => {
@@ -38,7 +40,7 @@ const renderPost = (post: PostOptions, set?: EmojiSet): React.ReactNode => {
   </div>)
 };
 
-function Message({ message, showTimeStamp, set, onImageClick }: Props) {
+function Message({ message, showTimeStamp, set, onImageClick, onRemoveMessage}: Props) {
   let sanitizedHTML = markdownIt({ break: true })
     .use(markdownItClass, {
       img: ['rcw-message-img']
@@ -55,13 +57,21 @@ function Message({ message, showTimeStamp, set, onImageClick }: Props) {
       {message.post && renderPost(message.post, set)}
 
       {message.imageLink && <div className="rcw-message-text">
-        <p><img
+        <p>
+          <img
             src={message.imageLink}
             alt=""
             className="rcw-message-img"
             onClick={() => onImageClick?.(String(message.imageLink))}
-        /></p>
+          />
+        </p>
       </div>}
+      {isClient(message.sender) && <img
+          src={close}
+          onClick={() => onRemoveMessage?.(message)}
+          title="Remove"
+          className="cursor-pointer rcw-message-remove"
+      />}
       {message.text && <div className="rcw-message-text" dangerouslySetInnerHTML={{ __html: emojiConvert(sanitizedHTML, set) }} />}
       {message.audioLink && <audio controls>
         <source src={message.audioLink} type="audio/wav" />
