@@ -18,4 +18,5 @@ export const EmojiPicker = ({onEmojiSelect, set, pickerOffset, style, onClickOut
     onEmojiSelect={onEmojiSelect}
     set={set ?? undefined}
     onClickOutside={onClickOutside}
+    skinTonePosition="none"
 />;
