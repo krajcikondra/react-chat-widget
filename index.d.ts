@@ -9,9 +9,11 @@ import {Message} from "@types";
 import ConnectedWidget from "./src/index";
 import {EmojiSet} from "./src/components/Widget/components/Conversation";
 import {indexOfAll, isEmojiPosition, strEmojiLen, textWithEmojiTruncate} from "./src/utils/text-with-emoji-truncate";
+import EmojiPicker from "./src/components/Picker";
 export {AudioResponseData} from "./src/components/Widget";
 
 export const Widget = ConnectedWidget;
+export const Picker = EmojiPicker;
 
 export function addUserMessage(text: string): void;
 export function addUserMessage(text: string, id: string): void;

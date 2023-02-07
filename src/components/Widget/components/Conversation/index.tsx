@@ -1,7 +1,5 @@
 import React, {ReactElement, ReactNode} from 'react';
 import { useRef, useState, useEffect } from 'react';
-import data from '@emoji-mart/data/sets/14/google.json'
-import Picker from '@emoji-mart/react'
 import cn from 'classnames';
 
 import Header from './components/Header';
@@ -16,6 +14,7 @@ import {isWidgetOpened, toggleWidget} from "../../../../../index";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState, Message} from "@types";
 import {minimalizeChat, setBadgeCount} from "@actions";
+import {EmojiPicker} from "../../../Picker";
 
 interface ISenderRef {
   onSelectEmoji: (event: any) => void;
@@ -213,9 +212,8 @@ function Conversation({
           onQuickButtonClicked={onQuickButtonClicked}
       />
     <QuickButtons onQuickButtonClicked={onQuickButtonClicked} />
-      {emojis && pickerStatus && (<Picker
-        data={data}
-        style={{ position: 'absolute', bottom: pickerOffset, left: '0', width: '100%' }}
+      {emojis && pickerStatus && (<EmojiPicker
+          pickerOffset={pickerOffset}
         onEmojiSelect={onSelectEmoji}
         set={emojiSet ?? undefined}
       />)}

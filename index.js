@@ -30,9 +30,11 @@ import {
 } from './src/store/dispatcher';
 import { emojiBackwardConvert, emojiConvert } from './src/utils/emoji';
 import { emojiTruncate, EmojiPart } from './src/utils/text-with-emoji-truncate';
-import {PostOptions} from './src/store/types';
+import { PostOptions } from './src/store/types';
 import Sender from './src/components/Widget/components/Conversation/components/Sender';
-const {textWithEmojiTruncate, strEmojiLen, isEmojiPosition, indexOfAll} = emojiTruncate;
+import { EmojiPicker as Picker } from './src/components/Picker';
+
+const { textWithEmojiTruncate, strEmojiLen, isEmojiPosition, indexOfAll } = emojiTruncate;
 
 export {
   ConnectedWidget as Widget,
@@ -70,5 +72,6 @@ export {
   emojiTruncate,
   EmojiPart,
   PostOptions,
-  Sender
+  Sender,
+  Picker
 };
