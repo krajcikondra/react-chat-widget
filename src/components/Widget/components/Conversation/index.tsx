@@ -1,6 +1,6 @@
 import React, {ReactElement, ReactNode} from 'react';
 import { useRef, useState, useEffect } from 'react';
-import data from '@emoji-mart/data'
+import data from '@emoji-mart/data/sets/14/google.json'
 import Picker from '@emoji-mart/react'
 import cn from 'classnames';
 
