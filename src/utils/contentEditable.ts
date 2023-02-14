@@ -4,7 +4,7 @@ export const getCaretIndex = (el): number => {
   }
 
   const selection = window.getSelection();
-  if (selection === null) {
+  if (selection === null || !selection.anchorNode) {
     return 0;
   }
   const range = selection.getRangeAt(0);
