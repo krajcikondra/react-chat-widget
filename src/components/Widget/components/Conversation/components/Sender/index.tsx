@@ -93,6 +93,7 @@ function Sender({
       onSelectEmoji: handlerOnSelectEmoji,
       setHtml: handlerSetHtml,
       getHtml: getInputText,
+      sendMessage: handlerSendMessage,
     };
   });
 
