@@ -93,14 +93,44 @@ function Sender({
     }
   }, [])
 
+  const focus = () => {
+    inputRef.current?.click();
+    onFocus?.();
+    placeCaretAtEnd(inputRef.current);
+  };
+
   useImperativeHandle(ref, () => {
     return {
       onSelectEmoji: handlerOnSelectEmoji,
       setHtml: handlerSetHtml,
       getHtml: getInputText,
       sendMessage: handlerSendMessage,
+      focus,
     };
   });
+
+  const placeCaretAtEnd = (el) => {
+    el.focus();
+    if (typeof window.getSelection != "undefined"
+        && typeof document.createRange != "undefined") {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      var sel = window.getSelection();
+      if (sel) {
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    } else { // @ts-ignore
+      if (typeof document.body.createTextRange !== "undefined") {
+            // @ts-ignore
+        var textRange = document.body.createTextRange();
+            textRange.moveToElementText(el);
+            textRange.collapse(false);
+            textRange.select();
+          }
+    }
+  }
 
   const handlerOnChange = (event) => {
     onTextInputChange && onTextInputChange(event)
