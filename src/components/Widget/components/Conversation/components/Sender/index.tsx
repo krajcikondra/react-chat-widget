@@ -1,5 +1,6 @@
 import React, {useRef, useEffect, useState, forwardRef, useImperativeHandle, ReactNode} from 'react';
 import cn from 'classnames';
+import classnames from 'classnames';
 
 import {emojiBackwardConvert, emojiConvert} from "../../../../../../utils/emoji";
 import {getCaretIndex, isFirefox, updateCaret, insertNodeAtCaret} from '../../../../../../utils/contentEditable'
@@ -18,6 +19,7 @@ type Props = {
   isShowFileUploader: boolean;
   placeholder: string;
   className?: string;
+  rcwInputClassName?: string;
   uploadAudioUrl?: string;
   uploadImageUrl?: string;
   disabledInput: boolean;
@@ -67,6 +69,7 @@ function Sender({
   isShowEmoji,
   isShowFileUploader,
   onKeyUp,
+  rcwInputClassName,
 }: Props, ref) {
   if (typeof window === 'undefined') {
     return null;
@@ -325,7 +328,7 @@ function Sender({
       }>
         <div
             spellCheck
-            className="rcw-input"
+            className={classnames(rcwInputClassName, 'rcw-input')}
             role="textbox"
             contentEditable={!disabledInput}
             ref={inputRef}
