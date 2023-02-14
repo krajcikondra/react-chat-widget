@@ -25,6 +25,7 @@ type Props = {
   sendMessage: (msg: string) => void;
   sendAudio?: (response: string) => void;
   sendImage?: (response: string) => void;
+  onKeyUp?: (event: any) => void;
   buttonAlt: string;
   set?: EmojiSet;
   showChat?: string[];
@@ -65,6 +66,7 @@ function Sender({
   defaultValue,
   isShowEmoji,
   isShowFileUploader,
+  onKeyUp,
 }: Props, ref) {
   if (typeof window === 'undefined') {
     return null;
@@ -264,6 +266,7 @@ function Sender({
       }
     }
     checkSize();
+    onKeyUp?.(event);
   }
 
   const handlerOnKeyDown= (event) => {
