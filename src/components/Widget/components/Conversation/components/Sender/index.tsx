@@ -106,6 +106,7 @@ function Sender({
       getHtml: getInputText,
       sendMessage: handlerSendMessage,
       focus,
+      getInputRef: () => inputRef,
     };
   });
 
