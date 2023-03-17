@@ -68,7 +68,8 @@ export const strEmojiLen = (text: string): number => {
     return text.length - emojiLength;
 };
 
-export const textWithEmojiTruncate = (text: string, maxLength: number): string => {
+export const textWithEmojiTruncate = (textArg: string, maxLength: number): string => {
+    const text = textArg ?? '';
     const emojiParts = findEmojiParts(text);
     if (emojiParts.length === 0) {
         return truncateString(text, maxLength);
