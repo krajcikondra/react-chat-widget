@@ -1,6 +1,6 @@
 {
   "name": "react-chat-widget",
-  "version": "3.1.65",
+  "version": "3.1.66",
   "description": "Chat web widget for React apps",
   "repository": "git@github.com:Wolox/react-chat-widget.git",
   "author": "Martín Callegari <martin.callegari@wolox.com.ar>",
@@ -79,8 +79,8 @@
     "postcss-preset-env": "^6.7.1",
     "prettier": "^1.1.0",
     "prettier-eslint": "^9.0.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2",
     "redux-mock-store": "^1.5.4",
     "sass-loader": "^11.1.1",
     "source-map-loader": "^2.0.2",
