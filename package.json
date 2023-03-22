@@ -1,6 +1,6 @@
 {
   "name": "react-chat-widget",
-  "version": "3.1.66",
+  "version": "3.1.67",
   "description": "Chat web widget for React apps",
   "repository": "git@github.com:Wolox/react-chat-widget.git",
   "author": "Martín Callegari <martin.callegari@wolox.com.ar>",
@@ -96,8 +96,8 @@
     "webpack-dev-server": "^4.11.1"
   },
   "peerDependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
   },
   "jest": {
     "verbose": true,
