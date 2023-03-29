@@ -15,6 +15,7 @@ import './style.scss';
 type Props = {
   title: string|ReactElement;
   titleAvatar?: string;
+  allowEmoji?: boolean;
   subtitle: string;
   onSendMessage: AnyFunction;
   onSendAudio?: AnyFunction;
@@ -58,6 +59,7 @@ type Props = {
 }
 
 function WidgetLayout({
+  allowEmoji,
   title,
   titleAvatar,
   subtitle,
@@ -179,6 +181,7 @@ function WidgetLayout({
     >
       {isChatVisible &&
         <Conversation
+          allowEmoji={allowEmoji}
           chatId={chatId}
           title={title}
           subtitle={subtitle}

@@ -20,6 +20,7 @@ type Props = {
   title: string | ReactElement;
   titleAvatar?: string;
   subtitle: string;
+  allowEmoji?: boolean;
   senderPlaceHolder: string;
   profileAvatar?: string;
   profileClientAvatar?: string;
@@ -109,6 +110,7 @@ function Widget({
   onImageClick,
   isShowFileUploader = true,
   isShowEmoji = false,
+  allowEmoji,
   onRemoveMessage,
 }: Props) {
   const dispatch = useDispatch();
@@ -169,6 +171,7 @@ function Widget({
 
   return (
     <WidgetLayout
+      allowEmoji={allowEmoji}
       onToggleConversation={toggleConversation}
       onSendMessage={handleMessageSubmit}
       onSendAudio={handleSendAudio}

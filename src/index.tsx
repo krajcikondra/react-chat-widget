@@ -18,6 +18,7 @@ type Props = {
   onImageClick?(url: string): void;
   onRemoveMessage?(message: Message): void;
   title?: string;
+  allowEmoji?: boolean;
   titleAvatar?: string;
   subtitle?: string;
   senderPlaceHolder?: string;
@@ -96,6 +97,7 @@ function ConnectedWidget({
   smileIcon,
   onImageClick,
   onRemoveMessage,
+  allowEmoji,
 }: Props) {
   const isNextJs = typeof window === 'undefined';
   if (isNextJs) {
@@ -106,6 +108,7 @@ function ConnectedWidget({
     <Provider store={store}>
       <>
         {!isNextJs && <Widget
+            allowEmoji={allowEmoji}
             title={title}
             titleAvatar={titleAvatar}
             subtitle={subtitle}

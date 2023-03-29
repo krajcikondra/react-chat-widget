@@ -33,6 +33,7 @@ export type Emoji = {
 };
 
 type Props = {
+  allowEmoji?: boolean;
   chatId: string;
   title: string|ReactElement;
   subtitle: string;
@@ -71,6 +72,7 @@ type Props = {
 };
 
 function Conversation({
+  allowEmoji,
   title,
   subtitle,
   senderPlaceHolder,
@@ -218,6 +220,7 @@ function Conversation({
         set={emojiSet ?? undefined}
       />)}
       <Sender
+        allowEmoji={allowEmoji}
         ref={senderRef}
         isShowFileUploader={isShowFileUploader}
         isShowEmoji={isShowEmoji}

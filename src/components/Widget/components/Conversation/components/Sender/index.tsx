@@ -16,6 +16,7 @@ import './style.scss';
 
 type Props = {
   isShowEmoji: boolean;
+  allowEmoji?: boolean;
   isShowFileUploader: boolean;
   placeholder: string;
   className?: string;
@@ -70,6 +71,7 @@ function Sender({
   isShowFileUploader,
   onKeyUp,
   rcwInputClassName,
+  allowEmoji = true,
 }: Props, ref) {
   if (typeof window === 'undefined') {
     return null;
@@ -340,7 +342,7 @@ function Sender({
 
   return (
     <div ref={refContainer} className={cn("rcw-sender", className)}>
-        {!isMicActive && <button className='rcw-picker-btn' type="button" onClick={handlerPressEmoji}>
+        {Boolean(!isMicActive && allowEmoji) && <button className='rcw-picker-btn' type="button" onClick={handlerPressEmoji}>
         {smileIcon ? smileIcon : <img src={emoji} className="rcw-picker-icon" alt="" />}
           </button>}
         {isShowEmoji && (
