@@ -18,8 +18,9 @@ export const emojiConvert = (sanitizedHTML: string, emojiSet?: EmojiSet): string
     return emojiUtils.wrapEmojiByFont(replaceSpanEmojiByImgEmoji(translated));
 }
 
-export const replaceAll = (text: string, searchValue: string, replaceValue: string): string =>
-    text.replace(new RegExp(searchValue, 'g'), replaceValue);
+const escapeRegExp = (string: string) =>  string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+export const replaceAll = (str: string, find: string, replace: string) => str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 
 export const convertOneColonEmoji = (text: string): string => {
     text = replaceAll(text, ':-)', ':slightly_smiling_face:');
