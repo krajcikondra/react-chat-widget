@@ -18,14 +18,17 @@ export const emojiConvert = (sanitizedHTML: string, emojiSet?: EmojiSet): string
     return emojiUtils.wrapEmojiByFont(replaceSpanEmojiByImgEmoji(translated));
 }
 
+export const replaceAll = (text: string, searchValue: string, replaceValue: string): string =>
+    text.replace(new RegExp(searchValue, 'g'), replaceValue);
+
 export const convertOneColonEmoji = (text: string): string => {
-    text = text.replaceAll(':-)', ':slightly_smiling_face:');
-    text = text.replaceAll(':)', ':slightly_smiling_face:');
-    text = text.replaceAll(':-D', ':grinning:');
-    text = text.replaceAll(':D', ':grinning:');
-    text = text.replaceAll(':-*', ':kissing_heart:');
-    text = text.replaceAll(':-(', ':unamused:');
-    text = text.replaceAll(':-/', ':face_with_rolling_eyes:');
+    text = replaceAll(text, ':-)', ':slightly_smiling_face:');
+    text = replaceAll(text, ':)', ':slightly_smiling_face:');
+    text = replaceAll(text, ':-D', ':grinning:');
+    text = replaceAll(text, ':D', ':grinning:');
+    text = replaceAll(text, ':-*', ':kissing_heart:');
+    text = replaceAll(text, ':-(', ':unamused:');
+    text = replaceAll(text, ':-/', ':face_with_rolling_eyes:');
     return text;
 };
 
