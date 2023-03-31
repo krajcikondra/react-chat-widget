@@ -250,14 +250,15 @@ function Sender({
 
   const handlerOnKeyPress = (event) => {
     const el = inputRef.current;
+    const isMobile = globalThis.window.innerWidth < 1400;
 
-    if(event.charCode == 13 && !event.shiftKey) {
+    if(event.charCode == 13 && !event.shiftKey && !isMobile) {
       // press enter
       if (!disableSendSubmit) {
         event.preventDefault()
         handlerSendMessage();
       }
-    } else if(event.charCode === 13 && event.shiftKey) {
+    } else if(event.charCode === 13 && event.shiftKey || event.charCode === 13 && isMobile) {
       event.preventDefault()
       insertNodeAtCaret(el);
       setEnter(true)
