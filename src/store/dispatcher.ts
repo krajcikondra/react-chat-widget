@@ -134,6 +134,20 @@ export function getLastResponseMessage(chatId?: string): null|Message {
   return messages[messages.length - 1];
 }
 
+export function getOldestMessage(chatId?: string): null|Message {
+  let messages = store.getState().messages.messages;
+
+  if (chatId !== undefined) {
+    messages = messages.filter(m => m.chatId === chatId);
+  }
+
+  if (messages.length === 0) {
+    return null;
+  }
+
+  return messages[0];
+}
+
 export function getMessages(chatId?: string): Message[] {
   let messages = store.getState().messages.messages;
 

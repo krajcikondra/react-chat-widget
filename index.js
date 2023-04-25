@@ -26,6 +26,7 @@ import {
   markAsRead,
   markAsDelivered,
   getLastResponseMessage,
+  getOldestMessage,
   getMessages
 } from './src/store/dispatcher';
 import { emojiBackwardConvert, emojiConvert } from './src/utils/emoji';
@@ -60,6 +61,7 @@ export {
   markAsRead,
   markAsDelivered,
   getLastResponseMessage,
+  getOldestMessage,
   getMessages,
   emojiBackwardConvert,
   emojiConvert,

@@ -58,6 +58,7 @@ export function isWidgetOpened(chatId?: string): boolean;
 export function isWidgetMinimalized(chatId?: string): boolean;
 export function minimalizeChat(value: boolean, chatId?: string): void;
 export function getLastResponseMessage(chatId?: string): null|Message;
+export function getOldestMessage(chatId?: string): null|Message;
 export function getMessages(chatId?: string): Message[];
 export function setQuickButtons(buttons: Array<{ label: string, value: string | number }>): void;
 
