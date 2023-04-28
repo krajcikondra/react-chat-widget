@@ -252,7 +252,6 @@ function Sender({
     const el = inputRef.current;
     const isMobile = globalThis.window.innerWidth < 1400;
     const isPressEnterOnDesktop = event.charCode == 13 && !event.shiftKey && !isMobile;
-    alert(event.charCode);
 
     if (isPressEnterOnDesktop) {
       // press enter
