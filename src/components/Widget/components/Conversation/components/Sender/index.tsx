@@ -208,7 +208,6 @@ function Sender({
     }
 
     const el = inputRef.current;
-    alert(el.innerHTML);
     if (el.innerHTML) {
       sendMessage(emojiBackwardConvert(el.innerHTML));
       el.innerHTML = ''
