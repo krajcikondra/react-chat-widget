@@ -8,5 +8,6 @@ describe('Strip html tags', () => {
     expect(stripHtmlTags('<strong>Hi,<br/> how are you?</strong>')).toEqual('Hi,\n how are you?');
     expect(stripHtmlTags('<strong>Hi,<br> how are you?</strong>')).toEqual('Hi,\n how are you?');
     expect(stripHtmlTags('<strong>Hi,<br > how are you?</strong>')).toEqual('Hi,\n how are you?');
+    expect(stripHtmlTags('<div>Hi,</div><div>how are you?</div>')).toEqual('Hi,\n how are you?');
   });
 });
