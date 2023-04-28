@@ -251,14 +251,16 @@ function Sender({
   const handlerOnKeyPress = (event) => {
     const el = inputRef.current;
     const isMobile = globalThis.window.innerWidth < 1400;
+    const isPressEnterOnDesktop = event.charCode == 13 && !event.shiftKey && !isMobile;
+    alert(event.charCode);
 
-    if(event.charCode == 13 && !event.shiftKey && !isMobile) {
+    if (isPressEnterOnDesktop) {
       // press enter
       if (!disableSendSubmit) {
         event.preventDefault()
         handlerSendMessage();
       }
-    } else if(event.charCode === 13 && event.shiftKey || event.charCode === 13 && isMobile) {
+    } else if ((event.charCode === 13 && event.shiftKey) || (event.charCode === 13 && isMobile) || (event.key === 'Enter' && isMobile)) {
       event.preventDefault()
       insertNodeAtCaret(el);
       setEnter(true)
