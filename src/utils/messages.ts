@@ -7,7 +7,8 @@ import Snippet from '../components/Widget/components/Conversation/components/Mes
 import QuickButton from '../components/Widget/components/Conversation/components/QuickButtons/components/QuickButton';
 
 import { MESSAGES_TYPES, MESSAGE_SENDER, MESSAGE_BOX_SCROLL_DURATION } from '../constants';
-import {MessageOptions, PostOptions} from "../store/actions/types";
+import {MessageOptions, PostOptions} from '../store/actions/types';
+import {stripHtmlTags} from './strip-html-tags';
 
 export function createNewMessage(
   text: string,
@@ -29,7 +30,7 @@ export function createNewMessage(
   return {
     type: MESSAGES_TYPES.TEXT,
     component: Message,
-    text,
+    text: stripHtmlTags(text),
     sender,
     timestamp: date ? date : new Date(),
     showAvatar: !isSystemMessage,
