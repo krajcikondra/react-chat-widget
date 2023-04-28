@@ -8,8 +8,8 @@ export const stripHtmlTags = (html: string): string => {
 
     return _html
         .replaceAll('<br>', '\n')
-        .replace('<br/>', '\n')
-        .replace('<br >', '\n')
-        .replace('<br />', '\n')
-        .replace(/<[^>]*>?/gm, '');
+        .replaceAll('<br/>', '\n')
+        .replaceAll('<br >', '\n')
+        .replaceAll('<br />', '\n')
+        .replaceAll(/<[^>]*>?/gm, '');
 };
