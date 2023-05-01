@@ -21,6 +21,7 @@ export const emojiConvert = (sanitizedHTML: string, emojiSet?: EmojiSet): string
 const escapeRegExp = (string: string) =>  string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 export const replaceAll = (str: string, find: string, replace: string) => str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+export const replaceAllRegex = (str: string, find: RegExp, replace: string) => str.replace(find, replace);
 
 export const convertOneColonEmoji = (text: string): string => {
     text = replaceAll(text, ':-)', ':slightly_smiling_face:');
