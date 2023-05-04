@@ -254,15 +254,23 @@ function Sender({
     const isPressEnterOnDesktop = event.charCode == 13 && !event.shiftKey && !isMobile;
 
     if (isPressEnterOnDesktop) {
+      alert('ENTER NA DESKTOPU');
+      alert(globalThis.window.innerWidth);
       // press enter
       if (!disableSendSubmit) {
         event.preventDefault()
         handlerSendMessage();
       }
     } else if ((event.charCode === 13 && event.shiftKey) || (event.charCode === 13 && isMobile) || (event.key === 'Enter' && isMobile)) {
+      alert('ENTER NA MOBILU');
       event.preventDefault()
       insertNodeAtCaret(el);
       setEnter(true)
+    } else {
+      alert('ENTER NEBYL DETEKOVAN');
+      alert(event.charCode);
+      alert(isMobile);
+      alert(globalThis.window.innerWidth);
     }
   }
 
